@@ -10,7 +10,7 @@ class Maxtron():
     
     def run(self):
         self.display_current_item()
-
+        print('Iniciando aguarde')
         #elf.execute_command('Azul OFF')
         #self.execute_command('Verde OFF')
         #self.execute_command('Vermelho OFF')
@@ -34,7 +34,7 @@ class Maxtron():
         return {
             b'0': '0', b'1': '1', b'2': '2', b'3': '3', b'4': '4', b'5': '5', 
             b'6': '6', b'7': '7', b'8': '8', b'9': '9', b'A': 'F1', b'B': 'F2', 
-            b'C': 'F3', b'D': 'F4', b'E': 'CLR', b'F': 'ENT'
+            b'C': 'F3', b'D': 'F4', b'E': 'CLR', b'F': 'ENT', b'\x03': 'PUSH'
         }.get(data, None)
 
     def clear_display(self):
@@ -60,7 +60,9 @@ class Maxtron():
     def write_line1(self, message):
         init_message =  b'\x02\x31\x31\x30\x30\x30'
         end_message =   b'\x03'
-        command = init_message +ord(message) + end_message
+        decoded_message= bytes(message,'utf-8')
+        command = init_message +decoded_message  + end_message
+        #command = init_message +ord(message) + end_message
         self.write(command)
         
     def write_line2(self, message):  
@@ -73,7 +75,9 @@ class Maxtron():
     def write_dinamic_line1(self, message):
         init_message =  b'\x02\x31\x31\x30\x30\x31'
         end_message =   b'\x03'
-        command = init_message +ord(message) + end_message
+        #command = init_message +ord(message) + end_message
+        decoded_message= bytes(message,'utf-8')
+        command = init_message +decoded_message  + end_message
         self.write(command)
         
     def write_dinamic_line2(self, message):  
@@ -84,11 +88,12 @@ class Maxtron():
         self.write(command)
        
         
-if __name__ == "__main__":
+def init():
     ser = serial.Serial('/dev/serial0', baudrate=9600,
     #ser = serial.Serial('/dev/ttyUSB0', baudrate=9600,
                         parity=serial.PARITY_NONE,
                         stopbits=serial.STOPBITS_ONE,
+                        #timeout=0.5,
                         bytesize=serial.EIGHTBITS)
 
     commands = {
@@ -165,10 +170,11 @@ if __name__ == "__main__":
 
         
     main_menu = Maxtron(ser, commands, menu_items_prod)
-    print("tudo carregado")
-    main_menu.execute_command('Azul ON')
-    main_menu.clear_display()
-    main_menu.write_dinamic_line2('teste  eeeeeeeeeeeeeeeedsdsds')
+    #print("tudo carregado")
+    #main_menu.execute_command('Azul ON')
+    #main_menu.clear_display()
+    #main_menu.write_dinamic_line2('teste  eeeeeeeeeeeeeeeedsdsds')
+    return main_menu
     #print((bytes("teste", 'ascii')))
    # print(b'\x02\x32\x31\x30\x30\x30\x54\x55\x4E\x4B\x45\x52\x53\x20\x03')
    # for test_command in test_commands:

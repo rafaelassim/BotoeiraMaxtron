@@ -141,6 +141,7 @@ def newConnections(socket,gerenciador):
        
         sock, address = socket.accept()
         global total_connections
+        total_connections=0
         sock.settimeout(default_timeout)
 
         connections.append(recv(sock, address, total_connections, "Recv", True, gerenciador))
@@ -157,6 +158,7 @@ def newConnections(socket,gerenciador):
         while kill_thread == False : 
           
             time.sleep(10)
+        total_connections=0
         connections[len(connections) - 1].join()
         connections[len(connections) - 2].join()
         connections[len(connections) - 3].join()
@@ -168,7 +170,7 @@ def newConnections(socket,gerenciador):
 def run(gerenciador):
     #Get host and port
     host = ''#input("Host: ")
-    port = 6582#int(input("Port: "))
+    port = 6898#int(input("Port: "))
      #Create new server socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind((host, port))
