@@ -170,7 +170,7 @@ def newConnections(socket,gerenciador):
 def run(gerenciador):
     #Get host and port
     host = ''#input("Host: ")
-    port = 5688#int(input("Port: "))
+    port = 5683#int(input("Port: "))
      #Create new server socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind((host, port))

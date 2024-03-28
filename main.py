@@ -37,6 +37,13 @@ def envia_mensagem(main_menu):
     #gerenciador.generate_machine(gerenciador.string_to_list_bytes(machine))
     gerenciador.machine_selected = machine
     total_connections =99
+    main_menu.write_line1('ENVIANDO')
+    main_menu.write_line2('AGUARDE ')
+    
+    main_menu.execute_command('Azul ON')
+    main_menu.execute_command('Verde ON')
+    while gerenciador.machine_selected==machine:
+        time.sleep(1)
     return True
 
 def gerenciador_encontrado(main_menu):
