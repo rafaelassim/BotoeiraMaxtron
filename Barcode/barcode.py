@@ -7,6 +7,7 @@ max_retries = 20
 
 def on_release(event):
     keypressed.append(ord(event.name))
+    print(event.name)
 
 def loop_control():
     global had_signal_to_process

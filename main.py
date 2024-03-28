@@ -5,32 +5,39 @@ import threading
 import Barcode.barcode as barcode
 import Maxtron.Maxtron_Interface as maxtron
 import time as time
-#import struct
 
 mensagem_tempo_esgotado = "Tempo de seleção esgotado"
 mensagem_selecione_a_maquina = "Selecione a Máquina"
 mensagem_selecione_o_produto = "Selecione o Produto"
 
 
-class display():
-    def escreve_display (mensagem):
-        print(mensagem)
-        print(teste)
 
-    def limpa_display():
-        print("NULL teste")
-
-
-
-def escreve_display (mensagem):
-    print(mensagem)
-
-def menu_principal ():
-    data_from_scanner = []
-    data_from_scanner = barcode.read()
-    #gerenciador.data_from_scanner=barcode.read()
-    #processa a requisição
-    #
+def envia_mensagem(main_menu):
+    global total_connections
+    readed_value =[]
+    gerenciador_proc_message(main_menu)
+    print("Scanneie a Máquina")
+    main_menu.write_line1('SCANEIE ')
+    main_menu.write_line2('A MAQ.   ')
+    product = barcode.read()
+    if len(product) <= 2:
+        total_connections =99
+        print("Esgotou o Tempo de leitura")
+        return False
+    print("Scanneie o Produto")
+    main_menu.write_line1('SCANEIE ')
+    main_menu.write_line2('O PRODU.')
+    machine = barcode.read()
+    if len(machine) <= 2:
+        total_connections =99
+        print("Esgotou o Tempo de leitura")
+        return False
+    gerenciador.product = product
+    #gerenciador.generate_machine(machine)
+    #gerenciador.generate_machine(gerenciador.string_to_list_bytes(machine))
+    gerenciador.machine_selected = machine
+    total_connections =99
+    return True
 
 def gerenciador_encontrado(main_menu):
     main_menu.execute_command('Azul OFF')
@@ -58,26 +65,24 @@ def gerenciador_proc_message(main_menu):
 
 if __name__ == '__main__':
     
+    global total_connections
     main_menu = maxtron.init()
-    main_menu.clear_display()
     server.run(gerenciador)
     gerenciador_n_encontrado(main_menu)
+    total_connections = 99
     while True:
             button_press = main_menu.read_button_press()
-            print('button_press',button_press)
-            if button_press == 'F1':
-                print('main_menu.navigate_up()')
-            elif button_press == 'F2':
-                print('main_menu.navigate_down()')
-            elif button_press == 'ENT':
-                print('main_menu.select_item()')
-            elif button_press == 'F4':
-                pass
-            print('Looping')
-            #if server.total_connections == 1 :
-            #    gerenciador_encontrado(main_menu)
-            #else:
-            #    gerenciador_n_encontrado(main_menu)
+            
+            if server.total_connections == 1 :
+                if button_press == '1':
+                    envia_mensagem(main_menu)
+            
+            if total_connections != server.total_connections:
+                total_connections=server.total_connections
+                if server.total_connections == 1 :
+                    gerenciador_encontrado(main_menu)
+                else:
+                    gerenciador_n_encontrado(main_menu)
     #gerenciador.blink_heart_beat()
     print("Entre com o valor do Scanner")
     #lista = gerenciador.string_to_list_bytes(input())

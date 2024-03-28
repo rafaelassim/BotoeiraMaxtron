@@ -93,7 +93,7 @@ def init():
     #ser = serial.Serial('/dev/ttyUSB0', baudrate=9600,
                         parity=serial.PARITY_NONE,
                         stopbits=serial.STOPBITS_ONE,
-                        #timeout=0.5,
+                        timeout=0.5,
                         bytesize=serial.EIGHTBITS)
 
     commands = {
