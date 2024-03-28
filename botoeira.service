@@ -1,0 +1,11 @@
+[Unit]
+Description=Belgo Display Program
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/tunkers/Botoeira/main.py
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
