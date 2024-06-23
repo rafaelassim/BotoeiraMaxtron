@@ -7,9 +7,10 @@ class Maxtron():
         self.commands = commands
         self.menu_items = menu_items
         self.current_item_index = 0
+        print("Iniciando Display Maxtron")
     
     def run(self):
-        self.display_current_item()
+        #self.display_current_item()
         print('Iniciando aguarde')
         #elf.execute_command('Azul OFF')
         #self.execute_command('Verde OFF')
@@ -19,15 +20,16 @@ class Maxtron():
         self.write_line1('Iniciando Aguarde... ')
         while True:
             button_press = self.read_button_press()
-
+            if (button_press!=None and button_press!=b'None'):
+                print(button_press)
             if button_press == 'F1':
-                self.navigate_up()
+                print('self.navigate_up()')
             elif button_press == 'F2':
-                self.navigate_down()
+                print('self.navigate_down()')
             elif button_press == 'ENT':
-                self.select_item()
+                print('self.select_item()')
             elif button_press == 'F4':
-                pass
+                print('pass')
 
     def read_button_press(self):
         data = self.serial.read(1)
@@ -168,17 +170,11 @@ def init():
         b'\x0211000Test  pad\x03'   # Test text with padding
     ]
 
-        
+    print("Carregando Maxtron")   
     main_menu = Maxtron(ser, commands, menu_items_prod)
+    #Maxtron
     #print("tudo carregado")
     #main_menu.execute_command('Azul ON')
     #main_menu.clear_display()
     #main_menu.write_dinamic_line2('teste  eeeeeeeeeeeeeeeedsdsds')
     return main_menu
-    #print((bytes("teste", 'ascii')))
-   # print(b'\x02\x32\x31\x30\x30\x30\x54\x55\x4E\x4B\x45\x52\x53\x20\x03')
-   # for test_command in test_commands:
-   #     main_menu.send_test_command(test_command)
-   #     time.sleep(2)  # Add a delay to observe each command's effect on the display
-    
-    #main_menu.run()

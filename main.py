@@ -1,15 +1,30 @@
+#import Server.server as server
 import Server.server as server
 import Barcode.barcode as barcode
 import Gerenciador.gerenciador as gerenciador
+import DataReader.DataReader as datareader
 import threading
 import Barcode.barcode as barcode
 import Maxtron.Maxtron_Interface as maxtron
 import time as time
+import serial
 
 mensagem_tempo_esgotado = "Tempo de seleção esgotado"
 mensagem_selecione_a_maquina = "Selecione a Máquina"
 mensagem_selecione_o_produto = "Selecione o Produto"
+maquinas_tot = 0
+maquinas_nome = []
 
+produto_tot = 0
+produtos_bitola = []
+
+produtos_bitola_tot =0
+produtos_bitola_nome =[]
+
+
+def checkconnection ():
+    fleetManager.perfconnect()
+    print('Checando conexão')
 
 
 def envia_mensagem(main_menu):
@@ -71,12 +86,43 @@ def gerenciador_proc_message(main_menu):
 
 
 if __name__ == '__main__':
-    
+      
     global total_connections
-    main_menu = maxtron.init()
+    print(len(datareader.machines_list()))
+    maquinas_tot = len(datareader.machines_list())
+    maquinas_nome = datareader.produto_bitola_list()
+
+    produto_tot = len(datareader.produto_bitola_list())
+    
+    produtos_bitola = datareader.machines_list()
+    #main_menu = maxtron.init()
+    #main_menu.run()        
+    #server.run()
+    fleetManager = server.serverSocket()
+    print("Iniciando")
+    t = time.perf_counter()
+    fleetManager.perfconnect()
+    while True:
+        
+        elapsed_time = time.perf_counter() - t
+        time.sleep(0.2)
+        
+        if(fleetManager.connected ==True):
+            print('Conectado')
+        else:
+            print('Não conectado')
+
+        if ((time.perf_counter() - t)>(10)):
+            t = time.perf_counter()
+            checkconnection()
+            print('Ok')
+
+#
+def old():
     server.run(gerenciador)
     gerenciador_n_encontrado(main_menu)
     total_connections = 99
+    
     while True:
             button_press = main_menu.read_button_press()
             
@@ -86,6 +132,7 @@ if __name__ == '__main__':
             
             if total_connections != server.total_connections:
                 total_connections=server.total_connections
+                
                 if server.total_connections == 1 :
                     gerenciador_encontrado(main_menu)
                 else:
@@ -109,4 +156,3 @@ if __name__ == '__main__':
   
     #server.run(gerenciador)
     print('Finalizado Inicio')
-    
