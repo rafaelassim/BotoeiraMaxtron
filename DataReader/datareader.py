@@ -4,6 +4,10 @@ import json
 
 maquinasjson = 'Data/maquinas.json'
 produtosjson = 'Data/produtos.json'
+qrcodemaqjson   = 'Data/qrcodemaq.json'
+qrcodeprodjson   = 'Data/qrcodeprod.json'
+
+
 def machines_list():
     arqmaq = open(maquinasjson)
     data = json.load(arqmaq)
@@ -13,7 +17,7 @@ def machines_list():
             maquinas.append(data_item)
     return (maquinas)
     
-def machines_data(maquina):
+def tag_machines(maquina):
     arqmaq = open(maquinasjson)
     data = json.load(arqmaq)
     return(data["Maquina"][maquina]['Tag'])
@@ -44,6 +48,49 @@ def tag_produto(bitola, item):
     produto =data["Produtos"][bitola][item]['Tag']
     #print(data["Produtos"][bitola].keys())
     return (produto)
+
+def tagqrcodemaq(qrcode):
+    arqprod = open(qrcodemaqjson)
+    data = json.load(arqprod)
+    try:
+        tag =data["qrcodemaq"][qrcode]['Tag']
+        return (tag)
+    except:
+
+        return (None)
+def nomeqrcodemaq(qrcode):
+    arqprod = open(qrcodemaqjson)
+    data = json.load(arqprod)
+    try:
+        tag =data["qrcodemaq"][qrcode]['Nome']
+        return (tag)
+    except:
+
+        return (None)
+
+def tagqrcodprod(qrcode):
+    arqprod = open(qrcodeprodjson)
+    data = json.load(arqprod)
+    try:
+        tag =data["qrcodeprod"][qrcode]['Tag']
+        return (tag)
+    except:
+
+        return (None)
+def nomeqrcodprod(qrcode):
+    arqprod = open(qrcodeprodjson)
+    data = json.load(arqprod)
+    try:
+        tag =data["qrcodeprod"][qrcode]['Nome']
+        return (tag)
+    except:
+
+        return (None)
+
+#print("Maq: ", tagqrcodprod("404004305233528516575584976473448"))
+
+
+#print("Maq: ", qrcodemaq("4115"))
 #print(len(machines_list()))
 #print(machines_data('439'))
 #print(produto_bitola_list())

@@ -1,0 +1,104 @@
+{
+  "Produtos": {
+    "0,8": {
+      "0,8 BE14": {
+        "Tag": "0,8 BE14"
+      }
+    },
+    "0,9": {
+      "0,9 BE13 ESPECIAL": {
+        "Tag": "0,9 BE13 ESPECIAL"
+      },
+      "0,9 BE14": {
+        "Tag": "0,9 BE14"
+      },
+      "0,9 BE08 ESPECIAL": {
+        "Tag": "0,9 BE08 ESPECIAL"
+      }
+    },
+    "1": {
+      "1,0 BE13 ESPECIAL": {
+        "Tag": "1,0 BE13 ESPECIAL"
+      },
+      "1,0 BE14": {
+        "Tag": "1,0 BE14"
+      },
+      "1,0 BE14 OLEADO": {
+        "Tag": "1,0 BE14 OLEADO"
+      },
+      "1,0 COPPER FREE": {
+        "Tag": "1,0 COPPER FREE"
+      },
+      "1,0 BE17 ESPECIAL": {
+        "Tag": "1,0 BE17 ESPECIAL"
+      },
+      "1,0 BE08 ESPECIAL": {
+        "Tag": "1,0 BE08 ESPECIAL"
+      },
+      "1,0 BE29 ESPECIAL": {
+        "Tag": "1,0 BE29 ESPECIAL"
+      },
+      "1,0 LATONADO": {
+        "Tag": "1,0 LATONADO"
+      }
+    },
+    "2": {
+      "1,2 BE13 ESPECIAL": {
+        "Tag": "1,2 BE13 ESPECIAL"
+      },
+      "1,2 COPPER FREE": {
+        "Tag": "1,2 COPPER FREE"
+      },
+      "1,2 BE17 ESPECIAL": {
+        "Tag": "1,2 BE17 ESPECIAL"
+      },
+      "1,2 BE08 ESPECIAL": {
+        "Tag": "1,2 BE08 ESPECIAL"
+      },
+      "1,2 BE29 ESPECIAL": {
+        "Tag": "1,2 BE29 ESPECIAL"
+      },
+      "1,2 LATONADO": {
+        "Tag": "1,2 LATONADO"
+      },
+      "1,2 BE14 COM PASTA": {
+        "Tag": "1,2 BE14 COM PASTA"
+      },
+      "1,2 BE14": {
+        "Tag": "1,2 BE14"
+      }
+    },    
+    "1,32": {
+      "1,32 BE13 ESPECIAL": {
+        "Tag": "1,32 BE13 ESPECIAL"
+      },
+      "1,32 BE14": {
+        "Tag": "1,32 BE14"
+      },
+      "1,32 COPPER FREE": {
+        "Tag": "1,32 COPPER FREE"
+      }
+    },
+    "1,57": {
+      "1,57 BE14": {
+        "Tag": "1,57 BE14"
+      }
+    },
+    "1,59": {
+      "1,59 BE21 ESPECIAL": {
+        "Tag": "1,59 BE21 ESPECIAL"
+      }
+    },
+    "1,6": {
+      "1,60 BE29 ESPECIAL": {
+        "Tag": "1,60 BE29 ESPECIAL"
+      },
+      "1,6 COPPER FREE": {
+        "Tag": "1,6 COPPER FREE"
+      },
+      "1,6 BE08 ESPECIAL": {
+        "Tag": "1,6 BE08 ESPECIAL"
+      }
+    }
+  }
+}

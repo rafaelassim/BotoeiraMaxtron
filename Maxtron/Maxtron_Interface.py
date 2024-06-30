@@ -32,11 +32,12 @@ class Maxtron():
                 print('pass')
 
     def read_button_press(self):
-        data = self.serial.read(1)
+        data = self.serial.read(5)
+        self.serial.flushInput()
         return {
             b'0': '0', b'1': '1', b'2': '2', b'3': '3', b'4': '4', b'5': '5', 
             b'6': '6', b'7': '7', b'8': '8', b'9': '9', b'A': 'F1', b'B': 'F2', 
-            b'C': 'F3', b'D': 'F4', b'E': 'CLR', b'F': 'ENT', b'\x03': 'PUSH'
+            b'C': 'F3', b'D': 'F4', b'E': 'CLR', b'F': 'ENT', b'\x03': 'PUSH', b'\x024003': 'PUSH', 
         }.get(data, None)
 
     def clear_display(self):
@@ -95,7 +96,7 @@ def init():
     #ser = serial.Serial('/dev/ttyUSB0', baudrate=9600,
                         parity=serial.PARITY_NONE,
                         stopbits=serial.STOPBITS_ONE,
-                        timeout=0.5,
+                        timeout=0.2,
                         bytesize=serial.EIGHTBITS)
 
     commands = {

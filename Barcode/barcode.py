@@ -1,23 +1,30 @@
 import keyboard
 import time
 
-keypressed = []
+#keypressed = []
+keypressed = ''
 had_signal_to_process = False
 max_retries = 20
 
 def on_release(event):
-    keypressed.append(ord(event.name))
-    print(event.name)
+    global keypressed
+    try:
+        keypressed=keypressed+event.name
+        print(event.name)
+    except:
+        print("Fora da tabela Ascii")
 
 def loop_control():
     global had_signal_to_process
+    global keypressed
     retries = 0
     while True:
         
-        if len(keypressed)>0:
+        #if len(keypressed)>0:
+        if  keypressed !='' :
             time.sleep(0.5)
             had_signal_to_process = True
-            print('pressed ',keypressed)
+            
             break
         else:
             time.sleep(1)
@@ -27,7 +34,9 @@ def loop_control():
             break
             
 def read():
-    keypressed.clear()
+    global keypressed
+    #keypressed.clear()
+    keypressed=''
     had_signal_to_process = False
     keyboard.on_release(on_release)
     loop_control()
