@@ -2,7 +2,7 @@ import socket
 import threading
 import time
 
-FLEET_ADDRES = "192.168.1.13"
+FLEET_ADDRES = "192.168.15.179"
 FLEET_PORT = 8015
 isConnected = False
 
@@ -45,7 +45,7 @@ class serverSocket:
         while totalsent < MSGLEN:
             sent = self.sock.send(msg[totalsent:])
             if sent == 0:
-                raise RuntimeError("socket connection broken")
+                #raise RuntimeError("socket connection broken")
                 return False
             totalsent = totalsent + sent
         return True
@@ -79,6 +79,27 @@ class serverSocket:
                 return False
         else:
             print("Falhou no Ping, sem conex.")
+            self.connected = False
+            return False
+
+    def sendhex(self,msg):
+        print("Tentando Enviar")
+        if self.perfconnect() == True :
+            print("Conectado")
+            hex_number = 20
+            hex_bytes = hex_number.to_bytes(2, byteorder='big')
+            print(hex_bytes)
+            #self.sock.sendall(hex_bytes)
+            if self.sendmessage(hex_number.to_bytes(2, byteorder='big')):
+                print("Enviou")
+                self.connected = True
+                return True
+            else:
+                print("Desconectado")
+                self.connected = False
+                return False
+        else:
+            print("Falhou no envio, sem conex.")
             self.connected = False
             return False
 

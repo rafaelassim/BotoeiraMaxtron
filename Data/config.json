@@ -1,0 +1,8 @@
+{
+    
+      "ID": "1", //ID da BOTOEIRA COLOCAR UM ID PARA CADA BOTOEIRA
+      "DHCP":true, // true caso seja dhcp e false caso seja IP Fixo
+      "IP": "192.168.0.100",      
+      "NOME_DA_REDE":"REDEXXXX",
+      "SENHA_DA_REDE":"SENHA_DA_REDE"
+  }

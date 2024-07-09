@@ -12,6 +12,10 @@ import serial
 mensagem_tempo_esgotado = "Tempo de seleção esgotado"
 mensagem_selecione_a_maquina = "Selecione a Máquina"
 mensagem_selecione_o_produto = "Selecione o Produto"
+
+region_tot = 0
+region_nome = []
+
 maquinas_tot = 0
 maquinas_nome = []
 
@@ -82,7 +86,10 @@ def processo_selecao(pointer, maxsize, array):
     if decrement or increment :
         increment = False
         decrement = False
-        main_menu.write_line2(array[pointer])
+        if (len(array[pointer]) > 8):
+            main_menu.write_dinamic_line2(array[pointer])
+        else:
+            main_menu.write_line2(array[pointer])
     return pointer
 
 def enviar_command(maq,destino):
@@ -91,6 +98,9 @@ def enviar_command(maq,destino):
     return
 
 def pedido_viateclado():
+    global region_tot
+    global region_nome
+
     global maquinas_nome
     global maquinas_tot
     global keyboard_msg
@@ -102,58 +112,170 @@ def pedido_viateclado():
     global produtos_bitola_nomes 
 
     pointer = 0
-    maquina_selecionada = pointer
+    regiao_selecionada = pointer
+    maquina_selecionada = 0
     
     bitola_selecionada = 0
     subproduto_selecionado = 0
     print ("Processo teclado")
     main_menu.clear_display()
     time.sleep(0.1)
-    main_menu.write_line1('Sel. Maqui:')
-    main_menu.write_line2(maquinas_nome[pointer])
+    main_menu.write_line1('Sel.Reg:')
+    main_menu.write_line2(region_nome[pointer])
 
     while True:
-        maquina_selecionada= processo_selecao(maquina_selecionada,maquinas_tot,maquinas_nome)
+        regiao_selecionada= processo_selecao(regiao_selecionada,region_tot,region_nome)
+        print("Regiao Selecionada: ",regiao_selecionada)
         if keyboard_msg=='ENT':
             keyboard_msg=''
             main_menu.clear_display()
             time.sleep(0.1)
-            print("Maquina Selecionada: ",maquinas_nome[maquina_selecionada])
-            main_menu.write_line1('Sel.Bito')
-            main_menu.write_line2(produtos_bitola[bitola_selecionada])
+            maquinas_tot = len(datareader.maq_region_list(region_nome[regiao_selecionada]))
+            maquinas_nome = datareader.maq_region_list(region_nome[regiao_selecionada])
+            print("Regiao Selecionada: ",region_nome[regiao_selecionada])
+            main_menu.write_line1('Sel.Maq.')
+            main_menu.write_line2(maquinas_nome[maquina_selecionada])
             while True:
-                bitola_selecionada= processo_selecao(bitola_selecionada,produto_tot,produtos_bitola)
-                time.sleep(0.250)
+                maquina_selecionada= processo_selecao(maquina_selecionada,maquinas_tot,maquinas_nome)
+                #datareader.maq_region_list()
+              
                 if keyboard_msg=='ENT':
-                   produtos_bitola_nomes=datareader.produto_bitola_items(produtos_bitola[bitola_selecionada])
-                   produtos_bitola_tot=len(produtos_bitola_nomes)
-                   print("Bitola selecionada ", produtos_bitola[bitola_selecionada])
+                    keyboard_msg=''
+                    main_menu.clear_display()
+                    time.sleep(0.1)
+                    maquinas_tot = len(datareader.maq_region_list(region_nome[regiao_selecionada]))
+                    maquinas_nome = datareader.maq_region_list(region_nome[regiao_selecionada])
 
-                   main_menu.write_line1('SubProd.')
-                   main_menu.write_line2(produtos_bitola_nomes[0])
+                    print("Maquina Selecionada: ",maquinas_nome[region_nome[regiao_selecionada]])
+                    
 
-                   keyboard_msg='keyboard_msg'
-                   while True:
-                        subproduto_selecionado= processo_selecao(subproduto_selecionado,produtos_bitola_tot,produtos_bitola_nomes)
+
+
+                    main_menu.write_line1('Sel.Bito')
+                    main_menu.write_line2(produtos_bitola[bitola_selecionada])
+                    while True:
+                        bitola_selecionada= processo_selecao(bitola_selecionada,produto_tot,produtos_bitola)
                         time.sleep(0.250)
                         if keyboard_msg=='ENT':
-                            print("SubProduto Selecionado ", produtos_bitola_nomes[subproduto_selecionado])
-                            print("selecionado maquina, bitola e subproduto")
-                            enviar_command(datareader.tag_machines(maquinas_nome[maquina_selecionada]),datareader.tag_produto(produtos_bitola[bitola_selecionada],produtos_bitola_nomes[subproduto_selecionado]))
-                            return
+                            produtos_bitola_nomes=datareader.produto_bitola_items(produtos_bitola[bitola_selecionada])
+                            produtos_bitola_tot=len(produtos_bitola_nomes)
+                            print("Bitola selecionada ", produtos_bitola[bitola_selecionada])
+
+                            main_menu.write_line1('SubProd.')
+                            main_menu.write_line2(produtos_bitola_nomes[0])
+
+                            keyboard_msg='keyboard_msg'
+                            while True:
+                                    subproduto_selecionado= processo_selecao(subproduto_selecionado,produtos_bitola_tot,produtos_bitola_nomes)
+                                    time.sleep(0.250)
+                                    if keyboard_msg=='ENT':
+                                        print("SubProduto Selecionado ", produtos_bitola_nomes[subproduto_selecionado])
+                                        print("selecionado maquina, bitola e subproduto")
+                                        enviar_command(datareader.tag_machines(maquinas_nome[maquina_selecionada]),datareader.tag_produto(produtos_bitola[bitola_selecionada],produtos_bitola_nomes[subproduto_selecionado]))
+                                        return
+                                    if keyboard_msg =='CLR':
+                                        break
                         if keyboard_msg =='CLR':
                             break
+                #pointer= processo_selecao(pointer,maquinas_tot,maquinas_nome)
                 if keyboard_msg =='CLR':
-                    break
-            #pointer= processo_selecao(pointer,maquinas_tot,maquinas_nome)
+                    break                    
             if keyboard_msg =='CLR':
-                break
-        
+                    break
         if keyboard_msg =='CLR':
             break
         time.sleep(0.250)
     return
+def sel_produto():
+    
+    global keyboard_msg
+    
+    global produto_tot  
+    global produtos_bitola
 
+    global produtos_bitola_tot 
+    global produtos_bitola_nomes 
+
+    pointer = 0
+    regiao_selecionada = pointer
+    maquina_selecionada = 0
+    
+    bitola_selecionada = 0
+    subproduto_selecionado = 0
+    print ("Processo teclado")
+    main_menu.clear_display()
+    time.sleep(0.1)
+    main_menu.write_line1('Sel.Bito')
+    main_menu.write_line2(produtos_bitola[bitola_selecionada])
+    while True:
+        bitola_selecionada= processo_selecao(bitola_selecionada,produto_tot,produtos_bitola)
+        time.sleep(0.250)
+        if keyboard_msg=='ENT':
+            produtos_bitola_nomes=datareader.produto_bitola_items(produtos_bitola[bitola_selecionada])
+            produtos_bitola_tot=len(produtos_bitola_nomes)
+            print("Bitola selecionada ", produtos_bitola[bitola_selecionada])
+
+            main_menu.write_line1('SubProd.')
+            main_menu.write_line2(produtos_bitola_nomes[0])
+
+            keyboard_msg='keyboard_msg'
+            while True:
+                subproduto_selecionado= processo_selecao(subproduto_selecionado,produtos_bitola_tot,produtos_bitola_nomes)
+                time.sleep(0.250)
+                if keyboard_msg=='ENT':
+                    print("SubProduto Selecionado ", produtos_bitola_nomes[subproduto_selecionado])
+            
+                    return
+                if keyboard_msg =='CLR':
+                    break
+        if keyboard_msg =='CLR':
+            break
+    
+
+
+def sel_maq():
+    global region_nome
+    global region_tot
+    
+
+    global maquinas_nome
+    global maquinas_tot
+    global keyboard_msg
+    
+    pointer = 0
+    regiao_selecionada = pointer
+    maquina_selecionada = 0
+    
+    
+    print ("Processo teclado")
+    main_menu.clear_display()
+    time.sleep(0.1)
+    main_menu.write_line1('Sel.Reg:')
+    main_menu.write_line2(region_nome[pointer])
+
+    while True:
+        regiao_selecionada= processo_selecao(regiao_selecionada,region_tot,region_nome)
+        print("Regiao Selecionada: ",region_nome[regiao_selecionada])
+        if keyboard_msg=='ENT':
+            keyboard_msg=''
+            main_menu.clear_display()
+            time.sleep(0.1)
+            maquinas_tot = len(datareader.maq_region_list(region_nome[regiao_selecionada]))
+            maquinas_nome = datareader.maq_region_list(region_nome[regiao_selecionada])
+            print("Regiao Selecionada: ",maquinas_nome[maquina_selecionada])
+            main_menu.write_line1('Sel.Maq.')
+            main_menu.write_line2(maquinas_nome[maquina_selecionada])
+            while True:
+                maquina_selecionada= processo_selecao(maquina_selecionada,maquinas_tot,maquinas_nome)
+                if keyboard_msg=='ENT': 
+                    print("Tag: ",datareader.tag_machines(region_nome[regiao_selecionada],maquinas_nome[maquina_selecionada]))  
+                    return
+                if keyboard_msg =='CLR':
+                    break
+        if keyboard_msg =='CLR':
+            break
+        time.sleep(0.250)
+    return
 def pedido_viascanner():
     global barcode_msg
     tagproduto=''
@@ -258,9 +380,9 @@ def gerenciador_proc_message(main_menu):
 if __name__ == '__main__':
       
     global total_connections
-    print(len(datareader.machines_list()))
-    maquinas_tot = len(datareader.machines_list())
-    maquinas_nome = datareader.machines_list()
+    print(len(datareader.region_list()))
+    region_tot = len(datareader.region_list())
+    region_nome = datareader.region_list()
 
     produto_tot = len(datareader.produto_bitola_list())
     produtos_bitola = datareader.produto_bitola_list()
@@ -273,6 +395,26 @@ if __name__ == '__main__':
     t = time.perf_counter()
     fleetManager.perfconnect()
     fleetManager.disconnect()
+    
+    #print((hex(644)).to_bytes(2, byteorder='big'))
+    print(hex(644))
+    hex_number = 20
+
+    print(type(hex_number))
+# Converter para bytes (big-endian)
+    print("convertendo")
+    hex_bytes = hex_number.to_bytes(2, byteorder='big')
+    hex_bytes=hex_bytes+hex_bytes
+    print(hex_bytes)
+    #while True:
+    #    time.sleep(0.2)
+        
+    #    fleetManager.__init__()
+        #fleetManager.ping()
+    #    fleetManager.sendhex('123')
+    #    fleetManager.disconnect()
+       
+
     thread_barcode = threading.Thread(target=read_barcode)
     thread_keyboard = threading.Thread(target=read_keyboard)
     thread_barcode.start()
@@ -289,7 +431,9 @@ if __name__ == '__main__':
         if keyboard_msg !='':
             if keyboard_msg == 'PUSH':
                 keyboard_msg=''
-                pedido_viateclado()
+                #pedido_viateclado()
+                #sel_maq()
+                sel_produto()
                 gerenciador_encontrado(main_menu)
 
         if ((time.perf_counter() - t)>(10)):

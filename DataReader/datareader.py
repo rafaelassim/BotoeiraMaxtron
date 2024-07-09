@@ -8,19 +8,31 @@ qrcodemaqjson   = 'Data/qrcodemaq.json'
 qrcodeprodjson   = 'Data/qrcodeprod.json'
 
 
-def machines_list():
+def region_list():
     arqmaq = open(maquinasjson)
     data = json.load(arqmaq)
-    maquinas =[]
+    region =[]
     for item in data.values():
         for data_item in item.keys():
-            maquinas.append(data_item)
-    return (maquinas)
+            region.append(data_item)
+    return (region)
+
+
+def maq_region_list(region):
+    arqprod = open(maquinasjson)
+    data = json.load(arqprod)
+    produtos =[]
+    print(data["region"][region].keys())
+    localjson = data["region"][region]
+    for item in localjson.keys():
+        produtos.append(item)
+    return (produtos)
+
     
-def tag_machines(maquina):
+def tag_machines(region,maquina):
     arqmaq = open(maquinasjson)
     data = json.load(arqmaq)
-    return(data["Maquina"][maquina]['Tag'])
+    return(data["region"][region][maquina]['Tag'])
    
 
    
@@ -89,7 +101,9 @@ def nomeqrcodprod(qrcode):
 
 #print("Maq: ", tagqrcodprod("404004305233528516575584976473448"))
 
-
+#print(region_list())
+#print(maq_region_list("A"))
+#print(tag_machines("A","415"))
 #print("Maq: ", qrcodemaq("4115"))
 #print(len(machines_list()))
 #print(machines_data('439'))
