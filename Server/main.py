@@ -68,16 +68,15 @@ def read_keyboard():
             keyboard_msg=''
 
 def checkconnection ():
-   
-    if fleetManager.ping() == True:
-        print('Pingou')
-        fleetManager.connected=True
-    else :
-        fleetManager.connected=False
+    if fleetManager.perfconnect():
+        if fleetManager.ping() == True:
+            print('Pingou')
+            fleetManager.connected=True
+        else :
+            fleetManager.connected=False
     if not fleetManager.connected:
         fleetManager.disconnect()
         fleetManager.__init__()
-        fleetManager.perfconnect()
         
 
     
