@@ -155,9 +155,10 @@ def pedido_viateclado():
     time.sleep(0.1)
     if is_number_ascii(tag_maq) == True:
         print("Selecionou tag correta")
-    keyboard_msg=''
-    tag_produto = sel_produto()
-
+        keyboard_msg=''
+        tag_produto = sel_produto()
+        if is_number_ascii(tag_produto) == True:
+            print("Enviar")
     return
 def sel_produto():
     
@@ -181,6 +182,8 @@ def sel_produto():
     main_menu.write_line1('Sel.Bito')
     main_menu.write_line2(produtos_bitola[bitola_selecionada])
     while True:
+        if barcode_msg != '':
+            return prod_scanner()
         bitola_selecionada= processo_selecao(bitola_selecionada,produto_tot,produtos_bitola)
         time.sleep(0.250)
         if keyboard_msg=='ENT':
@@ -204,8 +207,6 @@ def sel_produto():
         if keyboard_msg =='CLR':
             break
     
-
-
 def sel_maq():
     global region_nome
     global region_tot
@@ -252,51 +253,67 @@ def sel_maq():
     return 'Falhou'
 def pedido_viascanner():
     global barcode_msg
-    tagproduto=''
-    nomeProduto =''
-
-    tagmaquina=''
-    nomemaquina=''
-
-    print("Lido Pelo Scanner: ",barcode_msg)
-    tagproduto=datareader.tagqrcodprod(barcode_msg)
-    nomeProduto=datareader.nomeqrcodprod(barcode_msg)
-    barcode_msg =''
-    print(tagproduto)
-    print(nomeProduto)
-    if tagproduto !=None:
-        main_menu.write_line1('Prod.Sele.')
-        main_menu.write_line2(nomeProduto)
-        time.sleep(3)
-        if keyboard_msg =='CLR':
-            return 
-        main_menu.write_line1('Scaneie')
-        main_menu.write_line2('Maq.  ')
-        time.sleep(3)
-        barcode_msg =''
-        while True: 
-            if barcode_msg != '':
-                print("Readed Barcode: ",barcode_msg)
-                tagmaquina=datareader.tagqrcodemaq(barcode_msg)
-                nomemaquina=datareader.nomeqrcodemaq(barcode_msg)
-                barcode_msg=''
-                if tagmaquina !=None:
-                    main_menu.write_line1('Maq.Sele. ')
-                    main_menu.write_line2(nomemaquina)
-                    time.sleep(3)
-                    enviar_command(tagmaquina,tagproduto)
-                    return
-                else :
-                    break
-            if keyboard_msg =='CLR':
-                break
-
+    keyboard_msg=''
+    tag_maq =  maq_scanner()
+    if is_number_ascii(tag_maq) == True:
+        keyboard_msg=''
+        tag_produto=prod_scanner()
+        if is_number_ascii(tag_produto) == True:
+            print("Enviar")
+    
     return
 
-def maq_scanner()
+def prod_scanner():
     global barcode_msg
+    barcode_msg=''
+    main_menu.write_line1('Scaneie ')
+    main_menu.write_line2('Produto ')
+    time.sleep(3)
+    while True: 
+        if keyboard_msg=='ENT':
+            return sel_produto()
+        if barcode_msg != '':
+            print("Readed Barcode: ",barcode_msg)
+            tagproduto=datareader.tagqrcodprod(barcode_msg)
+            nomeProduto=datareader.nomeqrcodprod(barcode_msg)
+            barcode_msg=''
+            if tagproduto !=None:
+                main_menu.write_line1('Prod.Sel')
+                main_menu.write_line2(nomeProduto)
+                time.sleep(3)
+                return tagmaquina
+            else:
+                main_menu.write_line1('Produto ')
+                main_menu.write_line2('Nao enc.')
+                time.sleep(3)
+                main_menu.write_line1('Scaneie')
+                main_menu.write_line2('Produto')
+                time.sleep(1)
+            if keyboard_msg =='CLR':
+                return 'Falhou'
 
-    return
+        
+    return 'Falhou'
+
+def maq_scanner():
+    global barcode_msg
+    if barcode_msg != '':
+        print("Readed Barcode: ",barcode_msg)
+        tagmaquina=datareader.tagqrcodemaq(barcode_msg)
+        nomemaquina=datareader.nomeqrcodemaq(barcode_msg)
+        barcode_msg=''
+        if tagmaquina !=None:
+            main_menu.write_line1('Maq.Sele. ')
+            main_menu.write_line2(nomemaquina)
+            time.sleep(3)
+            return tagmaquina
+        else:
+            print("Maq não encontrada")
+            return 'Falhou'
+        if keyboard_msg =='CLR':
+            return 'Falhou'
+    return 'Falhou'
+    
 def envia_mensagem(main_menu):
     global total_connections
     readed_value =[]
@@ -404,7 +421,6 @@ if __name__ == '__main__':
         
         if barcode_msg != '':
             pedido_viascanner()
-
 
         if keyboard_msg !='':
             if keyboard_msg == 'PUSH':
