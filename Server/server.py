@@ -6,10 +6,13 @@ import select
 FLEET_ADDRES = "192.168.1.9"
 FLEET_PORT = 8015
 isConnected = False
-
+ID ='1'
 
 bufferedMessage = ''
-REQUESTVERSION = '0100E903E903010000'
+#REQUESTVERSION = '0100E903E903010000'
+REQUESTVERSION = '00E903E903010000'
+HEX_REQUESTVERSION =b'\x01'
+
 RESPONSEHEADER = 'C800E803E90302090000'
 ERRORTIMEOUT = 'ERROR TIMEOUT'
 
@@ -41,7 +44,11 @@ class serverSocket:
     def disconnect(self):
         self.sock.close()
     
-   
+    def load_defaults(self):
+
+        RESPONSEHEADER = RESPONSEHEADER
+        return
+
     def is_socket_open(self):
         try:
             # Usa select para verificar a prontidão do socket
@@ -175,7 +182,16 @@ def run():
         #print(chunk)
         
         #print(con.recmessage().decode("utf-8"))
-    
+
+def int_to_two_bytes(number):
+    return number.to_bytes(2, byteorder='little')
+
+
+print(type(REQUESTVERSION))
+print(bytes.fromhex(REQUESTVERSION+'01'))
+HEX_REQUESTVERSION =bytes.fromhex(REQUESTVERSION)
+teste = int_to_two_bytes(int('22')) +( (HEX_REQUESTVERSION ))
+print(teste)
 #teste = RESPONSEHEADER +'01'
 #print(bytes.fromhex(RESPONSEHEADER))
 #print(teste)

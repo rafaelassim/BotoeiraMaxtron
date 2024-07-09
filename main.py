@@ -9,6 +9,8 @@ import Maxtron.Maxtron_Interface as maxtron
 import time as time
 import serial
 
+ID = '1'
+
 mensagem_tempo_esgotado = "Tempo de seleção esgotado"
 mensagem_selecione_a_maquina = "Selecione a Máquina"
 mensagem_selecione_o_produto = "Selecione o Produto"

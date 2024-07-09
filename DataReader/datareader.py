@@ -1,11 +1,11 @@
 
 import json
-# Opening JSON file
 
-maquinasjson = 'Data/maquinas.json'
-produtosjson = 'Data/produtos.json'
+configjson      = 'Data/config.json'
+maquinasjson    = 'Data/maquinas.json'
+produtosjson    = 'Data/produtos.json'
 qrcodemaqjson   = 'Data/qrcodemaq.json'
-qrcodeprodjson   = 'Data/qrcodeprod.json'
+qrcodeprodjson  = 'Data/qrcodeprod.json'
 
 
 def region_list():
@@ -99,6 +99,27 @@ def nomeqrcodprod(qrcode):
 
         return (None)
 
+
+def nomeqrcodprod(qrcode):
+    arqprod = open(qrcodeprodjson)
+    data = json.load(arqprod)
+    try:
+        tag =data["qrcodeprod"][qrcode]['Nome']
+        return (tag)
+    except:
+
+        return (None)
+
+def ID():
+    arqconfig = open(configjson)
+    data = json.load(arqconfig)
+    try:
+        id =data["ID"]
+        return (id)
+    except:
+        return ('1')
+
+ 
 #print("Maq: ", tagqrcodprod("404004305233528516575584976473448"))
 
 #print(region_list())
