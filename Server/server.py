@@ -3,29 +3,36 @@ import threading
 import time
 import select
 
-FLEET_ADDRES = "192.168.1.9"
+FLEET_ADDRES = "192.168.15.58"
 FLEET_PORT = 8015
 isConnected = False
 ID ='1'
-
+ORDER = 1
 bufferedMessage = ''
 #REQUESTVERSION = '0100E903E903010000'
-REQUESTVERSION = '00E903E903010000'
+#REQUESTVERSION = 'E903E903010000'
+#REQUESTVERSION = '0003E903010000'
+             
+REQUESTVERSION = '0100EA030000000000'
 HEX_REQUESTVERSION =b'\x01'
 
-RESPONSEHEADER = 'C800E803E90302090000'
+#RESPONSEHEADER = 'C800E803E90302090000'
+
+RESPONSEHEADER = 'C800E803000302090000'
+
+
+#MESSAGECOMMAND ='10000E040000001600FF0300000001000200010000000000000000000000'
+HEX_RESPONSEHEADER =b'\x01'
 ERRORTIMEOUT = 'ERROR TIMEOUT'
 
-class serverSocket:
-
+class serverSocket: 
     connected = False
     def __init__(self, sock=None):
         print("Iniciando Classe do socket")
         global MSGLEN
         MSGLEN = 50
         if sock is None:
-            self.sock = socket.socket(
-                            socket.AF_INET, socket.SOCK_STREAM)
+            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         else:
             self.sock = sock
         self.sock.settimeout(2)
@@ -44,9 +51,15 @@ class serverSocket:
     def disconnect(self):
         self.sock.close()
     
-    def load_defaults(self):
+    def load_defaults(self,ID):
+        global HEX_REQUESTVERSION,  REQUESTVERSION, HEX_RESPONSEHEADER, RESPONSEHEADER
+        #HEX_REQUESTVERSION = int_to_two_bytes(ID) + bytes.fromhex(REQUESTVERSION) 
+        HEX_REQUESTVERSION = bytes.fromhex(REQUESTVERSION) 
 
-        RESPONSEHEADER = RESPONSEHEADER
+        print(HEX_REQUESTVERSION)
+        HEX_RESPONSEHEADER =  bytes.fromhex(RESPONSEHEADER)+ int_to_two_bytes(ID) 
+        print(bytes.fromhex(RESPONSEHEADER))
+        print("hex header",HEX_RESPONSEHEADER)
         return
 
     def is_socket_open(self):
@@ -61,9 +74,17 @@ class serverSocket:
 
     def sendmessage(self, msg):
         totalsent = 0
+        global ORDER 
+        ORDER = ORDER + 1
+        try:
+            #Limpando o Buffer
+            self.recmessage()
+        except:
+            print("Não tinha nada no buffer")
         try:
         # Tenta enviar dados
             self.sock.send(msg)
+            print("enviou mensagem ")
             return True
         except BlockingIOError:
         # Nenhum dado está disponível
@@ -85,7 +106,7 @@ class serverSocket:
         bytes_recd = 0
         try:
             while bytes_recd < MSGLEN:
-                chunk = self.sock.recv(41)
+                chunk = self.sock.recv(100000)
                 if chunk == b'':
                     print("Error runtime")
                     raise RuntimeError("socket connection broken")
@@ -98,31 +119,49 @@ class serverSocket:
             return ERRORTIMEOUT
 
     def is_sublist(self,sublist, main_list):
-      
+        print("Comparando", sublist,main_list)
         return all(elem in main_list for elem in sublist)
 
     def ping(self):
         print("Tentando pingar")
+        loop_var =1
         try:
-            if self.sendmessage(bytes.fromhex(REQUESTVERSION)):
-                if (self.is_sublist(bytes.fromhex(RESPONSEHEADER+'01'),self.recmessage())):
-               
-                
-                    self.connected = True
-                    return True
-                return False
+            if self.sendmessage(HEX_REQUESTVERSION):
+                try:
+                    while(loop_var <= 2):
+                        if (self.is_sublist(HEX_RESPONSEHEADER,self.recmessage())):
+                    
+                            print("recebeu corretamente o ping")
+                            self.connected = True
+                            return True
+                        else:
+                            print("Falhou na Checagem")
+                        print("Tentando novamente esperar a mensagem")
+                        loop_var = loop_var+1
+                        time.sleep(0.5)
+                    return False
+                except:
+                    print("Falhou na recepção")
+                    self.connected = False
+                    return False
             else:
                 print("Desconectado")
                 self.connected = False
                 return False
-        except:
+            print("Falhou na recepção e não acusou falha")
+            self.connected = False
             return False
+        except:
+            print("Falhou na recepção")
+            self.connected = False
+            return False
+       
     
     def send_lgv_cmd(self):
-        print("Tentando pingar")
+        print("Tentando enviar lgv")
         try:
             if self.sendmessage(bytes.fromhex(REQUESTVERSION)):
-                if (self.is_sublist(bytes.fromhex(RESPONSEHEADER+'01'),self.recmessage())):
+                if self.is_sublist(HEX_RESPONSEHEADER,self.recmessage()):
                
                 
                     self.connected = True
@@ -133,7 +172,7 @@ class serverSocket:
                 self.connected = False
                 return False
         except:
-            print("uma cagada qualquer")
+            print("Comando errado")
             return False
 
     def sendhex(self,msg):
@@ -173,7 +212,7 @@ def run():
     #ping()
     if con.perfconnect() == True:
         con.ping()
-        if con.is_sublist(bytes.fromhex(RESPONSEHEADER+'01'),con.recmessage()):
+        if con.is_sublist(HEX_RESPONSEHEADER,con.recmessage()):
             print("Contém")
         #print("enviando teste")
 
@@ -186,6 +225,9 @@ def run():
 def int_to_two_bytes(number):
     return number.to_bytes(2, byteorder='little')
 
+con = serverSocket()
+con = serverSocket()
+con.load_defaults(int(10))
 
 print(type(REQUESTVERSION))
 print(bytes.fromhex(REQUESTVERSION+'01'))

@@ -71,15 +71,17 @@ def read_keyboard():
 
 def checkconnection ():
    
+    if not fleetManager.connected:
+        fleetManager.disconnect()
+        fleetManager.__init__()
+        fleetManager.perfconnect()
+
     if fleetManager.ping() == True:
         print('Pingou')
         fleetManager.connected=True
     else :
         fleetManager.connected=False
-    if not fleetManager.connected:
-        fleetManager.disconnect()
-        fleetManager.__init__()
-        fleetManager.perfconnect()
+    
         
 
     
@@ -160,15 +162,29 @@ def enviar_command(maq,destino):
 def pedido_viateclado():
     time.sleep(0.1)
     keyboard_msg=''
+    
     tag_maq = sel_maq()
     print("Tag da maquina: ",tag_maq)
     time.sleep(0.1)
-    if is_number_ascii(tag_maq) == True:
-        print("Selecionou tag correta")
-        keyboard_msg=''
-        tag_produto = sel_produto()
-        if is_number_ascii(tag_produto) == True:
-            print("Enviar")
+    #if is_number_ascii(tag_maq) == True:
+    print("Selecionou tag correta")
+    keyboard_msg=''
+    tag_produto = sel_produto()
+    #if is_number_ascii(tag_produto) == True:
+    print("Enviar")
+    #else:
+    print("Tag não é numero")
+   # fleetManager.sendmessage(bytes.fromhex('10000E040000001600FF0300000001000200010000000000000000000000'))
+    #fleetManager.sock.sendall(bytes.fromhex('10000E04000000160001000300000001000200010000000000000000000000'))
+    fleetManager.sock.sendall(bytes.fromhex('13000E040000000C00010003000000030000000000'))
+
+    main_menu.execute_command('Azul ON')
+    main_menu.execute_command('Verde OFF')
+    main_menu.execute_command('Vermelho OFF')
+    main_menu.clear_display()
+    main_menu.write_line1('ENVIANDO ')
+    main_menu.write_dinamic_line2('AGUARDE... ')
+    time.sleep(10)
     return
 def sel_produto():
     
@@ -395,6 +411,7 @@ if __name__ == '__main__':
 
   
     fleetManager = server.serverSocket()
+    fleetManager.load_defaults(2)
     print("Iniciando")
     t = time.perf_counter()
     fleetManager.__init__()
