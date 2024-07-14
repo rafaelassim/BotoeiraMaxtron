@@ -3,30 +3,27 @@ import threading
 import time
 import select
 
-FLEET_ADDRES = "192.168.15.58"
+FLEET_ADDRES = "192.168.1.10"
 FLEET_PORT = 8015
 isConnected = False
-ID ='1'
-ORDER = 1
+
 bufferedMessage = ''
-#REQUESTVERSION = '0100E903E903010000'
-#REQUESTVERSION = 'E903E903010000'
-#REQUESTVERSION = '0003E903010000'
-             
-REQUESTVERSION = '0100EA030000000000'
+RESPONSEHEADER = 'C800E803' 
+
+
+REQUESTVERSIONID = '0100'
+REQUESTVERSION = '0000000000'
 HEX_REQUESTVERSION =b'\x01'
+HEX_PINGRESPONSE =b'\x01'
+HEX_SENDRESPONSE =b'\0x1'
+REQUESTORDERID = '1000'
 
-#RESPONSEHEADER = 'C800E803E90302090000'
 
-RESPONSEHEADER = 'C800E803000302090000'
-
-
-#MESSAGECOMMAND ='10000E040000001600FF0300000001000200010000000000000000000000'
-HEX_RESPONSEHEADER =b'\x01'
 ERRORTIMEOUT = 'ERROR TIMEOUT'
 
 class serverSocket: 
     connected = False
+    ID = 0
     def __init__(self, sock=None):
         print("Iniciando Classe do socket")
         global MSGLEN
@@ -51,15 +48,21 @@ class serverSocket:
     def disconnect(self):
         self.sock.close()
     
-    def load_defaults(self,ID):
-        global HEX_REQUESTVERSION,  REQUESTVERSION, HEX_RESPONSEHEADER, RESPONSEHEADER
-        #HEX_REQUESTVERSION = int_to_two_bytes(ID) + bytes.fromhex(REQUESTVERSION) 
-        HEX_REQUESTVERSION = bytes.fromhex(REQUESTVERSION) 
+    def duplicate_ff(self,data):
+        result = bytearray()
+        for byte in data:
+            result.append(byte)
+            if byte == 0xff:
+                result.append(0xff)
+        return result
 
-        print(HEX_REQUESTVERSION)
-        HEX_RESPONSEHEADER =  bytes.fromhex(RESPONSEHEADER)+ int_to_two_bytes(ID) 
-        print(bytes.fromhex(RESPONSEHEADER))
-        print("hex header",HEX_RESPONSEHEADER)
+    def load_defaults(self,ID):
+        global HEX_REQUESTVERSION,  REQUESTVERSION, REQUESTVERSIONID, HEX_PINGRESPONSE, RESPONSEHEADER,HEX_SENDRESPONSE
+        HEX_REQUESTVERSION = bytes.fromhex(REQUESTVERSIONID) + int_to_two_bytes(ID) + bytes.fromhex(REQUESTVERSION) 
+        self.ID = ID
+      
+        HEX_PINGRESPONSE =  bytes.fromhex(RESPONSEHEADER)+ int_to_two_bytes(ID) + bytes.fromhex('0209000001006500E803000065')
+        HEX_SENDRESPONSE =  bytes.fromhex(RESPONSEHEADER)+ int_to_two_bytes(ID) + bytes.fromhex('0209000010000000E8030000')
         return
 
     def is_socket_open(self):
@@ -74,8 +77,6 @@ class serverSocket:
 
     def sendmessage(self, msg):
         totalsent = 0
-        global ORDER 
-        ORDER = ORDER + 1
         try:
             #Limpando o Buffer
             self.recmessage()
@@ -123,13 +124,15 @@ class serverSocket:
         return all(elem in main_list for elem in sublist)
 
     def ping(self):
+        global HEX_REQUESTVERSION
         print("Tentando pingar")
+        print(HEX_REQUESTVERSION)
         loop_var =1
         try:
             if self.sendmessage(HEX_REQUESTVERSION):
                 try:
                     while(loop_var <= 2):
-                        if (self.is_sublist(HEX_RESPONSEHEADER,self.recmessage())):
+                        if (self.is_sublist(HEX_PINGRESPONSE,self.recmessage())):
                     
                             print("recebeu corretamente o ping")
                             self.connected = True
@@ -152,20 +155,28 @@ class serverSocket:
             self.connected = False
             return False
         except:
-            print("Falhou na recepção")
+            print("Falhou no envio")
             self.connected = False
             return False
        
     
-    def send_lgv_cmd(self):
+    def send_lgv_cmd(self,maq,prod):
+        global REQUESTORDERID,HEX_SENDRESPONSE
+        HEX_REQUESMISSION = bytes.fromhex(REQUESTORDERID) + int_to_two_bytes(self.ID) + bytes.fromhex('0000001600FF') +int_to_two_bytes(maq[1])+int_to_two_bytes(prod[1])
+        HEX_REQUESMISSION = HEX_REQUESMISSION + int_to_two_bytes(maq[1])+int_to_two_bytes(prod[1]) +bytes.fromhex('000000000000000000000000')
+        print(HEX_REQUESMISSION)
         print("Tentando enviar lgv")
+        HEX_REQUESMISSION = self.duplicate_ff(HEX_REQUESMISSION)
+        print(HEX_REQUESMISSION)
         try:
-            if self.sendmessage(bytes.fromhex(REQUESTVERSION)):
-                if self.is_sublist(HEX_RESPONSEHEADER,self.recmessage()):
-               
-                
+            if self.sendmessage((HEX_REQUESMISSION)):
+                print("comando enviado")
+                if self.is_sublist(HEX_SENDRESPONSE,self.recmessage()):
+                    print("Envio do LGV processado corretamente")                
                     self.connected = True
                     return True
+                else:
+                    print("Não recebeu confirmação")
                 return False
             else:
                 print("Desconectado")
@@ -212,7 +223,7 @@ def run():
     #ping()
     if con.perfconnect() == True:
         con.ping()
-        if con.is_sublist(HEX_RESPONSEHEADER,con.recmessage()):
+        if con.is_sublist(HEX_PINGRESPONSE,con.recmessage()):
             print("Contém")
         #print("enviando teste")
 
@@ -225,15 +236,38 @@ def run():
 def int_to_two_bytes(number):
     return number.to_bytes(2, byteorder='little')
 
-con = serverSocket()
-con = serverSocket()
-con.load_defaults(int(10))
-
-print(type(REQUESTVERSION))
-print(bytes.fromhex(REQUESTVERSION+'01'))
-HEX_REQUESTVERSION =bytes.fromhex(REQUESTVERSION)
-teste = int_to_two_bytes(int('22')) +( (HEX_REQUESTVERSION ))
-print(teste)
+#con = serverSocket()
+#con.perfconnect()
+#con.load_defaults(int(1001))
+#con.send_lgv_cmd(('415', 1),('415', 1))
+#p#rint(type(REQUESTVERSION))
+#p#rint(bytes.fromhex(REQUESTVERSION+'01'))
+#HEX_REQUESTVERSION =bytes.fromhex(REQUESTVERSION)
+#teste = int_to_two_bytes(int('22')) +( (HEX_REQUESTVERSION ))
+#data = bytes([0xff, 0x03])
+#test_data = [
+#    bytes([0x00, 0xfe, 0x03, 0x00]),
+#    bytes([0xff, 0x03]),
+#    bytes([0x00, 0x03]),
+#    bytes([0x01, 0x03]),
+#]
+#int.from_bytes(data, "big")
+#byte_val = b'\xff\x03'
+#01 00 E9 03 00 00 00 00 00
+#01 00 02 00 00 00 00 00 00
+#print(HEX_REQUESTVERSION)
+#con.sock.sendall(HEX_REQUESTVERSION)
+#con.ping()
+#con.sock.sendall(b'\x03\xff')
+#print(f'Bytes {data.hex()} enviados')
+        
+ 
+# converting to int
+# byteorder is big where MSB is at start
+#int_val = int.from_bytes(byte_val, "big")
+ 
+# printing int equivalent
+#sprint(int_val)
 #teste = RESPONSEHEADER +'01'
 #print(bytes.fromhex(RESPONSEHEADER))
 #print(teste)

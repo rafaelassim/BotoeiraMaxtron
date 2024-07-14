@@ -32,7 +32,7 @@ def maq_region_list(region):
 def tag_machines(region,maquina):
     arqmaq = open(maquinasjson)
     data = json.load(arqmaq)
-    return(data["region"][region][maquina]['Tag'])
+    return(data["region"][region][maquina]['Tag'],data["region"][region][maquina]['Order_ID'])
    
 
    
@@ -54,19 +54,21 @@ def produto_bitola_items(bitola):
     for item in localjson.keys():
         produtos.append(item)
     return (produtos)
-def tag_produto(bitola, item):
+
+def tagproduto(bitola, item):
     arqprod = open(produtosjson)
     data = json.load(arqprod)
-    produto =data["Produtos"][bitola][item]['Tag']
-    #print(data["Produtos"][bitola].keys())
-    return (produto)
+    tag =data["Produtos"][bitola][item]['Tag']
+    id=data["Produtos"][bitola][item]['Order_ID']
+    return (tag,id)
 
 def tagqrcodemaq(qrcode):
     arqprod = open(qrcodemaqjson)
     data = json.load(arqprod)
     try:
         tag =data["qrcodemaq"][qrcode]['Tag']
-        return (tag)
+        id=data["qrcodemaq"][qrcode]['Order_ID']
+        return (tag,id)
     except:
 
         return (None)
@@ -74,8 +76,8 @@ def nomeqrcodemaq(qrcode):
     arqprod = open(qrcodemaqjson)
     data = json.load(arqprod)
     try:
-        tag =data["qrcodemaq"][qrcode]['Nome']
-        return (tag)
+        nome =data["qrcodemaq"][qrcode]['Nome']
+        return (nome)
     except:
 
         return (None)
@@ -85,7 +87,8 @@ def tagqrcodprod(qrcode):
     data = json.load(arqprod)
     try:
         tag =data["qrcodeprod"][qrcode]['Tag']
-        return (tag)
+        id =data["qrcodeprod"][qrcode]['Order_ID']
+        return (tag,id)
     except:
 
         return (None)
@@ -93,8 +96,8 @@ def nomeqrcodprod(qrcode):
     arqprod = open(qrcodeprodjson)
     data = json.load(arqprod)
     try:
-        tag =data["qrcodeprod"][qrcode]['Nome']
-        return (tag)
+        nome =data["qrcodeprod"][qrcode]['Nome']
+        return (nome)
     except:
 
         return (None)
@@ -104,8 +107,8 @@ def nomeqrcodprod(qrcode):
     arqprod = open(qrcodeprodjson)
     data = json.load(arqprod)
     try:
-        tag =data["qrcodeprod"][qrcode]['Nome']
-        return (tag)
+        nome =data["qrcodeprod"][qrcode]['Nome']
+        return (nome)
     except:
 
         return (None)

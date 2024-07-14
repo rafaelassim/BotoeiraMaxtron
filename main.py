@@ -166,25 +166,25 @@ def pedido_viateclado():
     tag_maq = sel_maq()
     print("Tag da maquina: ",tag_maq)
     time.sleep(0.1)
-    #if is_number_ascii(tag_maq) == True:
-    print("Selecionou tag correta")
-    keyboard_msg=''
-    tag_produto = sel_produto()
-    #if is_number_ascii(tag_produto) == True:
-    print("Enviar")
-    #else:
-    print("Tag não é numero")
-   # fleetManager.sendmessage(bytes.fromhex('10000E040000001600FF0300000001000200010000000000000000000000'))
-    #fleetManager.sock.sendall(bytes.fromhex('10000E04000000160001000300000001000200010000000000000000000000'))
-    fleetManager.sock.sendall(bytes.fromhex('13000E040000000C00010003000000030000000000'))
+    if is_number_ascii(tag_maq[0]) == True:
+        print("Selecionou tag correta")
+        keyboard_msg=''
+        tag_produto = sel_produto()
+        if is_number_ascii(tag_produto[0]) == True:
+            print("Enviar")
+            fleetManager.send_lgv_cmd(tag_maq,tag_produto)
+        else:
+            print("Tag não é numero")
+       
+        #fleetManager.sock.sendall(bytes.fromhex('13000E040000000C00010003000000030000000000'))
 
-    main_menu.execute_command('Azul ON')
-    main_menu.execute_command('Verde OFF')
-    main_menu.execute_command('Vermelho OFF')
-    main_menu.clear_display()
-    main_menu.write_line1('ENVIANDO ')
-    main_menu.write_dinamic_line2('AGUARDE... ')
-    time.sleep(10)
+        main_menu.execute_command('Azul ON')
+        main_menu.execute_command('Verde OFF')
+        main_menu.execute_command('Vermelho OFF')
+        main_menu.clear_display()
+        main_menu.write_line1('ENVIANDO ')
+        main_menu.write_dinamic_line2('AGUARDE... ')
+        time.sleep(10)
     return
 def sel_produto():
     
@@ -225,9 +225,9 @@ def sel_produto():
                 subproduto_selecionado= processo_selecao(subproduto_selecionado,produtos_bitola_tot,produtos_bitola_nomes)
                 time.sleep(0.250)
                 if keyboard_msg=='ENT':
-                    print("Tag Produto ", datareader.tag_produto(produtos_bitola[bitola_selecionada],produtos_bitola_nomes[subproduto_selecionado]))
+                    print("Tag Produto ", datareader.tagproduto(produtos_bitola[bitola_selecionada],produtos_bitola_nomes[subproduto_selecionado]))
                    
-                    return datareader.tag_produto(produtos_bitola[bitola_selecionada],produtos_bitola_nomes[subproduto_selecionado])
+                    return datareader.tagproduto(produtos_bitola[bitola_selecionada],produtos_bitola_nomes[subproduto_selecionado])
                 if keyboard_msg =='CLR':
                     break
         if keyboard_msg =='CLR':
@@ -281,10 +281,10 @@ def pedido_viascanner():
     global barcode_msg
     keyboard_msg=''
     tag_maq =  maq_scanner()
-    if is_number_ascii(tag_maq) == True:
+    if is_number_ascii(tag_maq[0]) == True:
         keyboard_msg=''
         tag_produto=prod_scanner()
-        if is_number_ascii(tag_produto) == True:
+        if is_number_ascii(tag_produto[0]) == True:
             print("Enviar")
     
     return
