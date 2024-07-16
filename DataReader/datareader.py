@@ -113,14 +113,21 @@ def nomeqrcodprod(qrcode):
 
         return (None)
 
-def ID():
+def config():
     arqconfig = open(configjson)
     data = json.load(arqconfig)
+    ID=1
+    IP = "192.168.0.100"
+    PORT = 8015
     try:
-        id =data["ID"]
-        return (id)
+        IP   =data["IP"]
+        PORT =data["PORT"]
+        ID   =data["ID"]
+        print("IP DO GERENCIADOR ",IP)
+        print("PORTA DO GERENCIADOR ",PORT)
+        return (ID,IP,PORT)
     except:
-        return ('1')
+        return (ID,IP,PORT)
 
  
 #print("Maq: ", tagqrcodprod("404004305233528516575584976473448"))

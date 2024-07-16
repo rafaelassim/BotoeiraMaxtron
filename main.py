@@ -67,13 +67,14 @@ def read_keyboard():
             time.sleep(0.1)
         else :
             time.sleep(0.250)
+           
             keyboard_msg=''
 
 def checkconnection ():
    
     if not fleetManager.connected:
         fleetManager.disconnect()
-        fleetManager.__init__()
+        fleetManager.inicializar()
         fleetManager.perfconnect()
 
     if fleetManager.ping() == True:
@@ -154,9 +155,42 @@ def processo_digitacao_teclado(pointer, maxsize, array):
                 keyboard_msg=''
     return
 
-def enviar_command(maq,destino):
-    print("Coletar na tag: ",maq)
-    print("Entregar no destino: ",destino)
+def enviar_command(tag_maq,tag_produto):
+    global keyboard_msg
+    print("Coletar na tag: ",tag_maq)
+    print("Entregar no destino: ",tag_produto)
+    main_menu.execute_command('Azul ON')
+    main_menu.execute_command('Verde OFF')
+    main_menu.execute_command('Vermelho OFF')
+    main_menu.clear_display()
+    main_menu.write_line1('ENVIANDO ')
+    main_menu.write_dinamic_line2('AGUARDE... ')
+    keyboard_msg =''
+    ret = False
+    while (not ret):
+        
+        for i in range(50):
+            
+            print("está no teclado", keyboard_msg)
+            if keyboard_msg=='CLR':
+                main_menu.execute_command('Azul OFF')
+                main_menu.execute_command('Verde OFF')
+                main_menu.execute_command('Vermelho ON')
+                main_menu.clear_display()
+                main_menu.write_line1('PEDIDO')
+                main_menu.write_dinamic_line2('CANCELADO')
+                time.sleep(8)
+                return
+         
+            time.sleep(0.100)
+           
+            
+        ret = fleetManager.send_lgv_cmd(tag_maq,tag_produto)
+       
+        if not fleetManager.connected:
+            fleetManager.disconnect()
+            fleetManager.inicializar()
+            fleetManager.perfconnect()
     return
 
 def pedido_viateclado():
@@ -166,25 +200,27 @@ def pedido_viateclado():
     tag_maq = sel_maq()
     print("Tag da maquina: ",tag_maq)
     time.sleep(0.1)
-    if is_number_ascii(tag_maq[0]) == True:
-        print("Selecionou tag correta")
-        keyboard_msg=''
-        tag_produto = sel_produto()
-        if is_number_ascii(tag_produto[0]) == True:
-            print("Enviar")
-            fleetManager.send_lgv_cmd(tag_maq,tag_produto)
-        else:
-            print("Tag não é numero")
-       
-        #fleetManager.sock.sendall(bytes.fromhex('13000E040000000C00010003000000030000000000'))
-
-        main_menu.execute_command('Azul ON')
-        main_menu.execute_command('Verde OFF')
-        main_menu.execute_command('Vermelho OFF')
-        main_menu.clear_display()
-        main_menu.write_line1('ENVIANDO ')
-        main_menu.write_dinamic_line2('AGUARDE... ')
-        time.sleep(10)
+    try:
+        if tag_maq[0].isdigit() == True:
+            print("Selecionou tag correta")
+            keyboard_msg=''
+            tag_produto = sel_produto()
+            if tag_produto[0].isdigit() == True:
+                print("Enviar")
+                enviar_command(tag_maq,tag_produto)
+            
+            else:
+                print("Tag não é numero")
+        
+                main_menu.execute_command('Azul ON')
+                main_menu.execute_command('Verde ON')
+                main_menu.execute_command('Vermelho OFF')
+                main_menu.clear_display()
+                main_menu.write_line1('OPS!')
+                main_menu.write_dinamic_line2('TENTE NOVAMENTE')
+                time.sleep(10)
+    except:
+        print("Retornando ao menu")
     return
 def sel_produto():
     
@@ -286,7 +322,17 @@ def pedido_viascanner():
         tag_produto=prod_scanner()
         if is_number_ascii(tag_produto[0]) == True:
             print("Enviar")
-    
+            enviar_command(tag_maq,tag_produto)
+        else:
+            print("Tag não é numero")
+       
+            main_menu.execute_command('Azul ON')
+            main_menu.execute_command('Verde ON')
+            main_menu.execute_command('Vermelho OFF')
+            main_menu.clear_display()
+            main_menu.write_line1('OPS!')
+            main_menu.write_dinamic_line2('TENTE NOVAMENTE')
+            time.sleep(10)
     return
 
 def prod_scanner():
@@ -340,39 +386,6 @@ def maq_scanner():
             return 'Falhou'
     return 'Falhou'
 
-def envia_mensagem(main_menu):
-    global total_connections
-    readed_value =[]
-    gerenciador_proc_message(main_menu)
-    print("Scanneie a Máquina")
-    main_menu.write_line1('SCANEIE ')
-    main_menu.write_line2('A MAQ.   ')
-    product = barcode.read()
-    if len(product) <= 2:
-        total_connections =99
-        print("Esgotou o Tempo de leitura")
-        return False
-    print("Scanneie o Produto")
-    main_menu.write_line1('SCANEIE ')
-    main_menu.write_line2('O PRODU.')
-    machine = barcode.read()
-    if len(machine) <= 2:
-        total_connections =99
-        print("Esgotou o Tempo de leitura")
-        return False
-    gerenciador.product = product
-    #gerenciador.generate_machine(machine)
-    #gerenciador.generate_machine(gerenciador.string_to_list_bytes(machine))
-    gerenciador.machine_selected = machine
-    total_connections =99
-    main_menu.write_line1('ENVIANDO')
-    main_menu.write_line2('AGUARDE ')
-    
-    main_menu.execute_command('Azul ON')
-    main_menu.execute_command('Verde ON')
-    while gerenciador.machine_selected==machine:
-        time.sleep(1)
-    return True
 
 def gerenciador_encontrado(main_menu):
     main_menu.execute_command('Azul OFF')
@@ -409,14 +422,23 @@ if __name__ == '__main__':
     produtos_bitola = datareader.produto_bitola_list()
     main_menu = maxtron.init()
 
-  
-    fleetManager = server.serverSocket()
-    fleetManager.load_defaults(2)
+    config=datareader.config()
+ 
+    
+
     print("Iniciando")
     t = time.perf_counter()
-    fleetManager.__init__()
+    fleetManager = server.serverSocket()
+    print(config)
+    print(config[1],"   ",config[2])
+    fleetManager.configure(config[1],config[2])
+    fleetManager.inicializar()
     fleetManager.perfconnect()
-
+    #fleetManager.FLEET_ADDRES = datareader.config[1]
+    
+    #fleetManager.FLEET_PORT =datareader.config[2]
+    fleetManager.load_defaults(config[0])
+    
     
 
     thread_barcode = threading.Thread(target=read_barcode)
@@ -427,14 +449,14 @@ if __name__ == '__main__':
         
         elapsed_time = time.perf_counter() - t
         time.sleep(0.2)
-        
-        if barcode_msg != '':
-            pedido_viascanner()
+        if(fleetManager.connected ==True):
+            if barcode_msg != '':
+                pedido_viascanner()
 
-        if keyboard_msg !='':
-            if keyboard_msg == 'PUSH':
-                keyboard_msg=''
-                pedido_viateclado()
+            if keyboard_msg !='':
+                if keyboard_msg == 'PUSH':
+                    keyboard_msg=''
+                    pedido_viateclado()
 
         if ((time.perf_counter() - t)>(10)):
             t = time.perf_counter()
@@ -447,49 +469,3 @@ if __name__ == '__main__':
                 gerenciador_n_encontrado(main_menu)
                 
            
-
-#
-def old():
-    server.run(gerenciador)
-    gerenciador_n_encontrado(main_menu)
-    total_connections = 99
-    
-    while True:
-            button_press = main_menu.read_button_press()
-            
-            if server.total_connections == 1 :
-                if button_press == '1':
-                    envia_mensagem(main_menu)
-            
-            if total_connections != server.total_connections:
-                total_connections=server.total_connections
-                
-                if server.total_connections == 1 :
-                    gerenciador_encontrado(main_menu)
-                else:
-                    gerenciador_n_encontrado(main_menu)
-                         #button_press = main_menu.read_button_press()
-        ##print(f"Machine Selection - Button pressed: {button_press}")  # Debugging print
-        
-              #  gerenciador_encontrado(main_menu)
-           
-              #  gerenciador_n_encontrado(main_menu)
-    #gerenciador.blink_heart_beat()
-    print("Entre com o valor do Scanner")
-    #lista = gerenciador.string_to_list_bytes(input())
-
-   # gerenciador.data_from_scanner=lista
-    #gerenciador.data_from_scanner=gerenciador.string_to_list_bytes( barcode.read())
-    gerenciador.product=barcode.read()
-    print(gerenciador.product)
-    time.sleep(1)
-    print("Entre com a máquina selecionada")
-    #lista = gerenciador.string_to_list_bytes(barcode.read())
-    gerenciador.generate_machine(input())
-    gerenciador.control_bytes = [0x00,0x01,0x02,0x03,0x04]
-    #gerenciador.generate_machine(barcode.read())
-    print(gerenciador.machine_selected)
-    
-  
-    #server.run(gerenciador)
-    print('Finalizado Inicio')

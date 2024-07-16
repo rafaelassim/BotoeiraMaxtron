@@ -3,8 +3,7 @@ import threading
 import time
 import select
 
-FLEET_ADDRES = "192.168.1.10"
-FLEET_PORT = 8015
+
 isConnected = False
 
 bufferedMessage = ''
@@ -24,7 +23,9 @@ ERRORTIMEOUT = 'ERROR TIMEOUT'
 class serverSocket: 
     connected = False
     ID = 0
-    def __init__(self, sock=None):
+    FLEET_ADDRES = "192.168.1.10"
+    FLEET_PORT = 8015
+    def inicializar(self, sock=None):
         print("Iniciando Classe do socket")
         global MSGLEN
         MSGLEN = 50
@@ -159,11 +160,15 @@ class serverSocket:
             self.connected = False
             return False
        
-    
+    def configure(self, IP, PORT):
+        self.FLEET_ADDRES = IP
+        self.FLEET_PORT = PORT
+        return
+
     def send_lgv_cmd(self,maq,prod):
         global REQUESTORDERID,HEX_SENDRESPONSE
         HEX_REQUESMISSION = bytes.fromhex(REQUESTORDERID) + int_to_two_bytes(self.ID) + bytes.fromhex('0000001600FF') +int_to_two_bytes(maq[1])+int_to_two_bytes(prod[1])
-        HEX_REQUESMISSION = HEX_REQUESMISSION + int_to_two_bytes(maq[1])+int_to_two_bytes(prod[1]) +bytes.fromhex('000000000000000000000000')
+        HEX_REQUESMISSION = HEX_REQUESMISSION + int_to_two_bytes(int(maq[0]))+int_to_two_bytes(int(prod[0])) +bytes.fromhex('000000000000000000000000')
         print(HEX_REQUESMISSION)
         print("Tentando enviar lgv")
         HEX_REQUESMISSION = self.duplicate_ff(HEX_REQUESMISSION)
@@ -208,7 +213,7 @@ class serverSocket:
             return False
 
     def perfconnect(self):
-        return (self.connect(FLEET_ADDRES, FLEET_PORT))
+        return (self.connect(self.FLEET_ADDRES, self.FLEET_PORT))
 
 
 #Wait for new connections
