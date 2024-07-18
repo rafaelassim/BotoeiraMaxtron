@@ -32,7 +32,7 @@ def maq_region_list(region):
 def tag_machines(region,maquina):
     arqmaq = open(maquinasjson)
     data = json.load(arqmaq)
-    return(data["region"][region][maquina]['Tag'],data["region"][region][maquina]['Order_ID'])
+    return(data["region"][region][maquina]['Tag'], data["region"][region][maquina]['Order_ID'], data["region"][region][maquina]['TagDescarte'])
    
 
    
@@ -119,25 +119,39 @@ def config():
     ID=1
     IP = "192.168.0.100"
     PORT = 8015
+    REGIAO ="A"
     try:
         IP   =data["IP"]
         PORT =data["PORT"]
         ID   =data["ID"]
+        REGIAO   =data["REGIAO"]
         print("IP DO GERENCIADOR ",IP)
         print("PORTA DO GERENCIADOR ",PORT)
-        return (ID,IP,PORT)
+        return (ID,IP,PORT,REGIAO)
     except:
-        return (ID,IP,PORT)
+        return (ID,IP,PORT,REGIAO)
 
  
 #print("Maq: ", tagqrcodprod("404004305233528516575584976473448"))
 
 #print(region_list())
 #print(maq_region_list("A"))
-#print(tag_machines("A","415"))
+print(tag_machines("A","415"))
 #print("Maq: ", qrcodemaq("4115"))
 #print(len(machines_list()))
 #print(machines_data('439'))
 #print(produto_bitola_list())
 #print(produto_bitola_items('1'))
 #print(tag_produto('1','1,0 BE13 ESPECIAL'))
+# Duas tuplas originais
+tupla1 = (1, 2, 3, 4, 5)
+tupla2 = (10, 20, 30, 40, 50)
+
+# Índices das posições que você quer copiar
+indice_origem = 1
+indice_destino = 2
+print(tupla1[1])
+# Criar uma nova tupla com o valor copiado
+nova_tupla2 = tupla2[:indice_destino] + (tupla1[indice_origem],) + tupla2[indice_destino+1:]
+
+print(nova_tupla2)

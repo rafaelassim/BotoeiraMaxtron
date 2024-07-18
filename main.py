@@ -29,7 +29,7 @@ produtos_bitola_nomes =[]
 
 barcode_msg = ''
 keyboard_msg = ''
-
+#REGIAO ="A"
 block_minus_plus = False
 increment = False
 decrement = False
@@ -191,6 +191,14 @@ def enviar_command(tag_maq,tag_produto):
             fleetManager.disconnect()
             fleetManager.inicializar()
             fleetManager.perfconnect()
+    if (ret==True):
+        main_menu.execute_command('Azul ON')
+        main_menu.execute_command('Verde ON')
+        main_menu.execute_command('Vermelho ON')
+        main_menu.clear_display()
+        main_menu.write_line1('PEDIDO')
+        main_menu.write_dinamic_line2('REALIZADO')
+        time.sleep(8)
     return
 
 def pedido_viateclado():
@@ -204,21 +212,27 @@ def pedido_viateclado():
         if tag_maq[0].isdigit() == True:
             print("Selecionou tag correta")
             keyboard_msg=''
-            tag_produto = sel_produto()
-            if tag_produto[0].isdigit() == True:
-                print("Enviar")
-                enviar_command(tag_maq,tag_produto)
-            
+            if tag_maq[2].isdigit() == True:
+                if int(tag_maq[2]) == 0:
+                    tag_produto = sel_produto()
+                    if tag_produto[0].isdigit() == True:
+                        enviar_command(tag_maq,tag_produto)
+                    
+                    else:
+                        main_menu.execute_command('Azul ON')
+                        main_menu.execute_command('Verde ON')
+                        main_menu.execute_command('Vermelho OFF')
+                        main_menu.clear_display()
+                        main_menu.write_line1('OPS!')
+                        main_menu.write_dinamic_line2('TENTE NOVAMENTE')
+                        time.sleep(10)
+                else:
+                    print("Se maq. é para descarte envia sem selecionar produto")
+                    tag_produto=tag_maq[2],tag_maq[1]
+                    print(tag_produto)
+                    enviar_command(tag_maq,tag_produto)
             else:
-                print("Tag não é numero")
-        
-                main_menu.execute_command('Azul ON')
-                main_menu.execute_command('Verde ON')
-                main_menu.execute_command('Vermelho OFF')
-                main_menu.clear_display()
-                main_menu.write_line1('OPS!')
-                main_menu.write_dinamic_line2('TENTE NOVAMENTE')
-                time.sleep(10)
+                print("Tag sem produto inexistente")
     except:
         print("Retornando ao menu")
     return
@@ -253,7 +267,7 @@ def sel_produto():
             produtos_bitola_tot=len(produtos_bitola_nomes)
             print("Bitola selecionada ", produtos_bitola[bitola_selecionada])
 
-            main_menu.write_line1('SubProd.')
+            main_menu.write_line1('Produto ')
             main_menu.write_line2(produtos_bitola_nomes[0])
 
             keyboard_msg=''
@@ -272,45 +286,47 @@ def sel_produto():
 def sel_maq():
     global region_nome
     global region_tot
-    
+    global REGIAO
 
     global maquinas_nome
     global maquinas_tot
     global keyboard_msg
     
     pointer = 0
-    regiao_selecionada = pointer
+    print("Nome das regiões   ",region_nome)
+    regiao_selecionada = region_nome.index(REGIAO)
+
     maquina_selecionada = 0
     
     
     print ("Processo teclado")
-    main_menu.clear_display()
-    time.sleep(0.1)
-    main_menu.write_line1('Sel.Reg:')
-    main_menu.write_line2(region_nome[pointer])
+    #main_menu.clear_display()
+    #time.sleep(0.1)
+    #main_menu.write_line1('Sel.Reg:')
+    #main_menu.write_line2(region_nome[pointer])
 
     while True:
-        regiao_selecionada= processo_selecao(regiao_selecionada,region_tot,region_nome)
+        #regiao_selecionada= processo_selecao(regiao_selecionada,region_tot,region_nome)
         print("Regiao Selecionada: ",region_nome[regiao_selecionada])
-        if keyboard_msg=='ENT':
-            keyboard_msg=''
-            main_menu.clear_display()
-            time.sleep(0.1)
-            maquinas_tot = len(datareader.maq_region_list(region_nome[regiao_selecionada]))
-            maquinas_nome = datareader.maq_region_list(region_nome[regiao_selecionada])
-            print("Regiao Selecionada: ",maquinas_nome[maquina_selecionada])
-            main_menu.write_line1('Sel.Maq.')
-            main_menu.write_line2(maquinas_nome[maquina_selecionada])
-            while True:
-                maquina_selecionada= processo_selecao(maquina_selecionada,maquinas_tot,maquinas_nome)
-                if keyboard_msg=='ENT': 
-                    print("Tag: ",datareader.tag_machines(region_nome[regiao_selecionada],maquinas_nome[maquina_selecionada]))  
-                    return datareader.tag_machines(region_nome[regiao_selecionada],maquinas_nome[maquina_selecionada])
+        #if keyboard_msg=='ENT':
+        keyboard_msg=''
+        main_menu.clear_display()
+        time.sleep(0.1)
+        maquinas_tot = len(datareader.maq_region_list(region_nome[regiao_selecionada]))
+        maquinas_nome = datareader.maq_region_list(region_nome[regiao_selecionada])
+        print("Regiao Selecionada: ",maquinas_nome[maquina_selecionada])
+        main_menu.write_line1('Sel.Maq.')
+        main_menu.write_line2(maquinas_nome[maquina_selecionada])
+        while True:
+            maquina_selecionada= processo_selecao(maquina_selecionada,maquinas_tot,maquinas_nome)
+            if keyboard_msg=='ENT': 
+                print("Tag: ",datareader.tag_machines(region_nome[regiao_selecionada],maquinas_nome[maquina_selecionada]))  
+                return datareader.tag_machines(region_nome[regiao_selecionada],maquinas_nome[maquina_selecionada])
                     
-                if keyboard_msg =='CLR':
-                    break
-        if keyboard_msg =='CLR':
-            break
+            if keyboard_msg =='CLR':
+                break
+        #if keyboard_msg =='CLR':
+        #    break
         time.sleep(0.250)
     return 'Falhou'
 def pedido_viascanner():
@@ -395,6 +411,7 @@ def gerenciador_encontrado(main_menu):
     main_menu.write_line1('TUNKERS ')
     main_menu.write_line2('BOTOEIRA')
     time.sleep(0.1)
+    return
 
 def gerenciador_n_encontrado(main_menu):
     main_menu.execute_command('Azul OFF')
@@ -404,6 +421,7 @@ def gerenciador_n_encontrado(main_menu):
     main_menu.write_line1('BOTOEIRA ')
     main_menu.write_dinamic_line2('Sem Conex.  ')
     time.sleep(0.1)
+    return
 
 def gerenciador_proc_message(main_menu):
     main_menu.execute_command('Azul ON')
@@ -414,6 +432,7 @@ def gerenciador_proc_message(main_menu):
 if __name__ == '__main__':
       
     global total_connections
+    global REGIAO
     print(len(datareader.region_list()))
     region_tot = len(datareader.region_list())
     region_nome = datareader.region_list()
@@ -424,7 +443,7 @@ if __name__ == '__main__':
 
     config=datareader.config()
  
-    
+    REGIAO=config[3]
 
     print("Iniciando")
     t = time.perf_counter()

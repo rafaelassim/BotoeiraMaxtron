@@ -1,8 +1,7 @@
 {
      
             "ID": 21,             
-            "IP": "192.168.1.8",
-            "REGIAO":"A",
+            "IP": "192.168.1.7",
             "PORT":8015,   
             "DHCP":true,   
             "NOME_DA_REDE":"REDEXXXX",

@@ -21,7 +21,7 @@ REQUESTORDERID = '1000'
 ERRORTIMEOUT = 'ERROR TIMEOUT'
 
 class serverSocket: 
-    connected = False
+#connected = False
     ID = 0
     FLEET_ADDRES = "192.168.1.10"
     FLEET_PORT = 8015
