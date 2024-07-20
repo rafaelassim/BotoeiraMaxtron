@@ -186,7 +186,7 @@ def enviar_command(tag_maq,tag_produto):
             time.sleep(0.100)
            
             
-        ret = fleetManager.send_lgv_cmd(tag_maq,tag_produto)
+        ret = fleetManager.send_lgv_cmd(tag_maq,tag_produto,tag_maq[3])
        
         if not fleetManager.connected:
             fleetManager.disconnect()
@@ -301,15 +301,9 @@ def sel_maq():
     
     
     print ("Processo teclado")
-    #main_menu.clear_display()
-    #time.sleep(0.1)
-    #main_menu.write_line1('Sel.Reg:')
-    #main_menu.write_line2(region_nome[pointer])
 
     while True:
-        #regiao_selecionada= processo_selecao(regiao_selecionada,region_tot,region_nome)
         print("Regiao Selecionada: ",region_nome[regiao_selecionada])
-        #if keyboard_msg=='ENT':
         keyboard_msg=''
         main_menu.clear_display()
         time.sleep(0.1)
@@ -338,13 +332,11 @@ def pedido_viascanner():
         keyboard_msg=''
         tag_produto=prod_scanner()
         print("Tag Produto ",tag_produto)
-        if is_number_ascii(str(tag_produto[0])) == False | is_number_ascii(tag_produto[0]) == True:
+        if is_number_ascii(str(tag_produto[0])) == False:
             print("Enviar")
             print("Tag Maq, tag produto",tag_maq,tag_produto)
             enviar_command(tag_maq,tag_produto)
         else:
-            print("Tag não é numero")
-       
             main_menu.execute_command('Azul ON')
             main_menu.execute_command('Verde ON')
             main_menu.execute_command('Vermelho OFF')

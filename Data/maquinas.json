@@ -1,385 +1,102 @@
 {
     "region": {
       "COM": {
-        "strech": {"id": "1","Tag": "5","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 1},
-        "11": {"id": "2","Tag": "11","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 2},
-        "12": {"id": "3","Tag": "12","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 3},
-        "13": {"id": "4","Tag": "13","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 4},
-        "14": {"id": "5","Tag": "14","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 5},
-        "15": {"id": "6","Tag": "15","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 6},
-        "16": {"id": "7","Tag": "16","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 7},
-        "17": {"id": "8","Tag": "17","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 8},
-        "18": {"id": "9","Tag": "18","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 9},
-        "19": {"id": "10","Tag": "19","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 10},
-        "20": {"id": "11","Tag": "20","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 11},
-        "21": {"id": "12","Tag": "21","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 12},
-        "22": {"id": "13","Tag": "22","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 13},
-        "23": {"id": "14","Tag": "23","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 14},
-        "24": {"id": "15","Tag": "24","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 15},
-        "25": {"id": "16","Tag": "25","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 16},
-        "26": {"id": "17","Tag": "26","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 17},
-        "4": {"id": "18","Tag": "2","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 18}
+        "strech": {"id": "1","Tag": "5","TagDescarte": "0","Priority": "0","LGV": "8","Order_ID": 1},
+        "11": {"id": "2","Tag": "11","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 2},
+        "12": {"id": "3","Tag": "12","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 3},
+        "13": {"id": "4","Tag": "13","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 4},
+        "14": {"id": "5","Tag": "14","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 5},
+        "15": {"id": "6","Tag": "15","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 6},
+        "16": {"id": "7","Tag": "16","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 7},
+        "17": {"id": "8","Tag": "17","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 8},
+        "18": {"id": "9","Tag": "18","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 9},
+        "19": {"id": "10","Tag": "19","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 10},
+        "20": {"id": "11","Tag": "20","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 11},
+        "21": {"id": "12","Tag": "21","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 12},
+        "22": {"id": "13","Tag": "22","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 13},
+        "23": {"id": "14","Tag": "23","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 14},
+        "24": {"id": "15","Tag": "24","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 15},
+        "25": {"id": "16","Tag": "25","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 16},
+        "26": {"id": "17","Tag": "26","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 17},
+        "4": {"id": "18","Tag": "2","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 18}
        
       },
       "A": {
-        "26": {
-          "id": "415",
-          "Tag": "26",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 1
+        "438": {"Tag": "438","Nome":"438","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 100},
+        "420": {"Tag": "420","Nome":"420","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 101},
+        "419": {"Tag": "419","Nome":"419","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 102},
+        "416": {"Tag": "416","Nome":"416","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 103},
+        "415": {"Tag": "415","Nome":"415","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 104},
+        "422": {"Tag": "422","Nome":"422","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 105},
+        "421": {"Tag": "421","Nome":"421","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 106},
+        "529": {"Tag": "529","Nome":"529","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 107},
+        "528": {"Tag": "528","Nome":"528","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 108},
+        "527": {"Tag": "527","Nome":"527","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 109},
+        "443": {"Tag": "443","Nome":"443","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 110},
+        "439": {"Tag": "439","Nome":"439","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 111},
+        "489": {"Tag": "489","Nome":"489","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 112},
+        "670": {"Tag": "670","Nome":"670","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 113}
         },
-        "415": {
-          "id": "415",
-          "Tag": "415",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 1
+        
+        "B": {
+        "6146": {"Tag": "6146","Nome":"6146","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 114},
+        "6155": {"Tag": "6155","Nome":"6155","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 115},
+        "6148": {"Tag": "6148","Nome":"6148","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 116},
+        "6151": {"Tag": "6151","Nome":"6151","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 117},
+        "6144": {"Tag": "6144","Nome":"6144","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 118}
         },
-        "416": {
-          "id": "416",
-          "Tag": "416",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 2
+        
+        "C": {
+        "6066": {"Tag": "6066","Nome":"6066","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 119},
+        "6067": {"Tag": "6067","Nome":"6067","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 120}
         },
-        "419": {
-          "id": "419",
-          "Tag": "419",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 3
+        
+        "D": {
+        "2115": {"Tag": "2115","Nome":"2115","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 121}
         },
-        "420": {
-          "id": "420",
-          "Tag": "420",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 4
+        
+        "E": {
+        "6146": {"Tag": "6169","Nome":"6146","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 122},
+        "6155": {"Tag": "6023","Nome":"6155","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 123},
+        "6148": {"Tag": "6168","Nome":"6148","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 124}
         },
-        "421": {
-          "id": "421",
-          "Tag": "421",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 5
+        
+        "F": {
+        "6150": {"Tag": "6150","Nome":"6150","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 125},
+        "6171": {"Tag": "6171","Nome":"6171","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 126},
+        "6170": {"Tag": "6170","Nome":"6170","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 127},
+        "6164": {"Tag": "6164","Nome":"6164","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 128},
+        "6162": {"Tag": "6162","Nome":"6162","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 129},
+        "6161": {"Tag": "6161","Nome":"6161","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 130},
+        "6159": {"Tag": "6159","Nome":"6159","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 131},
+        "6158": {"Tag": "6158","Nome":"6158","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 132},
+        "6157": {"Tag": "6157","Nome":"6157","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 133}
         },
-        "422": {
-          "id": "422",
-          "Tag": "422",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 6
+        
+        "G": {
+        "2017": {"Tag": "2017","Nome":"2017","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 134}
         },
-        "438": {
-          "id": "438",
-          "Tag": "438",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 7
+        
+        "H": {
+        "Depostio": {"Tag": "8080","Nome":"Depostio","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 135}
         },
-        "439": {
-          "id": "439",
-          "Tag": "439",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 8
+        
+        "I": {
+        "BUFFER CARRETEL": {"Tag": "8080","Nome":"BUFFER CARRETEL","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 136}
         },
-        "443": {
-          "id": "443",
-          "Tag": "443",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 9
+        
+        "J": {
+        "BUFFER PALLET": {"Tag": "8080","Nome":"BUFFER PALLET","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 137}
         },
-        "489": {
-          "id": "489",
-          "Tag": "489",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 10
+        
+        "K": {
+        "Stretch": {"Tag": "8080","Nome":"Stretch","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 138},
+        "1787": {"Tag": "1787","Nome":"1787","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 139}
         },
-        "527": {
-          "id": "527",
-          "Tag": "527",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 11
-        },
-        "528": {
-          "id": "528",
-          "Tag": "528",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 12
-        },
-        "529": {
-          "id": "529",
-          "Tag": "529",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 13
-        },
-        "670": {
-          "id": "670",
-          "Tag": "670",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 14
+        
+        "L": {
+        "6040": {"Tag": "6040","Nome":"6040","TagDescarte": "0","Priority": "0","LGV": "-1","Order_ID": 140}
         }
-      },
-      "B": {
-        "6144": {
-          "id": "6144",
-          "Tag": "6144",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 15
-        },
-        "6146": {
-          "id": "6146",
-          "Tag": "6146",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 16
-        },
-        "6148": {
-          "id": "6148",
-          "Tag": "6148",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 17
-        },
-        "6151": {
-          "id": "6151",
-          "Tag": "6151",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 18
-        },
-        "6155": {
-          "id": "6155",
-          "Tag": "6155",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 19
-        }
-      },
-      "C": {
-        "6066": {
-          "id": "6066",
-          "Tag": "6066",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 20
-        },
-        "6067": {
-          "id": "6067",
-          "Tag": "6067",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 21
-        }
-      },
-      "D": {
-        "2015": {
-          "id": "2015",
-          "Tag": "2015",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 22
-        }
-      },
-      "E": {
-        "6023": {
-          "id": "6023",
-          "Tag": "6023",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 23
-        },
-        "6168": {
-          "id": "6168",
-          "Tag": "6168",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 24
-        },
-        "6169": {
-          "id": "6169",
-          "Tag": "6169",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 25
-        }
-      },
-      "F": {
-        "6150": {
-          "id": "6150",
-          "Tag": "6150",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 26
-        },
-        "6157": {
-          "id": "6157",
-          "Tag": "6157",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 27
-        },
-        "6158": {
-          "id": "6158",
-          "Tag": "6158",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 28
-        },
-        "6159": {
-          "id": "6159",
-          "Tag": "6159",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 29
-        },
-        "6161": {
-          "id": "6161",
-          "Tag": "6161",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 30
-        },
-        "6162": {
-          "id": "6162",
-          "Tag": "6162",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 31
-        },
-        "6164": {
-          "id": "6164",
-          "Tag": "6164",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 32
-        },
-        "6170": {
-          "id": "6170",
-          "Tag": "6170",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 33
-        },
-        "6171": {
-          "id": "6171",
-          "Tag": "6171",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 34
-        }
-      },
-      "G": {
-        "2017": {
-          "id": "2017",
-          "Tag": "2017",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 35
-        }
-      },
-      "H": {
-        "Deposit": {
-          "id": "666",
-          "Tag": "666",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 36
-        }
-      },
-      "I": {
-        "BufferCarreteis": {
-          "id": "667",
-          "Tag": "667",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 37
-        }
-      },
-      "J": {
-        "BufferPalelts": {
-          "id": "668",
-          "Tag": "668",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 38
-        }
-      },
-      "K": {
-        "1787": {
-          "id": "1787",
-          "Tag": "1787",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 39
-        },
-        "Stretch": {
-          "id": "669",
-          "Tag": "669",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 40
-        }
-      },
-      "L": {
-        "6040": {
-          "id": "6040",
-          "Tag": "6040",
-          "TagDescarte": "0",
-          "Priority": "0",
-          "Lgv": "-1",
-          "Order_ID": 41
-        }
-      }
+        
     }
   }

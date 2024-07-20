@@ -165,9 +165,21 @@ class serverSocket:
         self.FLEET_PORT = PORT
         return
 
-    def send_lgv_cmd(self,maq,prod):
+    def send_lgv_cmd(self,maq,prod,lgv):
         global REQUESTORDERID,HEX_SENDRESPONSE
-        HEX_REQUESMISSION = bytes.fromhex(REQUESTORDERID) + int_to_two_bytes(self.ID) + bytes.fromhex('0000001600FF') +int_to_two_bytes(maq[1])+int_to_two_bytes(prod[1])
+        print("aqui: ", type(lgv), " ",type("00FF"))
+      
+        if int(lgv) > -1:
+            #caso não tenha 0 no inicio coloca o zero
+            if len(lgv)==1:
+                lgv = '0' + lgv
+            selectedlgv = bytes.fromhex(lgv)+bytes.fromhex('00')
+            print(selectedlgv)
+        else:
+            selectedlgv = bytes.fromhex('FF')
+            print(selectedlgv)
+
+        HEX_REQUESMISSION = bytes.fromhex(REQUESTORDERID) + int_to_two_bytes(self.ID) + bytes.fromhex('0000001600') +selectedlgv+int_to_two_bytes(maq[1])+int_to_two_bytes(prod[1])
         HEX_REQUESMISSION = HEX_REQUESMISSION + int_to_two_bytes(int(maq[0]))+int_to_two_bytes(int(prod[0])) +bytes.fromhex('010001000000000000000000')
         print(HEX_REQUESMISSION)
         print("Tentando enviar lgv")

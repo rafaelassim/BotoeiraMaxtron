@@ -32,7 +32,7 @@ def maq_region_list(region):
 def tag_machines(region,maquina):
     arqmaq = open(maquinasjson)
     data = json.load(arqmaq)
-    return(data["region"][region][maquina]['Tag'], data["region"][region][maquina]['Order_ID'], data["region"][region][maquina]['TagDescarte'])
+    return(data["region"][region][maquina]['Tag'], data["region"][region][maquina]['Order_ID'], data["region"][region][maquina]['TagDescarte'],data["region"][region][maquina]['LGV'])
    
 
    
@@ -69,7 +69,9 @@ def tagqrcodemaq(qrcode):
     try:
         tag =data["qrcodemaq"][str(qrcode)]['Tag']
         id=data["qrcodemaq"][str(qrcode)]['Order_ID']
-        return (tag,id)
+        descarte=data["qrcodemaq"][str(qrcode)]['TagDescarte']
+        lgv=data["qrcodemaq"][str(qrcode)]['lgv']
+        return (tag,id,descarte,lgv)
     except:
 
         return (None)
@@ -122,7 +124,7 @@ def config():
     PORT = 8015
     REGIAO ="A"
     try:
-        IP   =data["IP"]
+        IP   =data["IP-FLEETMANAGER"]
         PORT =data["PORT"]
         ID   =data["ID"]
         REGIAO   =data["REGIAO"]
@@ -133,6 +135,3 @@ def config():
         return (ID,IP,PORT,REGIAO)
 
  
-#print("Maq: ", tagqrcodprod("404004305233528516575584976473448"))
-print(tagqrcodemaq(415))
-#
