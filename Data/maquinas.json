@@ -1,10 +1,39 @@
 {
     "region": {
+      "COM": {
+        "strech": {"id": "1","Tag": "5","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 1},
+        "11": {"id": "2","Tag": "11","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 2},
+        "12": {"id": "3","Tag": "12","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 3},
+        "13": {"id": "4","Tag": "13","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 4},
+        "14": {"id": "5","Tag": "14","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 5},
+        "15": {"id": "6","Tag": "15","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 6},
+        "16": {"id": "7","Tag": "16","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 7},
+        "17": {"id": "8","Tag": "17","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 8},
+        "18": {"id": "9","Tag": "18","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 9},
+        "19": {"id": "10","Tag": "19","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 10},
+        "20": {"id": "11","Tag": "20","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 11},
+        "21": {"id": "12","Tag": "21","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 12},
+        "22": {"id": "13","Tag": "22","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 13},
+        "23": {"id": "14","Tag": "23","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 14},
+        "24": {"id": "15","Tag": "24","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 15},
+        "25": {"id": "16","Tag": "25","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 16},
+        "26": {"id": "17","Tag": "26","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 17},
+        "4": {"id": "18","Tag": "2","TagDescarte": "0","Priority": "0","Lgv": "-1","Order_ID": 18}
+       
+      },
       "A": {
+        "26": {
+          "id": "415",
+          "Tag": "26",
+          "TagDescarte": "0",
+          "Priority": "0",
+          "Lgv": "-1",
+          "Order_ID": 1
+        },
         "415": {
           "id": "415",
           "Tag": "415",
-          "TagDescarte": "20",
+          "TagDescarte": "0",
           "Priority": "0",
           "Lgv": "-1",
           "Order_ID": 1

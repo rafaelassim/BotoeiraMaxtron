@@ -65,9 +65,10 @@ def tagproduto(bitola, item):
 def tagqrcodemaq(qrcode):
     arqprod = open(qrcodemaqjson)
     data = json.load(arqprod)
+    
     try:
-        tag =data["qrcodemaq"][qrcode]['Tag']
-        id=data["qrcodemaq"][qrcode]['Order_ID']
+        tag =data["qrcodemaq"][str(qrcode)]['Tag']
+        id=data["qrcodemaq"][str(qrcode)]['Order_ID']
         return (tag,id)
     except:
 
@@ -76,7 +77,7 @@ def nomeqrcodemaq(qrcode):
     arqprod = open(qrcodemaqjson)
     data = json.load(arqprod)
     try:
-        nome =data["qrcodemaq"][qrcode]['Nome']
+        nome =data["qrcodemaq"][str(qrcode)]['Nome']
         return (nome)
     except:
 
@@ -133,25 +134,5 @@ def config():
 
  
 #print("Maq: ", tagqrcodprod("404004305233528516575584976473448"))
-
-#print(region_list())
-#print(maq_region_list("A"))
-print(tag_machines("A","415"))
-#print("Maq: ", qrcodemaq("4115"))
-#print(len(machines_list()))
-#print(machines_data('439'))
-#print(produto_bitola_list())
-#print(produto_bitola_items('1'))
-#print(tag_produto('1','1,0 BE13 ESPECIAL'))
-# Duas tuplas originais
-tupla1 = (1, 2, 3, 4, 5)
-tupla2 = (10, 20, 30, 40, 50)
-
-# Índices das posições que você quer copiar
-indice_origem = 1
-indice_destino = 2
-print(tupla1[1])
-# Criar uma nova tupla com o valor copiado
-nova_tupla2 = tupla2[:indice_destino] + (tupla1[indice_origem],) + tupla2[indice_destino+1:]
-
-print(nova_tupla2)
+print(tagqrcodemaq(415))
+#

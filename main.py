@@ -101,6 +101,7 @@ def processo_selecao(pointer, maxsize, array):
     if decrement or increment :
         increment = False
         decrement = False
+        main_menu.clear_l2()
         if (len(array[pointer]) > 8):
             main_menu.write_dinamic_line2(array[pointer])
         else:
@@ -333,11 +334,13 @@ def pedido_viascanner():
     global barcode_msg
     keyboard_msg=''
     tag_maq =  maq_scanner()
-    if is_number_ascii(tag_maq[0]) == True:
+    if is_number_ascii(str(tag_maq[0])) == False:
         keyboard_msg=''
         tag_produto=prod_scanner()
-        if is_number_ascii(tag_produto[0]) == True:
+        print("Tag Produto ",tag_produto)
+        if is_number_ascii(str(tag_produto[0])) == False | is_number_ascii(tag_produto[0]) == True:
             print("Enviar")
+            print("Tag Maq, tag produto",tag_maq,tag_produto)
             enviar_command(tag_maq,tag_produto)
         else:
             print("Tag não é numero")
@@ -369,7 +372,7 @@ def prod_scanner():
                 main_menu.write_line1('Prod.Sel')
                 main_menu.write_line2(nomeProduto)
                 time.sleep(3)
-                return tagmaquina
+                return tagproduto
             else:
                 main_menu.write_line1('Produto ')
                 main_menu.write_line2('Nao enc.')
@@ -385,12 +388,16 @@ def prod_scanner():
 
 def maq_scanner():
     global barcode_msg
+    print("Processo via scanner")
     if barcode_msg != '':
         print("Readed Barcode: ",barcode_msg)
-        tagmaquina=datareader.tagqrcodemaq(barcode_msg)
-        nomemaquina=datareader.nomeqrcodemaq(barcode_msg)
+        tagmaquina=datareader.tagqrcodemaq(str(barcode_msg))
+        nomemaquina=datareader.nomeqrcodemaq(str(barcode_msg))
+        print("nome maquina ",nomemaquina)
+        print("tagmaquina ",tagmaquina[0])
         barcode_msg=''
-        if tagmaquina !=None:
+        print(barcode_msg)
+        if tagmaquina[0] !=None:
             main_menu.write_line1('Maq.Sele. ')
             main_menu.write_line2(nomemaquina)
             time.sleep(3)
