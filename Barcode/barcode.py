@@ -1,4 +1,4 @@
-import keyboard
+import keyboard as keyboard
 import time
 
 #keypressed = []

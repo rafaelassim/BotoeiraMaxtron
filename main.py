@@ -328,7 +328,7 @@ def pedido_viascanner():
     global barcode_msg
     keyboard_msg=''
     tag_maq =  maq_scanner()
-    if is_number_ascii(str(tag_maq[0])) == False:
+    if tag_maq != 'Falhou':
         keyboard_msg=''
         tag_produto=prod_scanner()
         print("Tag Produto ",tag_produto)
@@ -344,6 +344,9 @@ def pedido_viascanner():
             main_menu.write_line1('OPS!')
             main_menu.write_dinamic_line2('TENTE NOVAMENTE')
             time.sleep(10)
+    main_menu.write_line1('Maq.    ')
+    main_menu.write_line2('Nao Encontrada ')
+    time.sleep(5)
     return
 
 def prod_scanner():
@@ -386,10 +389,11 @@ def maq_scanner():
         tagmaquina=datareader.tagqrcodemaq(str(barcode_msg))
         nomemaquina=datareader.nomeqrcodemaq(str(barcode_msg))
         print("nome maquina ",nomemaquina)
-        print("tagmaquina ",tagmaquina[0])
+        
         barcode_msg=''
         print(barcode_msg)
-        if tagmaquina[0] !=None:
+        if tagmaquina != None:
+            print("tagmaquina ",tagmaquina[0])
             main_menu.write_line1('Maq.Sele. ')
             main_menu.write_line2(nomemaquina)
             time.sleep(3)
