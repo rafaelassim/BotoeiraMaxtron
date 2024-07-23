@@ -1,0 +1,132 @@
+{
+  "Produtos": {
+      "0,8": {
+          "0,8 BE14": {
+              "Tag": "1",
+              "Order_ID": 1
+          }
+      },
+      "0,9": {
+          "0,9 BE13 ESPECIAL": {
+              "Tag": "2",
+              "Order_ID": 2
+          },
+          "0,9 BE14": {
+              "Tag": "3",
+              "Order_ID": 3
+          },
+          "0,9 BE08 ESPECIAL": {
+              "Tag": "4",
+              "Order_ID": 4
+          }
+      },
+      "1": {
+          "1,0 BE13 ESPECIAL": {
+              "Tag": "5",
+              "Order_ID": 5
+          },
+          "1,0 BE14": {
+              "Tag": "6",
+              "Order_ID": 6
+          },
+          "1,0 BE14 OLEADO": {
+              "Tag": "7",
+              "Order_ID": 7
+          },
+          "1,0 COPPER FREE": {
+              "Tag": "8",
+              "Order_ID": 8
+          },
+          "1,0 BE17 ESPECIAL": {
+              "Tag": "0",
+              "Order_ID": 9
+          },
+          "1,0 BE08 ESPECIAL": {
+              "Tag": "10",
+              "Order_ID": 10
+          },
+          "1,0 BE29 ESPECIAL": {
+              "Tag": "11",
+              "Order_ID": 11
+          },
+          "1,0 LATONADO": {
+              "Tag": "12",
+              "Order_ID": 12
+          }
+      },
+      "2": {
+          "1,2 BE13 ESPECIAL": {
+              "Tag": "13",
+              "Order_ID": 13
+          },
+          "1,2 COPPER FREE": {
+              "Tag": "14",
+              "Order_ID": 14
+          },
+          "1,2 BE17 ESPECIAL": {
+              "Tag": "15",
+              "Order_ID": 15
+          },
+          "1,2 BE08 ESPECIAL": {
+              "Tag": "16",
+              "Order_ID": 16
+          },
+          "1,2 BE29 ESPECIAL": {
+              "Tag": "17",
+              "Order_ID": 17
+          },
+          "1,2 LATONADO": {
+              "Tag": "18",
+              "Order_ID": 18
+          },
+          "1,2 BE14 COM PASTA": {
+              "Tag": "19",
+              "Order_ID": 19
+          },
+          "1,2 BE14": {
+              "Tag": "20",
+              "Order_ID": 20
+          }
+      },
+      "1,32": {
+          "1,32 BE13 ESPECIAL": {
+              "Tag": "21",
+              "Order_ID": 21
+          },
+          "1,32 BE14": {
+              "Tag": "22",
+              "Order_ID": 22
+          },
+          "1,32 COPPER FREE": {
+              "Tag": "23",
+              "Order_ID": 23
+          }
+      },
+      "1,57": {
+          "1,57 BE14": {
+              "Tag": "24",
+              "Order_ID": 24
+          }
+      },
+      "1,59": {
+          "1,59 BE21 ESPECIAL": {
+              "Tag": "25",
+              "Order_ID": 25
+          }
+      },
+      "1,6": {
+          "1,60 BE29 ESPECIAL": {
+              "Tag": "26",
+              "Order_ID": 26
+          },
+          "1,6 COPPER FREE": {
+              "Tag": "27",
+              "Order_ID": 27
+          },
+          "1,6 BE08 ESPECIAL": {
+              "Tag": "28",
+              "Order_ID": 28
+          }
+      }
+  }
+}

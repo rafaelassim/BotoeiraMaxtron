@@ -158,8 +158,8 @@ def processo_digitacao_teclado(pointer, maxsize, array):
 
 def enviar_command(tag_maq,tag_produto):
     global keyboard_msg
-    print("Coletar na tag: ",tag_maq)
-    print("Entregar no destino: ",tag_produto)
+    print("Coletar na tag: ",(tag_maq))
+    print("Entregar no destino: ",(tag_produto))
     main_menu.execute_command('Azul ON')
     main_menu.execute_command('Verde OFF')
     main_menu.execute_command('Vermelho OFF')
@@ -186,7 +186,7 @@ def enviar_command(tag_maq,tag_produto):
             time.sleep(0.100)
            
             
-        ret = fleetManager.send_lgv_cmd(tag_maq,tag_produto,tag_maq[3])
+        ret = fleetManager.send_lgv_cmd(tag_maq,tag_produto)
        
         if not fleetManager.connected:
             fleetManager.disconnect()
@@ -207,33 +207,31 @@ def pedido_viateclado():
     keyboard_msg=''
     
     tag_maq = sel_maq()
-    print("Tag da maquina: ",tag_maq)
+    print("Tag da maquina: ",(tag_maq))
     time.sleep(0.1)
     try:
-        if tag_maq[0].isdigit() == True:
-            print("Selecionou tag correta")
-            keyboard_msg=''
-            if tag_maq[2].isdigit() == True:
-                if int(tag_maq[2]) == 0:
-                    tag_produto = sel_produto()
-                    if tag_produto[0].isdigit() == True:
-                        enviar_command(tag_maq,tag_produto)
-                    
-                    else:
-                        main_menu.execute_command('Azul ON')
-                        main_menu.execute_command('Verde ON')
-                        main_menu.execute_command('Vermelho OFF')
-                        main_menu.clear_display()
-                        main_menu.write_line1('OPS!')
-                        main_menu.write_dinamic_line2('TENTE NOVAMENTE')
-                        time.sleep(10)
-                else:
-                    print("Se maq. é para descarte envia sem selecionar produto")
-                    tag_produto=tag_maq[2],tag_maq[1]
-                    print(tag_produto)
+        keyboard_msg=''
+        if tag_maq['PickUp1']!=0:
+            if tag_maq['DropOff1']==0:
+                tag_produto = sel_produto()
+                if tag_produto["DropOff1"] != 0:
                     enviar_command(tag_maq,tag_produto)
+                    
+                else:
+                    main_menu.execute_command('Azul ON')
+                    main_menu.execute_command('Verde ON')
+                    main_menu.execute_command('Vermelho OFF')
+                    main_menu.clear_display()
+                    main_menu.write_line1('OPS!')
+                    main_menu.write_dinamic_line2('TENTE NOVAMENTE')
+                    time.sleep(10)
             else:
-                print("Tag sem produto inexistente")
+                print("Se maq. é para descarte envia sem selecionar produto")
+               
+                print(tag_maq['PickUp1'],tag_maq['DropOff1'])
+                enviar_command(tag_maq['PickUp1'],tag_maq['DropOff1'])
+        else:
+            print("Tag sem produto inexistente")
     except:
         print("Retornando ao menu")
     return
@@ -276,7 +274,7 @@ def sel_produto():
                 subproduto_selecionado= processo_selecao(subproduto_selecionado,produtos_bitola_tot,produtos_bitola_nomes)
                 time.sleep(0.250)
                 if keyboard_msg=='ENT':
-                    print("Tag Produto ", datareader.tagproduto(produtos_bitola[bitola_selecionada],produtos_bitola_nomes[subproduto_selecionado]))
+                    print("Tag Produto ", datareader.tagproduto(produtos_bitola[bitola_selecionada],produtos_bitola_nomes[subproduto_selecionado]).items())
                    
                     return datareader.tagproduto(produtos_bitola[bitola_selecionada],produtos_bitola_nomes[subproduto_selecionado])
                 if keyboard_msg =='CLR':
@@ -332,9 +330,9 @@ def pedido_viascanner():
         keyboard_msg=''
         tag_produto=prod_scanner()
         print("Tag Produto ",tag_produto)
-        if is_number_ascii(str(tag_produto[0])) == False:
+        if tag_produto["DropOff1"] != 0:
             print("Enviar")
-            print("Tag Maq, tag produto",tag_maq,tag_produto)
+            print("Tag Maq, tag produto",(tag_maq),(tag_produto))
             enviar_command(tag_maq,tag_produto)
         else:
             main_menu.execute_command('Azul ON')
@@ -387,15 +385,15 @@ def maq_scanner():
     if barcode_msg != '':
         print("Readed Barcode: ",barcode_msg)
         tagmaquina=datareader.tagqrcodemaq(str(barcode_msg))
-        nomemaquina=datareader.nomeqrcodemaq(str(barcode_msg))
-        print("nome maquina ",nomemaquina)
+        #nomemaquina=datareader.nomeqrcodemaq(str(barcode_msg))
+        print("nome maquina ",tagmaquina['Nome'])
         
         barcode_msg=''
         print(barcode_msg)
         if tagmaquina != None:
-            print("tagmaquina ",tagmaquina[0])
+            print("tagmaquina ",(tagmaquina))
             main_menu.write_line1('Maq.Sele. ')
-            main_menu.write_line2(nomemaquina)
+            main_menu.write_line2(tagmaquina['Nome'])
             time.sleep(3)
             return tagmaquina
         else:

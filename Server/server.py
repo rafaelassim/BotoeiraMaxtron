@@ -165,22 +165,22 @@ class serverSocket:
         self.FLEET_PORT = PORT
         return
 
-    def send_lgv_cmd(self,maq,prod,lgv):
+    def send_lgv_cmd(self,maq,prod):
         global REQUESTORDERID,HEX_SENDRESPONSE
-        print("aqui: ", type(lgv), " ",type("00FF"))
-      
-        if int(lgv) > -1:
+       
+       lgv =maq["LGV"]
+        if lgv > -1:
             #caso não tenha 0 no inicio coloca o zero
-            if len(lgv)==1:
-                lgv = '0' + lgv
+            if maq["LGV"] >0:
+                maq["LGV"] = 0 + lgv
             selectedlgv = bytes.fromhex(lgv)+bytes.fromhex('00')
-            print(selectedlgv)
+            print("LGV SELECIONADO:",selectedlgv)
         else:
             selectedlgv = bytes.fromhex('FF')
-            print(selectedlgv)
+            print("LGV SELECIONADO:",selectedlgv)
 
-        HEX_REQUESMISSION = bytes.fromhex(REQUESTORDERID) + int_to_two_bytes(self.ID) + bytes.fromhex('0000001600') +selectedlgv+int_to_two_bytes(maq[1])+int_to_two_bytes(prod[1])
-        HEX_REQUESMISSION = HEX_REQUESMISSION + int_to_two_bytes(int(maq[0]))+int_to_two_bytes(int(prod[0])) +bytes.fromhex('010001000000000000000000')
+        HEX_REQUESMISSION = bytes.fromhex(REQUESTORDERID) + int_to_two_bytes(self.ID) + bytes.fromhex('0000001600') +selectedlgv+int_to_two_bytes(maq['Order_ID'])+int_to_two_bytes(prod['Order_ID'])
+        HEX_REQUESMISSION = HEX_REQUESMISSION + int_to_two_bytes(maq['PickUp1'])+int_to_two_bytes(prod['DropOff1']) +bytes.fromhex('010001000000000000000000')
         print(HEX_REQUESMISSION)
         print("Tentando enviar lgv")
         HEX_REQUESMISSION = self.duplicate_ff(HEX_REQUESMISSION)
