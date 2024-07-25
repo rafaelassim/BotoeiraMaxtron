@@ -168,7 +168,7 @@ class serverSocket:
     def send_lgv_cmd(self,maq,prod):
         global REQUESTORDERID,HEX_SENDRESPONSE
        
-       lgv =maq["LGV"]
+        lgv =maq["LGV"]
         if lgv > -1:
             #caso não tenha 0 no inicio coloca o zero
             if maq["LGV"] >0:

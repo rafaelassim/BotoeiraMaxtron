@@ -1,5 +1,6 @@
 #import Server.server as server
 import Server.server as server
+import rest.rest_api as rest
 import Barcode.barcode as barcode
 import Gerenciador.gerenciador as gerenciador
 import DataReader.datareader as datareader
@@ -185,8 +186,10 @@ def enviar_command(tag_maq,tag_produto):
          
             time.sleep(0.100)
            
-            
-        ret = fleetManager.send_lgv_cmd(tag_maq,tag_produto)
+        if (tag_maq["Dupla"]==False):    
+            ret = fleetManager.send_lgv_cmd(tag_maq,tag_produto)
+        else:
+            ret = rest.send_rest(fleetManager.FLEET_ADDRES, tag_maq,tag_produto)
        
         if not fleetManager.connected:
             fleetManager.disconnect()
@@ -212,9 +215,9 @@ def pedido_viateclado():
     try:
         keyboard_msg=''
         if tag_maq['PickUp1']!=0:
-            if tag_maq['DropOff1']==0:
+            if tag_maq['Descarte']==False:
                 tag_produto = sel_produto()
-                if tag_produto["DropOff1"] != 0:
+                if tag_produto["DropOf1f"] != 0:
                     enviar_command(tag_maq,tag_produto)
                     
                 else:
@@ -229,7 +232,7 @@ def pedido_viateclado():
                 print("Se maq. é para descarte envia sem selecionar produto")
                
                 print(tag_maq['PickUp1'],tag_maq['DropOff1'])
-                enviar_command(tag_maq['PickUp1'],tag_maq['DropOff1'])
+                enviar_command(tag_maq,tag_maq)
         else:
             print("Tag sem produto inexistente")
     except:
@@ -330,18 +333,22 @@ def pedido_viascanner():
         keyboard_msg=''
         tag_produto=prod_scanner()
         print("Tag Produto ",tag_produto)
-        if tag_produto["DropOff1"] != 0:
-            print("Enviar")
-            print("Tag Maq, tag produto",(tag_maq),(tag_produto))
-            enviar_command(tag_maq,tag_produto)
+        if tag_maq['Descarte']==False:
+            if tag_produto["DropOff1"] != 0:
+                print("Enviar")
+                print("Tag Maq, tag produto",(tag_maq),(tag_produto))
+                enviar_command(tag_maq,tag_produto)
+            else:
+                main_menu.execute_command('Azul ON')
+                main_menu.execute_command('Verde ON')
+                main_menu.execute_command('Vermelho OFF')
+                main_menu.clear_display()
+                main_menu.write_line1('OPS!')
+                main_menu.write_dinamic_line2('TENTE NOVAMENTE')
+                time.sleep(10)
         else:
-            main_menu.execute_command('Azul ON')
-            main_menu.execute_command('Verde ON')
-            main_menu.execute_command('Vermelho OFF')
-            main_menu.clear_display()
-            main_menu.write_line1('OPS!')
-            main_menu.write_dinamic_line2('TENTE NOVAMENTE')
-            time.sleep(10)
+            print("Maquina para descarte")
+            enviar_command(tag_maq,tag_maq)
     main_menu.write_line1('Maq.    ')
     main_menu.write_line2('Nao Encontrada ')
     time.sleep(5)
@@ -444,20 +451,20 @@ if __name__ == '__main__':
 
     config=datareader.config()
  
-    REGIAO=config[3]
+    REGIAO=config["REGIAO"]
 
     print("Iniciando")
     t = time.perf_counter()
     fleetManager = server.serverSocket()
     print(config)
-    print(config[1],"   ",config[2])
-    fleetManager.configure(config[1],config[2])
+    print(config["IP-FLEETMANAGER"],"   ",config["PORT"])
+    fleetManager.configure(config["IP-FLEETMANAGER"],config["PORT"])
     fleetManager.inicializar()
     fleetManager.perfconnect()
     #fleetManager.FLEET_ADDRES = datareader.config[1]
     
     #fleetManager.FLEET_PORT =datareader.config[2]
-    fleetManager.load_defaults(config[0])
+    fleetManager.load_defaults(config["ID"])
     
     
 

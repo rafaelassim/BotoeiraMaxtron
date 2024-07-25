@@ -135,13 +135,13 @@ def config():
     PORT = 8015
     REGIAO ="A"
     try:
-        IP   =data["IP-FLEETMANAGER"]
-        PORT =data["PORT"]
-        ID   =data["ID"]
-        REGIAO   =data["REGIAO"]
-        print("IP DO GERENCIADOR ",IP)
-        print("PORTA DO GERENCIADOR ",PORT)
-        return (ID,IP,PORT,REGIAO)
+     #   IP   =data["IP-FLEETMANAGER"]
+     #   PORT =data["PORT"]
+     #   ID   =data["ID"]
+     #   REGIAO   =data["REGIAO"]
+     #   print("IP DO GERENCIADOR ",IP)
+     #   print("PORTA DO GERENCIADOR ",PORT)
+        return (data)
     except:
         return (ID,IP,PORT,REGIAO)
 

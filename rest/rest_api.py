@@ -174,12 +174,20 @@ def send_json(url, data, username, password):
         print(f"Ocorreu um erro: {e}")
         return False
 
-def send_rest(package):
+def send_rest(url,tag_maq,tag_produto):
+    username = "seu_usuario"
+    password = "sua_senha"
+    # Exemplo de uso da função
+    full_url="http://"+url+"/API/MISSIONCREATE"
 
+    # Lista com os novos valores de Id
+    novos_ids = [tag_maq['PickUp1'], tag_maq['DropOff1'], tag_maq['PickUp2'], tag_produto['DropOff1']]
 
-
-    send_json
-    return
+    # Atualizando o JSON com os novos valores de Id
+    replace_ids(mission_two_steps, novos_ids)
+    print(mission_two_steps)
+    return(send_json_nousername(url, data))
+    #return (send_json(url, data, username, password))
 
 
 def replace_ids(json_data, new_ids, id_index=0):
@@ -196,19 +204,27 @@ def replace_ids(json_data, new_ids, id_index=0):
     return id_index
 
 # Exemplo de uso da função
-url = "https://exemplo.com/api"
+#url = "https://exemplo.com/api"
 
 # Lista com os novos valores de Id
-novos_ids = [10222222222222221, 102, 103, 104]
+#novos_ids = [10222222222222221, 102, 103, 104]
 
 # Atualizando o JSON com os novos valores de Id
-replace_ids(mission_two_steps, novos_ids)
+#replace_ids(mission_two_steps, novos_ids)
 
-
-username = "seu_usuario"
-password = "sua_senha"
+#var1 = {"Nome":"Stretch","Priority": 0,"LGV": -1,"PickUp1": 8080 ,"DropOff1":20,"PickUp2":20,"DropOff2":0,"Descarte":False,"Dupla":False, "Order_ID":157}
+#print(var1)
+#print(type(var1))
+#print(var1["Nome"])
+#var2= {"Nome": "40402028","DropOff1": 2028,"Order_ID":1}
+#print(var2["DropOff1"])
+#novos_ids = [var1['PickUp1'], var1['DropOff1'], var1['PickUp2'], var2['DropOff1']]
+#replace_ids(mission_two_steps, novos_ids)
+#print(mission_two_steps)
+#username = "seu_usuario"
+#password = "sua_senha"
 
 #resultado = send_json(url, data, username, password)
 #print(f"Resultado: {resultado}")
 
-print(mission_two_steps)
+#print(mission_two_steps)
