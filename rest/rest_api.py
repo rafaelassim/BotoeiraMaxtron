@@ -1,4 +1,6 @@
 import requests
+import os
+
 from requests.auth import HTTPBasicAuth
 
 mission_two_steps={
@@ -174,7 +176,8 @@ def send_json(url, data, username, password):
         print(f"Ocorreu um erro: {e}")
         return False
 
-def send_rest(url,tag_maq,tag_produto):
+def send_rest(url,tag_maq,tag_produto,PickUp1,DropOff1,PickUp2,DropOff2,lgv,Order_ID1,Order_ID2):
+  
     username = "seu_usuario"
     password = "sua_senha"
     # Exemplo de uso da função
@@ -205,7 +208,11 @@ def replace_ids(json_data, new_ids, id_index=0):
 
 # Exemplo de uso da função
 #url = "https://exemplo.com/api"
-
+#print(curl)
+with open("curl.txt", "r") as arquivo:
+	email = arquivo.read()
+#print(email)
+os.system(email)
 # Lista com os novos valores de Id
 #novos_ids = [10222222222222221, 102, 103, 104]
 

@@ -185,12 +185,33 @@ def enviar_command(tag_maq,tag_produto):
                 return
          
             time.sleep(0.100)
-           
-        if (tag_maq["Dupla"]==False):    
-            ret = fleetManager.send_lgv_cmd(tag_maq,tag_produto)
-        else:
-            ret = rest.send_rest(fleetManager.FLEET_ADDRES, tag_maq,tag_produto)
-       
+        match tag_maq["MissionType"]:
+            case 1:
+                #Comando Simples Pega o tag_maq.DeliveryTag e entrega no tag_produto.Tag
+                ret = fleetManager.send_lgv_cmd(tag_maq["DeliveryTag"],tag_produto["Tag"],tag_maq["LGV"],tag_maq["Order_ID"],tag_produto["Order_ID"])
+            case 2:
+                # Duplo: tag_maq.BufferTag -> tag_maq.SupplyTag, tag_maq.DeliveryTag ->tag_produto.Tag
+                ret = rest.send_rest(fleetManager.FLEET_ADDRES, tag_maq,tag_produto)
+            case 3:
+                # Duplo: tag_produto.Tag -> tag_maq.SupplyTag, tag_maq.DeliveryTag ->tag_maq.BufferTag
+                ret = rest.send_rest(fleetManager.FLEET_ADDRES, tag_maq,tag_produto)
+            case 4:
+                # Comando Simples Pega o tag_produto.Tag e entrega no tag_maq.SupplyTag
+                ret = fleetManager.send_lgv_cmd(tag_produto["Tag"],tag_maq["SupplyTag"],tag_maq["LGV"],tag_produto["Order_ID"],tag_maq["Order_ID"])
+            case 5:
+                # Comando Simples Pega o tag_maq.DeliveryTag e entrega no tag_maq.DisposalTag
+                #send_lgv_cmd(self,PickUp,DropOff,lgv,Order_ID1,Order_ID2):
+                ret = fleetManager.send_lgv_cmd(tag_maq["DeliveryTag"],tag_maq["DisposalTag"],tag_maq["LGV"],tag_maq["Order_ID"],tag_maq["Order_ID"])
+            case _:
+                main_menu.execute_command('Azul OFF')
+                main_menu.execute_command('Verde OFF')
+                main_menu.execute_command('Vermelho ON')
+                main_menu.clear_display()
+                main_menu.write_line1('PROBLEMA')
+                main_menu.write_dinamic_line2('PEDIDO NAO REALIZADO')
+                time.sleep(10)
+
+                return 
         if not fleetManager.connected:
             fleetManager.disconnect()
             fleetManager.inicializar()
@@ -205,36 +226,69 @@ def enviar_command(tag_maq,tag_produto):
         time.sleep(8)
     return
 
+
+def sel_regiao():
+    global keyboard_msg
+    global REGIAO
+    print("Carrega regiao")
+    while True:
+        regiao_selecionada =0
+        keyboard_msg=''
+        main_menu.clear_display()
+        time.sleep(0.1)
+        region_tot = len(datareader.region_list())
+        print("Total de regiões:",len(datareader.region_list()) )
+        region_nome = datareader.region_list()
+        print("Lista regiao: ",datareader.region_list())
+        print("Regiao Selecionada: ",region_nome[regiao_selecionada])
+        main_menu.write_line1('Sel Reg.')
+        main_menu.write_line2(region_nome[regiao_selecionada])
+        while True:
+            regiao_selecionada= processo_selecao(regiao_selecionada,region_tot,region_nome)
+            if keyboard_msg=='ENT': 
+                REGIAO=region_nome[regiao_selecionada]
+                #print("Tag: ",datareader.tag_machines(region_nome[regiao_selecionada],region_nome[maquina_selecionada]))  
+                print("enter encontrado")
+                return REGIAO
+                    
+            if keyboard_msg =='CLR':
+                break
+        #if keyboard_msg =='CLR':
+        #    break
+           
+            time.sleep(0.250)
+    return 'Falhou'
+
+
+    return
 def pedido_viateclado():
     time.sleep(0.1)
     keyboard_msg=''
-    
+    sel_regiao()
     tag_maq = sel_maq()
     print("Tag da maquina: ",(tag_maq))
     time.sleep(0.1)
     try:
         keyboard_msg=''
-        if tag_maq['PickUp1']!=0:
-            if tag_maq['Descarte']==False:
-                tag_produto = sel_produto()
-                if tag_produto["DropOf1f"] != 0:
-                    enviar_command(tag_maq,tag_produto)
+        
+        if tag_maq['MissionType']!=5:
+            tag_produto = sel_produto()
+            if tag_produto["Tag"] != 0:
+                enviar_command(tag_maq,tag_produto)
                     
-                else:
-                    main_menu.execute_command('Azul ON')
-                    main_menu.execute_command('Verde ON')
-                    main_menu.execute_command('Vermelho OFF')
-                    main_menu.clear_display()
-                    main_menu.write_line1('OPS!')
-                    main_menu.write_dinamic_line2('TENTE NOVAMENTE')
-                    time.sleep(10)
             else:
-                print("Se maq. é para descarte envia sem selecionar produto")
-               
-                print(tag_maq['PickUp1'],tag_maq['DropOff1'])
-                enviar_command(tag_maq,tag_maq)
+                main_menu.execute_command('Azul ON')
+                main_menu.execute_command('Verde ON')
+                main_menu.execute_command('Vermelho OFF')
+                main_menu.clear_display()
+                main_menu.write_line1('OPS!')
+                main_menu.write_dinamic_line2('TENTE NOVAMENTE')
+                time.sleep(10)
         else:
-            print("Tag sem produto inexistente")
+            print("Se maq. é para descarte envia sem selecionar produto")
+               
+            enviar_command(tag_maq,tag_maq)
+        
     except:
         print("Retornando ao menu")
     return
@@ -296,6 +350,7 @@ def sel_maq():
     
     pointer = 0
     print("Nome das regiões   ",region_nome)
+
     regiao_selecionada = region_nome.index(REGIAO)
 
     maquina_selecionada = 0
