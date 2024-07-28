@@ -1,5 +1,5 @@
 curl -m 1 -L -g 'http://192.168.15.58:1234/api/MissionCreate?access_token=AQAAANCMnd8BFdERjHoAwE_Cl-sBAAAAdvQ1hwE1kEOaRn4wCDHVHQAAAAACAAAAAAAQZgAAAAEAACAAAADv9WapRSFV3d2rpc4BTLfHeTnuHgfpH3u4EqE0XjSUBgAAAAAOgAAAAAIAACAAAADTox1vc-m6qOEakmWcNKPmpmj15VekjZO4leOiW_Hyx9ACAADzwJRcUlxi83X1Xaj9ocdTRXtneOSd3EMzaQq8zWA5su5UqUqvV88DGztVMl4kXp6D-SDinN7XN_dzaQhXI4JARgSrYJR_1jHHur0pORBSjemXt1aAIsepQ7sRvLCJ3QzPDbKnnLg4GOrpjcfySMATkC05R6cE7Wblj5qnuK_khHgg6CgRxR178tu3v5Uibu4T0IpfhgUHAh9A9MsQIvEHU8GBafb-UHIh_-LYIYpLBhyJlloe6rmA2clDlBxuxCSsz8MNezGeVwuNEeYtZN2yzbZP7f_g7N4_vjuXuhR633CwWwCgyLnIkc1ZhE7tjAnMUDugMvA3HPGxWuTVDKW8Yjmg62MV1Z4pDFtQS0j6f9hqrHeVii_iyOn7-2WbFYPuzcXgGqWnF6xa6Enjmk5FzyU68wJiiHXOK62Eqq6a-kyUYikP1eC4wGam_GR2p5iZ8eeYbUFUCJzr0cQwMkoKeCX5EYr1U4yTi3ZWd9BPd9DolTRRcc5waWyegAaDetMdea9dRocUM6-nHUAF_iCR1OtfQHsIInWdgkd_8bNSxZVPpEyjLUxBEuteVyxHSVCPD-WqU2rGbd-xPH1n9RzXCmbAJIjeY3A3OsmkFnQB09aJfsS4_38Nl5NgsU3ksaVkWo5Nzd5tK713Mg0Xcecl7lWmxBUOIn4uUNAvnKjuzbT-848tEo-rqxoBWE2EXmmlB4GdzyoyyiIP-KaParqOPEHd_vaoguALWVa2eJOcLlDrtp5jIj72tPpU7HNQ95le8TJFNWHMDYDST78_WWbaTFVRKOWXhCwRCCEwTWWPwkWylEgrCq5GyzDkmNYRu16HIoQxHrHXTqdxtENAPtRBXD5G2kPKDRvYiMPsoSUAPyp68F6pt-Cm8IhZTqjHKjSNzqEzQY52jrtkzZunn1IRtq5YwgtML88LREJmU7Tw9sNlPu7gsHf5nrEFFJUsXdZAAAAA5ACY9XS6jEPytf_7uTOWXA5Q9DP_A4oMx_CtYrjKEpTO0IyXlv505SU5fpzo6CcZO-aSuwtlZy3sKkA8p4j5jQ' -H 'Content-Type: application/json' -d '{
-  "ExternalId": "@ID1 @ID2",
+  "ExternalId": "54321 @ID2",
   "Name": "Manual mission 14:29:12",
   "MissionType": "Mission",
   "Options": {
@@ -37,7 +37,7 @@ curl -m 1 -L -g 'http://192.168.15.58:1234/api/MissionCreate?access_token=AQAAAN
       },
       "AllowedTargets": [
         {
-          "Id": @Pickup1
+          "Id": 1
         }
       ],
       "AllowedWaits": []
@@ -69,7 +69,7 @@ curl -m 1 -L -g 'http://192.168.15.58:1234/api/MissionCreate?access_token=AQAAAN
       },
       "AllowedTargets": [
         {
-          "Id": @Dropoff1
+          "Id": 3
         }
       ],
       "AllowedWaits": []
@@ -101,7 +101,7 @@ curl -m 1 -L -g 'http://192.168.15.58:1234/api/MissionCreate?access_token=AQAAAN
       },
       "AllowedTargets": [
         {
-          "Id": @Pickup2
+          "Id": 5
         }
       ],
       "AllowedWaits": []
@@ -133,7 +133,7 @@ curl -m 1 -L -g 'http://192.168.15.58:1234/api/MissionCreate?access_token=AQAAAN
       },
       "AllowedTargets": [
         {
-          "Id": @Dropoff2
+          "Id": 12
         }
       ],
       "AllowedWaits": []

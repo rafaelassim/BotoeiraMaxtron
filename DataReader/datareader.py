@@ -117,15 +117,15 @@ def nomeqrcodprod(qrcode):
         return (None)
 
 
-def nomeqrcodprod(qrcode):
-    arqprod = open(qrcodeprodjson)
-    data = json.load(arqprod)
-    try:
-        nome =data["qrcodeprod"][qrcode]['Nome']
-        return (nome)
-    except:
+#def nomeqrcodprod(qrcode):
+#    arqprod = open(qrcodeprodjson)
+#    data = json.load(arqprod)
+#    try:
+#        nome =data["qrcodeprod"][qrcode]['Nome']
+#        return (nome)
+#    except:
 
-        return (None)
+#        return (None)
 
 def config():
     arqconfig = open(configjson)

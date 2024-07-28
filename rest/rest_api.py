@@ -1,5 +1,6 @@
 import requests
 import os
+import subprocess,sys
 
 from requests.auth import HTTPBasicAuth
 
@@ -176,23 +177,39 @@ def send_json(url, data, username, password):
         print(f"Ocorreu um erro: {e}")
         return False
 
-def send_rest(url,tag_maq,tag_produto,PickUp1,DropOff1,PickUp2,DropOff2,lgv,Order_ID1,Order_ID2):
+def send_rest(PickUp1,DropOff1,PickUp2,DropOff2,lgv,Order_ID1,Order_ID2):
   
-    username = "seu_usuario"
-    password = "sua_senha"
-    # Exemplo de uso da função
-    full_url="http://"+url+"/API/MISSIONCREATE"
+  
+        # Enviando o JSON para a URL usando o método POST com autenticação básica
+    #Abrindo o arquivo template
+  with open("rest/curl.txt", "r") as arquivo:
+	  template = arquivo.read()    
+        # Verificando se a resposta foi recebida corretamente (status code 2xx)
 
-    # Lista com os novos valores de Id
-    novos_ids = [tag_maq['PickUp1'], tag_maq['DropOff1'], tag_maq['PickUp2'], tag_produto['DropOff1']]
+ 
+  template=template.replace("@ID1",str(Order_ID1))
+  template=template.replace("@ID2",str(Order_ID2))
+  template=template.replace("@Dropoff2",str(DropOff2))
+  template=template.replace("@Pickup2",str(PickUp2))
+  template=template.replace("@Dropoff1",str(DropOff1))
+  template=template.replace("@Pickup1",str(PickUp1))
+  print("Enviando via script")
+  try:
+    result = subprocess.check_output(template, shell = True, executable = "/bin/bash", stderr = subprocess.STDOUT)
 
-    # Atualizando o JSON com os novos valores de Id
-    replace_ids(mission_two_steps, novos_ids)
-    print(mission_two_steps)
-    return(send_json_nousername(url, data))
-    #return (send_json(url, data, username, password))
+  except subprocess.CalledProcessError as cpe:
+    result = cpe.output
 
+  finally:  
+    for line in result.splitlines():
+      print(line.decode())
+      if 'Connection timed' in line.decode():
+        print("ok")
+        return True
+    
+  return False
 
+  
 def replace_ids(json_data, new_ids, id_index=0):
     if isinstance(json_data, dict):
         for key, value in json_data.items():
@@ -209,29 +226,24 @@ def replace_ids(json_data, new_ids, id_index=0):
 # Exemplo de uso da função
 #url = "https://exemplo.com/api"
 #print(curl)
-with open("curl.txt", "r") as arquivo:
-	email = arquivo.read()
-#print(email)
-os.system(email)
-# Lista com os novos valores de Id
-#novos_ids = [10222222222222221, 102, 103, 104]
+def test():
+  with open("curl.txt", "r") as arquivo:
+    protoCurl = arquivo.read()
 
-# Atualizando o JSON com os novos valores de Id
-#replace_ids(mission_two_steps, novos_ids)
 
-#var1 = {"Nome":"Stretch","Priority": 0,"LGV": -1,"PickUp1": 8080 ,"DropOff1":20,"PickUp2":20,"DropOff2":0,"Descarte":False,"Dupla":False, "Order_ID":157}
-#print(var1)
-#print(type(var1))
-#print(var1["Nome"])
-#var2= {"Nome": "40402028","DropOff1": 2028,"Order_ID":1}
-#print(var2["DropOff1"])
-#novos_ids = [var1['PickUp1'], var1['DropOff1'], var1['PickUp2'], var2['DropOff1']]
-#replace_ids(mission_two_steps, novos_ids)
-#print(mission_two_steps)
-#username = "seu_usuario"
-#password = "sua_senha"
+  try:
+      result = subprocess.check_output(protoCurl, shell = True, executable = "/bin/bash", stderr = subprocess.STDOUT)
 
-#resultado = send_json(url, data, username, password)
-#print(f"Resultado: {resultado}")
+  except subprocess.CalledProcessError as cpe:
+      result = cpe.output
 
-#print(mission_two_steps)
+  finally:
+      for line in result.splitlines():
+        print(line.decode())
+      #    if '1001' in line.decode():
+      #      print("ok")
+      #print(result.splitlines())
+      if 'Connection' in result.splitlines():
+        print("ok")
+      print(type(result.splitlines()))
+

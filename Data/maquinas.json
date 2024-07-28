@@ -1,31 +1,31 @@
 {
   "region": {
     
-   "A": {	
-    "A VAZIO": {"Nome":"A","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":4,"BufferTag":999999,"DisposalTag":10,"MissionType":2,  "Order_ID":101}, 
-   "A DESCARTE": {"Nome":"A","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":4,"BufferTag":99999,"DisposalTag":10,"MissionType":5,  "Order_ID":103}
+    "A": {	
+    "ABASTECE": {"Nome":"ABASTECE","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":4,"BufferTag":999999,"DisposalTag":10,"MissionType":2,  "Order_ID":101}, 
+    "DESCARTE": {"Nome":"DESCARTE","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":4,"BufferTag":99999,"DisposalTag":10,"MissionType":5,  "Order_ID":103}
 
  
    },	
      
    "B": {	
-    "B CHEIO": {"Nome":"B","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":9999,"DisposalTag":10,"MissionType":3,  "Order_ID":105},
-    "B DESCARTE": {"Nome":"B","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":9999,"DisposalTag":10,"MissionType":5,  "Order_ID":106}
+    "ABASTECE": {"Nome":"ABASTECE","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":9999,"DisposalTag":10,"MissionType":3,  "Order_ID":105},
+    "DESCARTE": {"Nome":"DESCARTE","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":9999,"DisposalTag":10,"MissionType":5,  "Order_ID":106}
 
    },	
      
    "C": {	
    
 
-   "C VAZIO": {"Nome":"C","Priority": 0,"LGV": -1,"DeliveryTag":999999,"SupplyTag":4,"BufferTag":999999,"DisposalTag":10,"MissionType":2,  "Order_ID":110},
-   "C DESCARTE": {"Nome":"C","Priority": 0,"LGV": -1,"DeliveryTag":999999,"SupplyTag":4,"BufferTag":99999,"DisposalTag":10,"MissionType":5,  "Order_ID":111}
+   "ABASTECE": {"Nome":"ABASTECE","Priority": 0,"LGV": -1,"DeliveryTag":999999,"SupplyTag":4,"BufferTag":999999,"DisposalTag":10,"MissionType":2,  "Order_ID":110},
+   "DESCARTE": {"Nome":"DESCARTE","Priority": 0,"LGV": -1,"DeliveryTag":999999,"SupplyTag":4,"BufferTag":99999,"DisposalTag":10,"MissionType":5,  "Order_ID":111}
 
    },	
      
    "G": {	
-    "G ABASTEC": {"Nome":"G","Priority": 0,"LGV": -1,"DeliveryTag":0,"SupplyTag":5,"BufferTag":0,"DisposalTag":10,"MissionType":4,  "Order_ID":112},
-    "G VAZIO": {"Nome":"G","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":5,"BufferTag":999999,"DisposalTag":34,"MissionType":5,  "Order_ID":113},
-    "G DESCARTE": {"Nome":"G","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":0,"DisposalTag":10,"MissionType":5,  "Order_ID":114}
+    "ABASTECE": {"Nome":"ABASTECE","Priority": 0,"LGV": -1,"DeliveryTag":0,"SupplyTag":5,"BufferTag":0,"DisposalTag":10,"MissionType":4,  "Order_ID":112},
+    "VAZIO": {"Nome":"VAZIO","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":5,"BufferTag":999999,"DisposalTag":34,"MissionType":5,  "Order_ID":113},
+    "DESCARTE": {"Nome":"DESCARTE","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":0,"DisposalTag":10,"MissionType":5,  "Order_ID":114}
  
    }
    

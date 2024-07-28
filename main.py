@@ -159,8 +159,9 @@ def processo_digitacao_teclado(pointer, maxsize, array):
 
 def enviar_command(tag_maq,tag_produto):
     global keyboard_msg
-    print("Coletar na tag: ",(tag_maq))
-    print("Entregar no destino: ",(tag_produto))
+    print("Maquin: ",(tag_maq))
+    print("Produto: ",(tag_produto))
+    print("Tipo de missão: ",tag_maq["MissionType"])
     main_menu.execute_command('Azul ON')
     main_menu.execute_command('Verde OFF')
     main_menu.execute_command('Vermelho OFF')
@@ -173,7 +174,7 @@ def enviar_command(tag_maq,tag_produto):
         
         for i in range(50):
             
-            print("está no teclado", keyboard_msg)
+           
             if keyboard_msg=='CLR':
                 main_menu.execute_command('Azul OFF')
                 main_menu.execute_command('Verde OFF')
@@ -188,19 +189,29 @@ def enviar_command(tag_maq,tag_produto):
         match tag_maq["MissionType"]:
             case 1:
                 #Comando Simples Pega o tag_maq.DeliveryTag e entrega no tag_produto.Tag
+                print("missão tipo 1")
                 ret = fleetManager.send_lgv_cmd(tag_maq["DeliveryTag"],tag_produto["Tag"],tag_maq["LGV"],tag_maq["Order_ID"],tag_produto["Order_ID"])
             case 2:
                 # Duplo: tag_maq.BufferTag -> tag_maq.SupplyTag, tag_maq.DeliveryTag ->tag_produto.Tag
-                ret = rest.send_rest(fleetManager.FLEET_ADDRES, tag_maq,tag_produto)
+                #ret = rest.send_rest(fleetManager.FLEET_ADDRES, tag_maq,tag_produto)
+                print("missão tipo 2")
+                #"Nome":"ABASTECE","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":4,"BufferTag":999999,"DisposalTag":10,"MissionType":2,  "Order_ID":101}, 
+                ret = rest.send_rest(tag_maq["BufferTag"],tag_maq["SupplyTag"],tag_maq["DeliveryTag"],tag_produto["Tag"],tag_maq["LGV"],tag_maq["Order_ID"],tag_produto["Order_ID"])
             case 3:
-                # Duplo: tag_produto.Tag -> tag_maq.SupplyTag, tag_maq.DeliveryTag ->tag_maq.BufferTag
-                ret = rest.send_rest(fleetManager.FLEET_ADDRES, tag_maq,tag_produto)
+                # Duplo: tag_produto.Tag -> tag_maq.SupplyTag, tag_maq.DeliveryTag ->tag_maq.BufferTag  -- abastece antes de coletar e envia para um buffer
+                # end_rest(PickUp1,DropOff1,PickUp2,DropOff2,lgv,Order_ID1,Order_ID2):
+                print("missão tipo 3")
+                ret = rest.send_rest(tag_produto["Tag"],tag_maq["SupplyTag"],tag_maq["DeliveryTag"],tag_maq["BufferTag"],tag_maq["LGV"],tag_maq["Order_ID"],tag_produto["Order_ID"])
+                  
             case 4:
                 # Comando Simples Pega o tag_produto.Tag e entrega no tag_maq.SupplyTag
-                ret = fleetManager.send_lgv_cmd(tag_produto["Tag"],tag_maq["SupplyTag"],tag_maq["LGV"],tag_produto["Order_ID"],tag_maq["Order_ID"])
+                print("missão tipo 4")
+                ret = fleetManager.send_lgv_cmd(tag_produto["Tag"],tag_maq["SupplyTag"],tag_maq["LGV"],tag_maq["Order_ID"],tag_produto["Order_ID"])
+                
             case 5:
                 # Comando Simples Pega o tag_maq.DeliveryTag e entrega no tag_maq.DisposalTag
                 #send_lgv_cmd(self,PickUp,DropOff,lgv,Order_ID1,Order_ID2):
+                print("missão tipo 5")
                 ret = fleetManager.send_lgv_cmd(tag_maq["DeliveryTag"],tag_maq["DisposalTag"],tag_maq["LGV"],tag_maq["Order_ID"],tag_maq["Order_ID"])
             case _:
                 main_menu.execute_command('Azul OFF')
@@ -376,8 +387,8 @@ def sel_maq():
                     
             if keyboard_msg =='CLR':
                 break
-        #if keyboard_msg =='CLR':
-        #    break
+        if keyboard_msg =='CLR':
+            break
         time.sleep(0.250)
     return 'Falhou'
 def pedido_viascanner():
@@ -385,14 +396,20 @@ def pedido_viascanner():
     keyboard_msg=''
     tag_maq =  maq_scanner()
     if tag_maq != 'Falhou':
+        if tag_maq['MissionType']==5:
+            enviar_command(tag_maq,tag_maq)
+            return
         keyboard_msg=''
         tag_produto=prod_scanner()
+        if tag_produto == None:
+            return
         print("Tag Produto ",tag_produto)
-        if tag_maq['Descarte']==False:
-            if tag_produto["DropOff1"] != 0:
+        if tag_maq['MissionType']!=5:
+            if tag_produto["Tag"] != 0:
                 print("Enviar")
                 print("Tag Maq, tag produto",(tag_maq),(tag_produto))
                 enviar_command(tag_maq,tag_produto)
+                return
             else:
                 main_menu.execute_command('Azul ON')
                 main_menu.execute_command('Verde ON')
@@ -404,6 +421,7 @@ def pedido_viascanner():
         else:
             print("Maquina para descarte")
             enviar_command(tag_maq,tag_maq)
+            return 
     main_menu.write_line1('Maq.    ')
     main_menu.write_line2('Nao Encontrada ')
     time.sleep(5)
@@ -421,11 +439,12 @@ def prod_scanner():
         if barcode_msg != '':
             print("Readed Barcode: ",barcode_msg)
             tagproduto=datareader.tagqrcodprod(barcode_msg)
-            nomeProduto=datareader.nomeqrcodprod(barcode_msg)
+            #nomeProduto=datareader.nomeqrcodprod(barcode_msg)
+            print(tagproduto)
             barcode_msg=''
             if tagproduto !=None:
                 main_menu.write_line1('Prod.Sel')
-                main_menu.write_line2(nomeProduto)
+                main_menu.write_line2(tagproduto["Nome"])
                 time.sleep(3)
                 return tagproduto
             else:
@@ -448,7 +467,7 @@ def maq_scanner():
         print("Readed Barcode: ",barcode_msg)
         tagmaquina=datareader.tagqrcodemaq(str(barcode_msg))
         #nomemaquina=datareader.nomeqrcodemaq(str(barcode_msg))
-        print("nome maquina ",tagmaquina['Nome'])
+        
         
         barcode_msg=''
         print(barcode_msg)
@@ -456,7 +475,7 @@ def maq_scanner():
             print("tagmaquina ",(tagmaquina))
             main_menu.write_line1('Maq.Sele. ')
             main_menu.write_line2(tagmaquina['Nome'])
-            time.sleep(3)
+            time.sleep(5)
             return tagmaquina
         else:
             print("Maq não encontrada")

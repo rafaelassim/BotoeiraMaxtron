@@ -1,98 +1,29 @@
 {
   "qrcodemaq": {
-    "strech": {"Nome":"strech","Priority": 0,"LGV": -1,"PickUp1": 5 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":101},
-    "11": {"Nome":"11","Priority": 0,"LGV": -1,"PickUp1": 11 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":102},
-    "12": {"Nome":"12","Priority": 0,"LGV": -1,"PickUp1": 12 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":103},
-    "13": {"Nome":"13","Priority": 0,"LGV": -1,"PickUp1": 13 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":104},
-    "14": {"Nome":"14","Priority": 0,"LGV": -1,"PickUp1": 14 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":105},
-    "15": {"Nome":"15","Priority": 0,"LGV": -1,"PickUp1": 15 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":106},
-    "16": {"Nome":"16","Priority": 0,"LGV": -1,"PickUp1": 16 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":107},
-    "17": {"Nome":"17","Priority": 0,"LGV": -1,"PickUp1": 17 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":108},
-    "18": {"Nome":"18","Priority": 0,"LGV": -1,"PickUp1": 18 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":109},
-    "19": {"Nome":"19","Priority": 0,"LGV": -1,"PickUp1": 19 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":110},
-    "20": {"Nome":"20","Priority": 0,"LGV": -1,"PickUp1": 20 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":111},
-    "21": {"Nome":"21","Priority": 0,"LGV": -1,"PickUp1": 21 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":112},
-    "22": {"Nome":"22","Priority": 0,"LGV": -1,"PickUp1": 22 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":113},
-    "23": {"Nome":"23","Priority": 0,"LGV": -1,"PickUp1": 23 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":114},
-    "24": {"Nome":"24","Priority": 0,"LGV": -1,"PickUp1": 24 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":115},
-    "25": {"Nome":"25","Priority": 0,"LGV": -1,"PickUp1": 25 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":116},
-    "26": {"Nome":"26","Priority": 0,"LGV": -1,"PickUp1": 26 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":117},
-    "4": {"Nome":"4","Priority": 0,"LGV": -1,"PickUp1": 4 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":118},
    
+      
+    
+      "aabastece": {"Nome":"Abastece","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":4,"BufferTag":999999,"DisposalTag":10,"MissionType":2,  "Order_ID":101}, 
+      "adescarte": {"Nome":"descarte","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":4,"BufferTag":99999,"DisposalTag":10,"MissionType":5,  "Order_ID":103},
+  
    
-   "438": {"Nome":"438","Priority": 0,"LGV": -1,"PickUp1": 438 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":119},
-   "420": {"Nome":"420","Priority": 0,"LGV": -1,"PickUp1": 420 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":120},
-   "419": {"Nome":"419","Priority": 0,"LGV": -1,"PickUp1": 419 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":121},
-   "416": {"Nome":"416","Priority": 0,"LGV": -1,"PickUp1": 416 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":122},
-   "415": {"Nome":"415","Priority": 0,"LGV": -1,"PickUp1": 415 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":123},
-   "422": {"Nome":"422","Priority": 0,"LGV": -1,"PickUp1": 422 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":124},
-   "421": {"Nome":"421","Priority": 0,"LGV": -1,"PickUp1": 421 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":125},
-   "529": {"Nome":"529","Priority": 0,"LGV": -1,"PickUp1": 529 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":126},
-   "528": {"Nome":"528","Priority": 0,"LGV": -1,"PickUp1": 528 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":127},
-   "527": {"Nome":"527","Priority": 0,"LGV": -1,"PickUp1": 527 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":128},
-   "443": {"Nome":"443","Priority": 0,"LGV": -1,"PickUp1": 443 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":129},
-   "439": {"Nome":"439","Priority": 0,"LGV": -1,"PickUp1": 439 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":130},
-   "489": {"Nome":"489","Priority": 0,"LGV": -1,"PickUp1": 489 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":131},
-   "670": {"Nome":"670","Priority": 0,"LGV": -1,"PickUp1": 670 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":132},
+  
+       
+ 
+      "babastece": {"Nome":"Abastece","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":9999,"DisposalTag":10,"MissionType":3,  "Order_ID":105},
+      "bdescarte": {"Nome":"Descarte","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":9999,"DisposalTag":10,"MissionType":5,  "Order_ID":106},
+       
+     
+  
+     "cabastece": {"Nome":"Abastece","Priority": 0,"LGV": -1,"DeliveryTag":999999,"SupplyTag":4,"BufferTag":999999,"DisposalTag":10,"MissionType":2,  "Order_ID":110},
+     "cdescarte": {"Nome":"Descarte","Priority": 0,"LGV": -1,"DeliveryTag":999999,"SupplyTag":4,"BufferTag":99999,"DisposalTag":10,"MissionType":5,  "Order_ID":111},
+  
+  
+      "gabastece": {"Nome":"Abastece","Priority": 0,"LGV": -1,"DeliveryTag":0,"SupplyTag":5,"BufferTag":0,"DisposalTag":10,"MissionType":4,  "Order_ID":112},
+      "gvazio": {"Nome":"VAZIO   ","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":5,"BufferTag":999999,"DisposalTag":34,"MissionType":5,  "Order_ID":113},
+      "gdescarte": {"Nome":"Descarte","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":0,"DisposalTag":10,"MissionType":5,  "Order_ID":114}
    
-   
-   
-   "6146": {"Nome":"6146","Priority": 0,"LGV": -1,"PickUp1": 6146 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":133},
-   "6155": {"Nome":"6155","Priority": 0,"LGV": -1,"PickUp1": 6155 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":134},
-   "6148": {"Nome":"6148","Priority": 0,"LGV": -1,"PickUp1": 6148 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":135},
-   "6151": {"Nome":"6151","Priority": 0,"LGV": -1,"PickUp1": 6151 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":136},
-   "6144": {"Nome":"6144","Priority": 0,"LGV": -1,"PickUp1": 6144 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":137},
-   
-   
-   
-   "6066": {"Nome":"6066","Priority": 0,"LGV": -1,"PickUp1": 6066 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":138},
-   "6067": {"Nome":"6067","Priority": 0,"LGV": -1,"PickUp1": 6067 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":139},
-   
-   
-   
-   "2015": {"Nome":"2015","Priority": 0,"LGV": -1,"PickUp1": 2015 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":140},
-   
-   
-   
-   "6169": {"Nome":"6169","Priority": 0,"LGV": -1,"PickUp1": 6169 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":141},
-   "6023": {"Nome":"6023","Priority": 0,"LGV": -1,"PickUp1": 6023 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":142},
-   "6168": {"Nome":"6168","Priority": 0,"LGV": -1,"PickUp1": 6168 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":143},
-   
-   
-   
-   "6150": {"Nome":"6150","Priority": 0,"LGV": -1,"PickUp1": 6150 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":144},
-   "6171": {"Nome":"6171","Priority": 0,"LGV": -1,"PickUp1": 6171 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":145},
-   "6170": {"Nome":"6170","Priority": 0,"LGV": -1,"PickUp1": 6170 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":146},
-   "6164": {"Nome":"6164","Priority": 0,"LGV": -1,"PickUp1": 6164 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":147},
-   "6162": {"Nome":"6162","Priority": 0,"LGV": -1,"PickUp1": 6162 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":148},
-   "6161": {"Nome":"6161","Priority": 0,"LGV": -1,"PickUp1": 6161 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":149},
-   "6159": {"Nome":"6159","Priority": 0,"LGV": -1,"PickUp1": 6159 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":150},
-   "6158": {"Nome":"6158","Priority": 0,"LGV": -1,"PickUp1": 6158 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":151},
-   "6157": {"Nome":"6157","Priority": 0,"LGV": -1,"PickUp1": 6157 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":152},
-   
-   
-   
-   "2017": {"Nome":"2017","Priority": 0,"LGV": -1,"PickUp1": 2017 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":153},
-   
-   
-   
-   "Depostio": {"Nome":"Depostio","Priority": 0,"LGV": -1,"PickUp1": 8080 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":154},
-   
-   
-   "BUFFER CARRETEL": {"Nome":"BUFFER CARRETEL","Priority": 0,"LGV": -1,"PickUp1": 8080 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":155},
-   
-   
-   
-   "BUFFER PALLET": {"Nome":"BUFFER PALLET","Priority": 0,"LGV": -1,"PickUp1": 8080 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":156},
-   
-   
-   
-   "Stretch": {"Nome":"Stretch","Priority": 0,"LGV": -1,"PickUp1": 8080 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":157},
-   "1787": {"Nome":"1787","Priority": 0,"LGV": -1,"PickUp1": 1787 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":158},
-   
-   
-   
-   "6040": {"Nome":"6040","Priority": 0,"LGV": -1,"PickUp1": 6040 ,"DropOff1":0,"PickUp2":0,"DropOff2":0,"Descarte":false,"Dupla":false,  "Order_ID":159}
+    
    
   }
 }
