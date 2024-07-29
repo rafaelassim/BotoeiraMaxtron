@@ -182,7 +182,7 @@ def send_rest(PickUp1,DropOff1,PickUp2,DropOff2,lgv,Order_ID1,Order_ID2):
   
         # Enviando o JSON para a URL usando o método POST com autenticação básica
     #Abrindo o arquivo template
-  with open("rest/curl.txt", "r") as arquivo:
+  with open("/home/tunkers/BotoeiraMaxtron/rest/curl.txt", "r") as arquivo:
 	  template = arquivo.read()    
         # Verificando se a resposta foi recebida corretamente (status code 2xx)
 
@@ -203,7 +203,7 @@ def send_rest(PickUp1,DropOff1,PickUp2,DropOff2,lgv,Order_ID1,Order_ID2):
   finally:  
     for line in result.splitlines():
       print(line.decode())
-      if 'Connection timed' in line.decode():
+      if 'Mission Created Succesfully' in line.decode():
         print("ok")
         return True
     

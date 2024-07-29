@@ -2,7 +2,7 @@
      
             "ID": 21,
             "IP": "192.168.1.90",          
-            "IP-FLEETMANAGER": "192.168.1.12",
+            "IP-FLEETMANAGER": "192.168.15.58",
             "REGIAO":"COM",
             "PORT":8015,   
             "DHCP":true,   

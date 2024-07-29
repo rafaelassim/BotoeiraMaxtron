@@ -1,6 +1,8 @@
 {
   "Produtos": {
-    "TIPO A": {"1.0": {"Tag": 5,"Order_ID": 1}},
-    "TIPO B": {"2.0": {"Tag": 33,"Order_ID": 2}}
+    "TIPO A": {"1.0": {"Tag": 16,"Order_ID": 1}},
+    "TIPO B": {"2.0": {"Tag": 13,"Order_ID": 2}},
+    "TIPO A PALETE": {"1.0": {"Tag": 29,"Order_ID": 1}},
+    "TIPO B PALETE": {"1.0": {"Tag": 26,"Order_ID": 1}}
   }
 }

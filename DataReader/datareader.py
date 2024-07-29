@@ -1,11 +1,11 @@
 
 import json
 
-configjson      = 'Data/config.json'
-maquinasjson    = 'Data/maquinas.json'
-produtosjson    = 'Data/produtos.json'
-qrcodemaqjson   = 'Data/qrcodemaq.json'
-qrcodeprodjson  = 'Data/qrcodeprod.json'
+configjson      = '/home/tunkers/BotoeiraMaxtron/Data/config.json'
+maquinasjson    = '/home/tunkers/BotoeiraMaxtron/Data/maquinas.json'
+produtosjson    = '/home/tunkers/BotoeiraMaxtron/Data/produtos.json'
+qrcodemaqjson   = '/home/tunkers/BotoeiraMaxtron/Data/qrcodemaq.json'
+qrcodeprodjson  = '/home/tunkers/BotoeiraMaxtron/Data/qrcodeprod.json'
 
 
 def region_list():
@@ -144,6 +144,3 @@ def config():
         return (data)
     except:
         return (ID,IP,PORT,REGIAO)
-
-
-print((tag_machines('A','438')))

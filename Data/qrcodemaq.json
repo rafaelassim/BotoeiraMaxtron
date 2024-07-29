@@ -3,25 +3,25 @@
    
       
     
-      "aabastece": {"Nome":"Abastece","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":4,"BufferTag":999999,"DisposalTag":10,"MissionType":2,  "Order_ID":101}, 
-      "adescarte": {"Nome":"descarte","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":4,"BufferTag":99999,"DisposalTag":10,"MissionType":5,  "Order_ID":103},
+      "aabastece":  {"Nome":"ABASTECE","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":4,"BufferTag":37,"DisposalTag":10,"MissionType":2,  "Order_ID":101}, 
+      "adescarte": {"Nome":"DESCARTE","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":4,"BufferTag":37,"DisposalTag":10,"MissionType":5,  "Order_ID":103},
+
   
    
   
        
  
-      "babastece": {"Nome":"Abastece","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":9999,"DisposalTag":10,"MissionType":3,  "Order_ID":105},
-      "bdescarte": {"Nome":"Descarte","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":9999,"DisposalTag":10,"MissionType":5,  "Order_ID":106},
+      "babastece":{"Nome":"ABASTECE","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":37,"DisposalTag":10,"MissionType":3,  "Order_ID":105},
+      "bdescarte":{"Nome":"DESCARTE","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":37,"DisposalTag":10,"MissionType":5,  "Order_ID":106},
        
      
   
-     "cabastece": {"Nome":"Abastece","Priority": 0,"LGV": -1,"DeliveryTag":999999,"SupplyTag":4,"BufferTag":999999,"DisposalTag":10,"MissionType":2,  "Order_ID":110},
-     "cdescarte": {"Nome":"Descarte","Priority": 0,"LGV": -1,"DeliveryTag":999999,"SupplyTag":4,"BufferTag":99999,"DisposalTag":10,"MissionType":5,  "Order_ID":111},
+     "cabastece": {"Nome":"ABASTECE","Priority": 0,"LGV": -1,"DeliveryTag":18,"SupplyTag":18,"BufferTag":18,"DisposalTag":23,"MissionType":1,  "Order_ID":110},
+     "cdescarte": {"Nome":"DESCARTE","Priority": 0,"LGV": -1,"DeliveryTag":18,"SupplyTag":18,"BufferTag":37,"DisposalTag":23,"MissionType":5,  "Order_ID":111},
   
   
-      "gabastece": {"Nome":"Abastece","Priority": 0,"LGV": -1,"DeliveryTag":0,"SupplyTag":5,"BufferTag":0,"DisposalTag":10,"MissionType":4,  "Order_ID":112},
-      "gvazio": {"Nome":"VAZIO   ","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":5,"BufferTag":999999,"DisposalTag":34,"MissionType":5,  "Order_ID":113},
-      "gdescarte": {"Nome":"Descarte","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":0,"DisposalTag":10,"MissionType":5,  "Order_ID":114}
+      "gabastece": {"Nome":"ABASTECE","Priority": 0,"LGV": -1,"DeliveryTag":0,"SupplyTag":5,"BufferTag":0,"DisposalTag":10,"MissionType":4,  "Order_ID":112},
+      "gretirada": {"Nome":"RETIRADA","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":5,"BufferTag":34,"DisposalTag":34,"MissionType":5,  "Order_ID":113}
    
     
    

@@ -23,7 +23,7 @@ ERRORTIMEOUT = 'ERROR TIMEOUT'
 class serverSocket: 
 #connected = False
     ID = 0
-    FLEET_ADDRES = "192.168.1.10"
+    FLEET_ADDRES = "192.168.15.58"
     FLEET_PORT = 8015
     def inicializar(self, sock=None):
         print("Iniciando Classe do socket")

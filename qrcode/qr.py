@@ -2,11 +2,11 @@ import qrcode
 import os
 
 # Lista de strings para gerar QR Codes
-strings = ["aabastece","adescarte","babastece","bdescarte","cabastece","cdescarte","gabastece","gvazio","gdescarte"]
-#strings = ["tipoa","tipob"]
-# Diretório onde os QR Codes serão salvos
+#strings = ["aabastece","adescarte","babastece","bdescarte","cabastece","cdescarte","gabastece","gretirada",]
+strings = ["tipoa","tipob","tipoapalete","tipobpalete"]
+#Diretório onde os QR Codes serão salvos
 output_dir = "qrcodes/"
-
+ 
 # Crie o diretório se não existir
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
