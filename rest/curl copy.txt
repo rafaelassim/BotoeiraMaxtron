@@ -1,5 +1,5 @@
-curl -m 1 -L -g 'http://192.168.15.58:1234/api/MissionCreate?access_token=AQAAANCMnd8BFdERjHoAwE_Cl-sBAAAAdvQ1hwE1kEOaRn4wCDHVHQAAAAACAAAAAAAQZgAAAAEAACAAAADv9WapRSFV3d2rpc4BTLfHeTnuHgfpH3u4EqE0XjSUBgAAAAAOgAAAAAIAACAAAADTox1vc-m6qOEakmWcNKPmpmj15VekjZO4leOiW_Hyx9ACAADzwJRcUlxi83X1Xaj9ocdTRXtneOSd3EMzaQq8zWA5su5UqUqvV88DGztVMl4kXp6D-SDinN7XN_dzaQhXI4JARgSrYJR_1jHHur0pORBSjemXt1aAIsepQ7sRvLCJ3QzPDbKnnLg4GOrpjcfySMATkC05R6cE7Wblj5qnuK_khHgg6CgRxR178tu3v5Uibu4T0IpfhgUHAh9A9MsQIvEHU8GBafb-UHIh_-LYIYpLBhyJlloe6rmA2clDlBxuxCSsz8MNezGeVwuNEeYtZN2yzbZP7f_g7N4_vjuXuhR633CwWwCgyLnIkc1ZhE7tjAnMUDugMvA3HPGxWuTVDKW8Yjmg62MV1Z4pDFtQS0j6f9hqrHeVii_iyOn7-2WbFYPuzcXgGqWnF6xa6Enjmk5FzyU68wJiiHXOK62Eqq6a-kyUYikP1eC4wGam_GR2p5iZ8eeYbUFUCJzr0cQwMkoKeCX5EYr1U4yTi3ZWd9BPd9DolTRRcc5waWyegAaDetMdea9dRocUM6-nHUAF_iCR1OtfQHsIInWdgkd_8bNSxZVPpEyjLUxBEuteVyxHSVCPD-WqU2rGbd-xPH1n9RzXCmbAJIjeY3A3OsmkFnQB09aJfsS4_38Nl5NgsU3ksaVkWo5Nzd5tK713Mg0Xcecl7lWmxBUOIn4uUNAvnKjuzbT-848tEo-rqxoBWE2EXmmlB4GdzyoyyiIP-KaParqOPEHd_vaoguALWVa2eJOcLlDrtp5jIj72tPpU7HNQ95le8TJFNWHMDYDST78_WWbaTFVRKOWXhCwRCCEwTWWPwkWylEgrCq5GyzDkmNYRu16HIoQxHrHXTqdxtENAPtRBXD5G2kPKDRvYiMPsoSUAPyp68F6pt-Cm8IhZTqjHKjSNzqEzQY52jrtkzZunn1IRtq5YwgtML88LREJmU7Tw9sNlPu7gsHf5nrEFFJUsXdZAAAAA5ACY9XS6jEPytf_7uTOWXA5Q9DP_A4oMx_CtYrjKEpTO0IyXlv505SU5fpzo6CcZO-aSuwtlZy3sKkA8p4j5jQ' -H 'Content-Type: application/json' -d '{
-  "ExternalId": "54321 @ID2",
+curl -m 10 -L -g 'http://192.168.15.58:1234/api/MissionCreate?access_token=AQAAANCMnd8BFdERjHoAwE_Cl-sBAAAAdvQ1hwE1kEOaRn4wCDHVHQAAAAACAAAAAAAQZgAAAAEAACAAAADeWKLvmFi5q6FOtj7VOuoYWNnsvGWSyMD_S-9OFzI77QAAAAAOgAAAAAIAACAAAABXZecucyDjuC-anhnZSHWR9KgLraGewx2saSa93_PS5eACAAAJtZv5etLLzUlmbndIh_kfZ5KW3ycR5n-rvcXxQ9BgEfldDUijOzMrGK7qWcqcyYKRa9W66ZnvNuZb7kd9gjXr1esUbQ-22AyE4kh1XwkS409Byx8hB-nesPX_eTD_zFQH8zABzLW2aQlnAWVH1OSvkaonjar_WmPHXcYvVR8NGvCaguK-eEkVnnBtqaMeiDic69YQvSQDQ3AlKp0tbfvI7G60plBtP_JdtaqBWM1gl2EWe8OnwlbLayi0yoDkZoee-f482VdLy3iIo0XI_6DyrxH6b1rtvWw7aEjVON86-czCEGgMAOzdmXvgFo-6xcMZHG7YZUADuY5OVjOQ1vmpO6VUxntNH7qHO41Nf8JYJDLtukBNR3rQDSq5e10tVNPNUFNpwI6B3vgsp-pHwOJUtvg6YsIDfQgWJHqSWRzNeUcthPy2LP19KlfI94SSETHZQxIAWpSlxlycWY-MUgn3ojAFWfLHQH8L1GDp6UW-EQ4pcALDFcagFVHFwAzaMIw-wlZ1RsYdVSOQUYfHl79uivbWyxY1QCUv_yb8S7qqsOvshNbhLfBP9rnnbJujMcT7EoEoNjyR9i3SCxU7UbQUgCYWyBP13Xkh8_Ey7HI17JsinvhpznWjWx7-jmsJMB8qpc8LvKJZC8Y-TvCAgVv3gEwSdThn66nfWuZ_uWd7Kj9J9QQ-YvpqxSg5AJhhczNTZt6nvmOCPqLA3jnMR-QRqZ_TCARJTte2ghLk9G3SeXIOdLYYumly5NSSjYdMyAuE6dsIi-E59WC2r1cYypp4DG1_kIEb_r2Iw8sZs8DAJPejP2MuQT7rzjvV8nq7qiouu1BIaYSuI35dsovs5WDcGa3oO4nu109HpjuTxX3JFXJkg6tlc1UYnhw8tTg8ruYrIYjDgEff0YlgGFwqjY6DPLEJpyM7i6li1rm7wPdhvkEFryTgiDzOasi0qjXJwLZv3ySWxizNkd8UPmfBuZIrQAAAAHLJqKIbwcl1ia7b5r5R1AjvEpSoJDMLPBqp8zY05YyAFzrs71PgHMz8LcXkJiqYn3iHBFnLNrCzbt3cVBX_1Ko' -H 'Content-Type: application/json' -d '{
+  "ExternalId": "@ID1 @ID2",
   "Name": "Manual mission 14:29:12",
   "MissionType": "Mission",
   "Options": {
@@ -37,7 +37,7 @@ curl -m 1 -L -g 'http://192.168.15.58:1234/api/MissionCreate?access_token=AQAAAN
       },
       "AllowedTargets": [
         {
-          "Id": 1
+          "Id": @Pickup1
         }
       ],
       "AllowedWaits": []
@@ -69,7 +69,7 @@ curl -m 1 -L -g 'http://192.168.15.58:1234/api/MissionCreate?access_token=AQAAAN
       },
       "AllowedTargets": [
         {
-          "Id": 3
+          "Id": @Dropoff1
         }
       ],
       "AllowedWaits": []
@@ -101,7 +101,7 @@ curl -m 1 -L -g 'http://192.168.15.58:1234/api/MissionCreate?access_token=AQAAAN
       },
       "AllowedTargets": [
         {
-          "Id": 5
+          "Id": @Pickup2
         }
       ],
       "AllowedWaits": []
@@ -133,7 +133,7 @@ curl -m 1 -L -g 'http://192.168.15.58:1234/api/MissionCreate?access_token=AQAAAN
       },
       "AllowedTargets": [
         {
-          "Id": 12
+          "Id": @Dropoff2
         }
       ],
       "AllowedWaits": []
