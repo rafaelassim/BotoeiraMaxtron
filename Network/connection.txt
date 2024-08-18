@@ -1,0 +1,21 @@
+#!/bin/bash
+
+CONNECTION_NAME="Botoeira Wlan0"
+INTERFACE_NAME="@INTERFACE_NAME"
+SSID="@SSID"
+PASSWORD="@PASSWORD"
+IP_ADDRESS="@IP_ADDRESS/24"
+GATEWAY="@GATEWAY"
+DNS="@DNS"
+
+
+nmcli dev wifi con $SSID password $PASSWORD ifname $INTERFACE_NAME
+
+
+nmcli con mod $SSID ipv4.addresses $IP_ADDRESS
+nmcli con mod $SSID ipv4.gateway $GATEWAY
+nmcli con mod $SSID ipv4.dns $DNS
+nmcli con mod $SSID ipv4.method manual
+
+
+nmcli con up $SSID

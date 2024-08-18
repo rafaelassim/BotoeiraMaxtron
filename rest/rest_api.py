@@ -6,148 +6,6 @@ import json
 
 from requests.auth import HTTPBasicAuth
 
-mission_two_steps={
-  "ExternalId": "mm-154",
-  "Name": "Manual mission 14:29:12",
-  "MissionType": "Mission",
-  "Options": {
-    "AllowedMachines": [],
-    "Priority": 4,
-    "IgnoreAllowedDestinations": False,
-    "AllowedAsSecondaryMission": False,
-    "SecondaryMissionAllowed": False
-  },
-  "Steps": [
-    {
-      "StepType": "Pickup",
-      "Options": {
-        "Load": {
-          "RequiredLoadStatus": "None",
-          "RequiredBarcode": "",
-          "LoadHeight": 0,
-          "StableLoad": True
-        },
-        "ReservationHandling": "None",
-        "MultiReservationRule": "NotAllowed",
-        "SortingRules": [
-          "Closest"
-        ],
-        "WaitSortingRules": [
-          "ClosestToTarget"
-        ],
-        "WaitForExtension": False,
-        "RequireExternalRelease": False,
-        "MinimumExecutionTime": "00:00:00",
-        "TargetBufferStackHeight": 0,
-        "TargetBufferResourcesInStack": 1,
-        "AllowStacking": True,
-        "PivotDirection": "ShortestAngle"
-      },
-      "AllowedTargets": [
-        {
-          "Id": 'TARGETPICKUP1'
-        }
-      ],
-      "AllowedWaits": []
-    },
-    {
-      "StepType": "Dropoff",
-      "Options": {
-        "Load": {
-          "RequiredLoadStatus": "None",
-          "RequiredBarcode": "",
-          "LoadHeight": 0,
-          "StableLoad": True
-        },
-        "ReservationHandling": "None",
-        "MultiReservationRule": "NotAllowed",
-        "SortingRules": [
-          "Closest"
-        ],
-        "WaitSortingRules": [
-          "ClosestToTarget"
-        ],
-        "WaitForExtension": False,
-        "RequireExternalRelease": False,
-        "MinimumExecutionTime": "00:00:00",
-        "TargetBufferStackHeight": 0,
-        "TargetBufferResourcesInStack": 1,
-        "AllowStacking": True,
-        "PivotDirection": "ShortestAngle"
-      },
-      "AllowedTargets": [
-        {
-          "Id": 'TARGETDROPOFF1'
-        }
-      ],
-      "AllowedWaits": []
-    },
-    {
-      "StepType": "Pickup",
-      "Options": {
-        "Load": {
-          "RequiredLoadStatus": "None",
-          "RequiredBarcode": "",
-          "LoadHeight": 0,
-          "StableLoad": True
-        },
-        "ReservationHandling": "None",
-        "MultiReservationRule": "NotAllowed",
-        "SortingRules": [
-          "Closest"
-        ],
-        "WaitSortingRules": [
-          "ClosestToTarget"
-        ],
-        "WaitForExtension": False,
-        "RequireExternalRelease": False,
-        "MinimumExecutionTime": "00:00:00",
-        "TargetBufferStackHeight": 0,
-        "TargetBufferResourcesInStack": 1,
-        "AllowStacking": True,
-        "PivotDirection": "ShortestAngle"
-      },
-      "AllowedTargets": [
-        {
-          "Id": 'TARGETPICKUP2'
-        }
-      ],
-      "AllowedWaits": []
-    },
-    {
-      "StepType": "Dropoff",
-      "Options": {
-        "Load": {
-          "RequiredLoadStatus": "None",
-          "RequiredBarcode": "",
-          "LoadHeight": 0,
-          "StableLoad": True
-        },
-        "ReservationHandling": "None",
-        "MultiReservationRule": "NotAllowed",
-        "SortingRules": [
-          "Closest"
-        ],
-        "WaitSortingRules": [
-          "ClosestToTarget"
-        ],
-        "WaitForExtension": False,
-        "RequireExternalRelease": False,
-        "MinimumExecutionTime": "00:00:00",
-        "TargetBufferStackHeight": 0,
-        "TargetBufferResourcesInStack": 1,
-        "AllowStacking": True,
-        "PivotDirection": "ShortestAngle"
-      },
-      "AllowedTargets": [
-        {
-          "Id": 'TARGETDROPOFF2'
-        }
-      ],
-      "AllowedWaits": []
-    }
-  ]
-}
 def send_json_nousername(url, data):
     try:
         # Enviando o JSON para a URL usando o método POST
@@ -213,8 +71,8 @@ def send_rest(PickUp1,DropOff1,PickUp2,DropOff2,lgv,Order_ID1,Order_ID2):
   
         # Enviando o JSON para a URL usando o método POST com autenticação básica
     #Abrindo o arquivo template
-  #with open("/home/tunkers/BotoeiraMaxtron/rest/curl.txt", "r") as arquivo:
-  with open("/home/rafael/Documentos/Projetos/Python/BotoeiraMaxtron/rest/curl.txt", "r") as arquivo:
+  with open("/home/tunkers/BotoeiraMaxtron/rest/curl.txt", "r") as arquivo:
+  
 	  template = arquivo.read()    
         # Verificando se a resposta foi recebida corretamente (status code 2xx)
 
@@ -257,9 +115,7 @@ def replace_ids(json_data, new_ids, id_index=0):
             id_index = replace_ids(item, new_ids, id_index)
     return id_index
 
-# Exemplo de uso da função
-#url = "https://exemplo.com/api"
-#print(curl)
+
 def test():
   with open("curl.txt", "r") as arquivo:
     protoCurl = arquivo.read()
@@ -281,4 +137,3 @@ def test():
         print("ok")
       print(type(result.splitlines()))
 
-#send_rest("PickUp1","DropOff1","PickUp2","DropOff2",-1,"Order_ID1","Order_ID2")

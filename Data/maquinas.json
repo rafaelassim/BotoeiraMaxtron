@@ -2,30 +2,40 @@
   "region": {
     
     "A": {	
-    "ABASTECE": {"Nome":"ABASTECE","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":4,"BufferTag":37,"DisposalTag":10,"MissionType":2,  "Order_ID":101}, 
-    "DESCARTE": {"Nome":"DESCARTE","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":4,"BufferTag":37,"DisposalTag":10,"MissionType":5,  "Order_ID":103}
+      "Maquina A":{
+              "ABASTECE": {"Nome":"ABASTECE","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":4,"BufferTag":37,"DisposalTag":10,"MissionType":2,  "Order_ID":101}, 
+              "DESCARTE": {"Nome":"DESCARTE","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":4,"BufferTag":37,"DisposalTag":10,"MissionType":5,  "Order_ID":103}
+              },
 
+      "Maquina B":{
+                 "ABASTECE": {"Nome":"ABASTECE","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":37,"DisposalTag":10,"MissionType":3,  "Order_ID":105},
+                 "DESCARTE": {"Nome":"DESCARTE","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":37,"DisposalTag":10,"MissionType":5,  "Order_ID":106}
+                }
  
    },	
-     
    "B": {	
-    "ABASTECE": {"Nome":"ABASTECE","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":37,"DisposalTag":10,"MissionType":3,  "Order_ID":105},
-    "DESCARTE": {"Nome":"DESCARTE","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":37,"DisposalTag":10,"MissionType":5,  "Order_ID":106}
+   "Maquina B":{
 
-   },	
-     
+          "B": {	
+            "ABASTECE": {"Nome":"ABASTECE","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":37,"DisposalTag":10,"MissionType":3,  "Order_ID":105},
+            "DESCARTE": {"Nome":"DESCARTE","Priority": 0,"LGV": -1,"DeliveryTag":1,"SupplyTag":2,"BufferTag":37,"DisposalTag":10,"MissionType":5,  "Order_ID":106}
+          }
+
+   }
+  },
    "C": {	
    
-   
+   "Maquina C":{
    "ABASTECE": {"Nome":"ABASTECE","Priority": 0,"LGV": -1,"DeliveryTag":18,"SupplyTag":18,"BufferTag":18,"DisposalTag":23,"MissionType":1,  "Order_ID":110},
    "DESCARTE": {"Nome":"DESCARTE","Priority": 0,"LGV": -1,"DeliveryTag":18,"SupplyTag":18,"BufferTag":37,"DisposalTag":23,"MissionType":5,  "Order_ID":111}
-
+   }
    },	
-     
+
+   "Maquina G":{
    "G": {	
     "ABASTECE": {"Nome":"ABASTECE","Priority": 0,"LGV": -1,"DeliveryTag":0,"SupplyTag":5,"BufferTag":0,"DisposalTag":10,"MissionType":4,  "Order_ID":112},
     "VAZIO": {"Nome":"RETIRADA","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":5,"BufferTag":34,"DisposalTag":34,"MissionType":5,  "Order_ID":113}
- 
+   }
    }
    
      

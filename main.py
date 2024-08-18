@@ -1,5 +1,7 @@
 #import Server.server as server
 import Server.server as server
+import Network.network as network
+import USB_Service.usb as usbservice
 import rest.rest_api as rest
 import Barcode.barcode as barcode
 import Gerenciador.gerenciador as gerenciador
@@ -10,7 +12,7 @@ import Maxtron.Maxtron_Interface as maxtron
 import time as time
 import serial
 
-ID = '1'
+
 
 mensagem_tempo_esgotado = "Tempo de seleção esgotado"
 mensagem_selecione_a_maquina = "Selecione a Máquina"
@@ -31,6 +33,7 @@ produtos_bitola_nomes =[]
 barcode_msg = ''
 keyboard_msg = ''
 #REGIAO ="A"
+#MAQUINA ="MAQUINA A"
 block_minus_plus = False
 increment = False
 decrement = False
@@ -273,10 +276,12 @@ def sel_regiao():
 
     return
 def pedido_viateclado():
+    global MAQUINA
     time.sleep(0.1)
     keyboard_msg=''
-    sel_regiao()
-    tag_maq = sel_maq()
+    #sel_regiao()
+    MAQUINA = sel_maq()
+    tag_maq=sel_missao_maq()
     print("Tag da maquina: ",(tag_maq))
     time.sleep(0.1)
     try:
@@ -354,6 +359,7 @@ def sel_maq():
     global region_nome
     global region_tot
     global REGIAO
+    global MAQUINA
 
     global maquinas_nome
     global maquinas_tot
@@ -382,8 +388,8 @@ def sel_maq():
         while True:
             maquina_selecionada= processo_selecao(maquina_selecionada,maquinas_tot,maquinas_nome)
             if keyboard_msg=='ENT': 
-                print("Tag: ",datareader.tag_machines(region_nome[regiao_selecionada],maquinas_nome[maquina_selecionada]))  
-                return datareader.tag_machines(region_nome[regiao_selecionada],maquinas_nome[maquina_selecionada])
+                print("Maquina selecionada: ",maquinas_nome[maquina_selecionada])
+                return maquinas_nome[maquina_selecionada]
                     
             if keyboard_msg =='CLR':
                 break
@@ -391,6 +397,54 @@ def sel_maq():
             break
         time.sleep(0.250)
     return 'Falhou'
+
+    
+
+def sel_missao_maq():
+    global region_nome
+    global region_tot
+    global REGIAO
+    global MAQUINA
+    
+    global missoes_nome
+    global missoes_tot
+    global keyboard_msg
+    
+    pointer = 0
+    print("Nome das regiões   ",region_nome)
+
+    regiao_selecionada = region_nome.index(REGIAO)
+
+    maquina_selecionada = MAQUINA
+    missao_selecionada = 0
+    
+    print ("Processo teclado")
+
+    while True:
+        print("Regiao Selecionada: ",region_nome[regiao_selecionada])
+        keyboard_msg=''
+        main_menu.clear_display()
+        time.sleep(0.1)
+       # print
+        missoes_tot = len(datareader.maq_missions_list(region_nome[regiao_selecionada],maquina_selecionada))
+        missoes_nome = datareader.maq_missions_list(region_nome[regiao_selecionada],maquina_selecionada)
+        print("Regiao Selecionada: ",missoes_nome[missao_selecionada])
+        main_menu.write_line1('Sel.Miss.')
+        main_menu.write_line2(missoes_nome[missao_selecionada])
+        while True:
+            missao_selecionada= processo_selecao(missao_selecionada,missoes_tot,missoes_nome)
+            if keyboard_msg=='ENT': 
+                #print("Tag: ",datareader.tag_machines(region_nome[regiao_selecionada],maquinas_nome[maquina_selecionada]))  
+                return datareader.tag_machines(region_nome[regiao_selecionada],maquina_selecionada,missoes_nome[missao_selecionada])
+                    
+            if keyboard_msg =='CLR':
+                break
+        if keyboard_msg =='CLR':
+            break
+        time.sleep(0.250)
+    return 'Falhou'
+
+
 def pedido_viascanner():
     global barcode_msg
     keyboard_msg=''
@@ -515,6 +569,8 @@ if __name__ == '__main__':
       
     global total_connections
     global REGIAO
+    global MAQUINA 
+
     print(len(datareader.region_list()))
     region_tot = len(datareader.region_list())
     region_nome = datareader.region_list()
@@ -526,7 +582,7 @@ if __name__ == '__main__':
     config=datareader.config()
  
     REGIAO=config["REGIAO"]
-
+    MAQUINA ="MAQUINA A"
     print("Iniciando")
     t = time.perf_counter()
     fleetManager = server.serverSocket()
@@ -539,13 +595,14 @@ if __name__ == '__main__':
     
     #fleetManager.FLEET_PORT =datareader.config[2]
     fleetManager.load_defaults(config["ID"])
+    network.initnetwork(config)
     
-    
-
+    thread_usb= threading.Thread (target=usbservice.monitor_usb,args=(main_menu,))
     thread_barcode = threading.Thread(target=read_barcode)
     thread_keyboard = threading.Thread(target=read_keyboard)
     thread_barcode.start()
     thread_keyboard.start()
+    thread_usb.start()
     while True:
         
         elapsed_time = time.perf_counter() - t
