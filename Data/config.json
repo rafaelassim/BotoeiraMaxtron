@@ -8,9 +8,6 @@
             "DNS":"8.8.8.8",
             "IP-FLEETMANAGER": "192.168.1.10",
             "REGIAO":"A",
-            "PORT":8015,   
-            "DHCP":true,   
-            "NOME_DA_REDE":"REDEXXXX",
-            "SENHA_DA_REDE":"SENHA_DA_REDE"
+            "PORT":8015
       
 }

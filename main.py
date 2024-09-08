@@ -60,11 +60,11 @@ def read_keyboard():
         if keyboard_msg == '':
             keyboard_msg=main_menu.read_button_press()
             if not block_minus_plus:
-                if keyboard_msg == '1':
+                if keyboard_msg == 'F1':
                     keyboard_msg=''
                     increment = True
                     print("increment")
-                if keyboard_msg == '4':
+                if keyboard_msg == 'F2':
                     keyboard_msg=''
                     decrement = True
                     print("decrement")
