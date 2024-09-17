@@ -1,23 +1,50 @@
 
 import json
 
-configjson      = '/home/tunkers/BotoeiraMaxtron/Data/config.json'
-maquinasjson    = '/home/tunkers/BotoeiraMaxtron/Data/maquinas.json'
-produtosjson    = '/home/tunkers/BotoeiraMaxtron/Data/produtos.json'
-qrcodemaqjson   = '/home/tunkers/BotoeiraMaxtron/Data/qrcodemaq.json'
-qrcodeprodjson  = '/home/tunkers/BotoeiraMaxtron/Data/qrcodeprod.json'
+#configjson      = '/home/tunkers/BotoeiraMaxtron/Data/config.json'
+#maquinasjson    = '/home/tunkers/BotoeiraMaxtron/Data/maquinas.json'
+#produtosjson    = '/home/tunkers/BotoeiraMaxtron/Data/produtos.json'
+#qrcodemaqjson   = '/home/tunkers/BotoeiraMaxtron/Data/qrcodemaq.json'
+#qrcodeprodjson  = '/home/tunkers/BotoeiraMaxtron/Data/qrcodeprod.json'
+
+configjson      = 'Data/config.json'
+maquinasjson    = 'Data/maquinas.json'
+produtosjson    = 'Data/produtos.json'
+qrcodemaqjson   = 'Data/qrcodemaq.json'
+qrcodeprodjson  = 'Data/qrcodeprod.json'
+
+def return_maquinas(region):
+    arqmaq = open(maquinasjson)
+    data = json.load(arqmaq)
+    
+    return data["region"][region]
 
 
 def region_list():
     arqmaq = open(maquinasjson)
     data = json.load(arqmaq)
     region =[]
+    print (data["region"]["COM"]["strech"])
+    print(len(data["region"]["COM"]["strech"]))
     for item in data.values():
         for data_item in item.keys():
             region.append(data_item)
     return (region)
 
 
+
+def return_maquinas(region):
+    arqmaq = open(maquinasjson)
+    data = json.load(arqmaq)
+    
+    return data["region"][region]
+
+def return_product():
+    arqproduto = open(produtosjson)
+    data = json.load(arqproduto)
+    
+    return data["Produtos"]
+    
 def maq_region_list(region):
     arqprod = open(maquinasjson)
     data = json.load(arqprod)
@@ -158,6 +185,16 @@ def config():
     except:
         return (ID,IP,PORT,REGIAO)
 
-
-#print(maq_region_missions_list("A","Maquina A"))
+#print(return_product())
+produto=return_product()
+print(produto.keys())
+print(produto['1'].keys())
+#maq = return_maquinas("COM")
+#print(len(return_maquinas("COM")))
+#print(list(maq.keys())[5])
+#print("dddd", list(maq.keys()))
+#print(len(maq["11"]))
+#print(maq.keys())
+#print(list(maq["11"]["material_type"].split(',')))
+#print(len(maq["11"]["material_type"].split(',')))
 #print(tag_machines("A","Maquina A","DESCARTE"))

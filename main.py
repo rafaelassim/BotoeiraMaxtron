@@ -1,22 +1,17 @@
 #import Server.server as server
-import Server.server as server
-import Network.network as network
+#import Server.server as server
+#import Network.network as network
 import USB_Service.usb as usbservice
 import rest.rest_api as rest
 import Barcode.barcode as barcode
 import Gerenciador.gerenciador as gerenciador
 import DataReader.datareader as datareader
 import threading
-import Barcode.barcode as barcode
 import Maxtron.Maxtron_Interface as maxtron
 import time as time
 import serial
 
 
-
-mensagem_tempo_esgotado = "Tempo de seleção esgotado"
-mensagem_selecione_a_maquina = "Selecione a Máquina"
-mensagem_selecione_o_produto = "Selecione o Produto"
 
 region_tot = 0
 region_nome = []
@@ -37,6 +32,26 @@ keyboard_msg = ''
 block_minus_plus = False
 increment = False
 decrement = False
+
+class MAQUINA:
+    #id_machine":5,"Nome":"strech","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"
+    id_machine = 1
+    Nome = "Default"
+    material_type = "BOBINA"
+    action_type = "ABASTECE"
+    situation = "COMPLETO"
+
+    def info(self):
+        return f"id_machine: {self.id_machine}, Nome: {self.Nome} , material_type: {self.material_type} , action_type: {self.action_type} , situation: {self.situation} "
+class PRODUTO:
+    #id_machine":5,"Nome":"strech","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"
+    SKU = 123456
+    gauge = "0.8"
+    product = "0,8 BE14"
+   
+
+    def info(self):
+        return f"SKU: {self.SKU}, gauge: {self.gauge} , product: {self.product}"
 
 def read_barcode():
     global barcode_msg
@@ -75,48 +90,54 @@ def read_keyboard():
             keyboard_msg=''
 
 def checkconnection ():
-   
-    if not fleetManager.connected:
-        fleetManager.disconnect()
-        fleetManager.inicializar()
-        fleetManager.perfconnect()
-
-    if fleetManager.ping() == True:
-        print('Pingou')
-        fleetManager.connected=True
-    else :
-        fleetManager.connected=False
+    while True:
+        fleetManager.heartbeat()
+        time.sleep(3)
     
         
-
-    
 def processo_selecao(pointer, maxsize, array):
     global increment
     global decrement
     global block_minus_plus
-    if decrement:
-        pointer = pointer-1
-    if increment:
-        pointer = pointer+1
-    if  pointer >= maxsize :
-        pointer = maxsize -1
-    if  pointer < 0:
-            pointer = 0
-    if decrement or increment :
-        increment = False
-        decrement = False
-        main_menu.clear_l2()
-        if (len(array[pointer]) > 8):
-            main_menu.write_dinamic_line2(array[pointer])
-        else:
-            main_menu.write_line2(array[pointer])
-    if is_number_ascii(str(keyboard_msg))==True: 
-        print("Tecla encontrada")
-        block_minus_plus=True
-        processo_digitacao_teclado(pointer, maxsize, array)
-        block_minus_plus=False
+    main_menu.clear_l2()
+    time.sleep(0.250)
+    if (len(array[pointer]) > 8):
+        main_menu.write_dinamic_line2(array[pointer])
+    else:
+        main_menu.write_line2(array[pointer])      
+    while True:
+        if decrement:
+            pointer = pointer-1
+        if increment:
+            pointer = pointer+1
+        if  pointer >= maxsize :
+            pointer = maxsize -1
+        if  pointer < 0:
+                pointer = 0
+        if decrement or increment :
+            increment = False
+            decrement = False
+            main_menu.clear_l2()
+            if (len(array[pointer]) > 8):
+                main_menu.write_dinamic_line2(array[pointer])
+            else:
+                main_menu.write_line2(array[pointer])
+        if keyboard_msg=='ENT':
+            time.sleep(0.250)
+            return array[pointer]
 
-    return pointer
+        if keyboard_msg =='CLR':
+                time.sleep(0.250)
+                break    
+        if is_number_ascii(str(keyboard_msg))==True: 
+            print("Tecla encontrada")
+            block_minus_plus=True
+            processo_digitacao_teclado(pointer, maxsize, array)
+            block_minus_plus=False
+
+
+    
+
 def is_number_ascii(input_str):
     for char in input_str:
         if ( 48 <= ord(char) <= 57) and (input_str!=None)and (input_str!='None') and (len(input_str)==1):  # ASCII values for digits 0 to 9
@@ -160,11 +181,8 @@ def processo_digitacao_teclado(pointer, maxsize, array):
                 keyboard_msg=''
     return
 
-def enviar_command(tag_maq,tag_produto):
+def enviar_command(maquina,produto):
     global keyboard_msg
-    print("Maquin: ",(tag_maq))
-    print("Produto: ",(tag_produto))
-    print("Tipo de missão: ",tag_maq["MissionType"])
     main_menu.execute_command('Azul ON')
     main_menu.execute_command('Verde OFF')
     main_menu.execute_command('Vermelho OFF')
@@ -189,106 +207,46 @@ def enviar_command(tag_maq,tag_produto):
                 return
          
             time.sleep(0.100)
-        match tag_maq["MissionType"]:
-            case 1:
-                #Comando Simples Pega o tag_maq.DeliveryTag e entrega no tag_produto.Tag
-                print("missão tipo 1")
-                ret = fleetManager.send_lgv_cmd(tag_maq["DeliveryTag"],tag_produto["Tag"],tag_maq["LGV"],tag_maq["Order_ID"],tag_produto["Order_ID"])
-            case 2:
-                # Duplo: tag_maq.BufferTag -> tag_maq.SupplyTag, tag_maq.DeliveryTag ->tag_produto.Tag
-                #ret = rest.send_rest(fleetManager.FLEET_ADDRES, tag_maq,tag_produto)
-                print("missão tipo 2")
-                #"Nome":"ABASTECE","Priority": 0,"LGV": -1,"DeliveryTag":3,"SupplyTag":4,"BufferTag":999999,"DisposalTag":10,"MissionType":2,  "Order_ID":101}, 
-                ret = rest.send_rest(tag_maq["BufferTag"],tag_maq["SupplyTag"],tag_maq["DeliveryTag"],tag_produto["Tag"],tag_maq["LGV"],tag_maq["Order_ID"],tag_produto["Order_ID"])
-            case 3:
-                # Duplo: tag_produto.Tag -> tag_maq.SupplyTag, tag_maq.DeliveryTag ->tag_maq.BufferTag  -- abastece antes de coletar e envia para um buffer
-                # end_rest(PickUp1,DropOff1,PickUp2,DropOff2,lgv,Order_ID1,Order_ID2):
-                print("missão tipo 3")
-                ret = rest.send_rest(tag_produto["Tag"],tag_maq["SupplyTag"],tag_maq["DeliveryTag"],tag_maq["BufferTag"],tag_maq["LGV"],tag_maq["Order_ID"],tag_produto["Order_ID"])
-                  
-            case 4:
-                # Comando Simples Pega o tag_produto.Tag e entrega no tag_maq.SupplyTag
-                print("missão tipo 4")
-                ret = fleetManager.send_lgv_cmd(tag_produto["Tag"],tag_maq["SupplyTag"],tag_maq["LGV"],tag_maq["Order_ID"],tag_produto["Order_ID"])
-                
-            case 5:
-                # Comando Simples Pega o tag_maq.DeliveryTag e entrega no tag_maq.DisposalTag
-                #send_lgv_cmd(self,PickUp,DropOff,lgv,Order_ID1,Order_ID2):
-                print("missão tipo 5")
-                ret = fleetManager.send_lgv_cmd(tag_maq["DeliveryTag"],tag_maq["DisposalTag"],tag_maq["LGV"],tag_maq["Order_ID"],tag_maq["Order_ID"])
-            case _:
-                main_menu.execute_command('Azul OFF')
-                main_menu.execute_command('Verde OFF')
-                main_menu.execute_command('Vermelho ON')
-                main_menu.clear_display()
-                main_menu.write_line1('PROBLEMA')
-                main_menu.write_dinamic_line2('PEDIDO NAO REALIZADO')
-                time.sleep(10)
-
-                return 
-        if not fleetManager.connected:
-            fleetManager.disconnect()
-            fleetManager.inicializar()
-            fleetManager.perfconnect()
+        server_response = fleetManager.send_command(maquina,produto)
+        ret = server_response.ret
+        if (not ret):
+            if (len(server_response.message) > 8):
+                main_menu.write_dinamic_line2(server_response.message)
+            else:
+                main_menu.write_line1(server_response.message)
+            time.sleep(8)
     if (ret==True):
         main_menu.execute_command('Azul ON')
         main_menu.execute_command('Verde ON')
         main_menu.execute_command('Vermelho ON')
         main_menu.clear_display()
         main_menu.write_line1('PEDIDO')
-        main_menu.write_dinamic_line2('REALIZADO')
+        #main_menu.write_dinamic_line2('REALIZADO')
+        if (len(server_response.message) > 8):
+            main_menu.write_dinamic_line2(server_response.message)
+        else:
+            main_menu.write_line1(server_response.message)
         time.sleep(8)
     return
 
 
-def sel_regiao():
-    global keyboard_msg
-    global REGIAO
-    print("Carrega regiao")
-    while True:
-        regiao_selecionada =0
-        keyboard_msg=''
-        main_menu.clear_display()
-        time.sleep(0.1)
-        region_tot = len(datareader.region_list())
-        print("Total de regiões:",len(datareader.region_list()) )
-        region_nome = datareader.region_list()
-        print("Lista regiao: ",datareader.region_list())
-        print("Regiao Selecionada: ",region_nome[regiao_selecionada])
-        main_menu.write_line1('Sel Reg.')
-        main_menu.write_line2(region_nome[regiao_selecionada])
-        while True:
-            regiao_selecionada= processo_selecao(regiao_selecionada,region_tot,region_nome)
-            if keyboard_msg=='ENT': 
-                REGIAO=region_nome[regiao_selecionada]
-                #print("Tag: ",datareader.tag_machines(region_nome[regiao_selecionada],region_nome[maquina_selecionada]))  
-                print("enter encontrado")
-                return REGIAO
-                    
-            if keyboard_msg =='CLR':
-                break
-        #if keyboard_msg =='CLR':
-        #    break
-           
-            time.sleep(0.250)
-    return 'Falhou'
 
-
-    return
 def pedido_viateclado():
-    global MAQUINA
+    
+    
     time.sleep(0.1)
     keyboard_msg=''
-    #sel_regiao()
-    MAQUINA = sel_maq()
-    tag_maq=sel_missao_maq()
-    print("Tag da maquina: ",(tag_maq))
-    time.sleep(0.1)
+   
+  
+    maquina = sel_maq()
+    produto = sel_prod()
+
+    enviar_command(maquina,produto)
+    return
     try:
         keyboard_msg=''
         
         if tag_maq['MissionType']!=5:
-            tag_produto = sel_produto()
             if tag_produto["Tag"] != 0:
                 enviar_command(tag_maq,tag_produto)
                     
@@ -308,141 +266,69 @@ def pedido_viateclado():
     except:
         print("Retornando ao menu")
     return
-def sel_produto():
-    
-    global keyboard_msg
-    
-    global produto_tot  
-    global produtos_bitola
 
-    global produtos_bitola_tot 
-    global produtos_bitola_nomes 
 
+def sel_prod():
+    global REGIAO
+    
+    prod=PRODUTO()
+   
     pointer = 0
-    regiao_selecionada = pointer
-    maquina_selecionada = 0
-    
-    bitola_selecionada = 0
-    subproduto_selecionado = 0
-    print ("Processo teclado")
-    main_menu.clear_display()
-    time.sleep(0.1)
+    produto_lista = datareader.return_product()
     main_menu.write_line1('Sel.Bito')
-    main_menu.write_line2(produtos_bitola[bitola_selecionada])
-    while True:
-        if barcode_msg != '':
-            return prod_scanner()
-        bitola_selecionada= processo_selecao(bitola_selecionada,produto_tot,produtos_bitola)
-        time.sleep(0.250)
-        if keyboard_msg=='ENT':
-            produtos_bitola_nomes=datareader.produto_bitola_items(produtos_bitola[bitola_selecionada])
-            produtos_bitola_tot=len(produtos_bitola_nomes)
-            print("Bitola selecionada ", produtos_bitola[bitola_selecionada])
 
-            main_menu.write_line1('Produto ')
-            main_menu.write_line2(produtos_bitola_nomes[0])
-
-            keyboard_msg=''
-            while True:
-                subproduto_selecionado= processo_selecao(subproduto_selecionado,produtos_bitola_tot,produtos_bitola_nomes)
-                time.sleep(0.250)
-                if keyboard_msg=='ENT':
-                    print("Tag Produto ", datareader.tagproduto(produtos_bitola[bitola_selecionada],produtos_bitola_nomes[subproduto_selecionado]).items())
-                   
-                    return datareader.tagproduto(produtos_bitola[bitola_selecionada],produtos_bitola_nomes[subproduto_selecionado])
-                if keyboard_msg =='CLR':
-                    break
-        if keyboard_msg =='CLR':
-            break
+    bitola_selecionada=processo_selecao(pointer, len(produto_lista.keys()), list(produto_lista.keys()))    
+    print("Bitola Selecionada", bitola_selecionada)
+    prod.gauge = bitola_selecionada
     
+    main_menu.write_line1('Produto ')
+    produto_selecionado = processo_selecao(pointer, len(produto_lista[bitola_selecionada].keys()), list(produto_lista[bitola_selecionada].keys())) 
+    print("Produto Selecionado", produto_selecionado)
+    prod.product = produto_selecionado
+    
+    print(prod.info())
+    return prod
+
+
+
 def sel_maq():
-    global region_nome
-    global region_tot
     global REGIAO
-    global MAQUINA
-
-    global maquinas_nome
-    global maquinas_tot
-    global keyboard_msg
     
+
+    maq = MAQUINA()
     pointer = 0
-    print("Nome das regiões   ",region_nome)
-
-    regiao_selecionada = region_nome.index(REGIAO)
-
-    maquina_selecionada = 0
     
-    
-    print ("Processo teclado")
+    main_menu.write_line1('Sel.Maq.')
+    regiao_selecionada = datareader.return_maquinas(REGIAO)
 
-    while True:
-        print("Regiao Selecionada: ",region_nome[regiao_selecionada])
-        keyboard_msg=''
-        main_menu.clear_display()
-        time.sleep(0.1)
-        maquinas_tot = len(datareader.maq_region_list(region_nome[regiao_selecionada]))
-        maquinas_nome = datareader.maq_region_list(region_nome[regiao_selecionada])
-        print("Regiao Selecionada: ",maquinas_nome[maquina_selecionada])
-        main_menu.write_line1('Sel.Maq.')
-        main_menu.write_line2(maquinas_nome[maquina_selecionada])
-        while True:
-            maquina_selecionada= processo_selecao(maquina_selecionada,maquinas_tot,maquinas_nome)
-            if keyboard_msg=='ENT': 
-                print("Maquina selecionada: ",maquinas_nome[maquina_selecionada])
-                return maquinas_nome[maquina_selecionada]
-                    
-            if keyboard_msg =='CLR':
-                break
-        if keyboard_msg =='CLR':
-            break
-        time.sleep(0.250)
-    return 'Falhou'
+    maquina_selecionada=processo_selecao(pointer, len(regiao_selecionada), list(regiao_selecionada))    
+   
 
-    
-
-def sel_missao_maq():
-    global region_nome
-    global region_tot
-    global REGIAO
-    global MAQUINA
-    
-    global missoes_nome
-    global missoes_tot
-    global keyboard_msg
-    
+    print("Maquina selecionada", maquina_selecionada)
+    maq.id_machine=regiao_selecionada[maquina_selecionada]["id_machine"]
+    maq.Nome=regiao_selecionada[maquina_selecionada]["Nome"]
     pointer = 0
-    print("Nome das regiões   ",region_nome)
+    main_menu.write_line1('Sel.Mat.  ')
+    tipo_material=processo_selecao(pointer, len(regiao_selecionada[maquina_selecionada]["material_type"].split(',')), list(regiao_selecionada[maquina_selecionada]["material_type"].split(',')))
+    print("Tipo de Material selecionado", tipo_material)
+    maq.material_type=tipo_material
 
-    regiao_selecionada = region_nome.index(REGIAO)
 
-    maquina_selecionada = MAQUINA
-    missao_selecionada = 0
-    
-    print ("Processo teclado")
+    pointer = 0
+    main_menu.write_line1('Movimenta')
+    tipo_acao=processo_selecao(pointer, len(regiao_selecionada[maquina_selecionada]["action_type"].split(',')), list(regiao_selecionada[maquina_selecionada]["action_type"].split(',')))
+    print("Tipo de Ação selecionado", tipo_acao)
+    maq.action_type=tipo_acao
 
-    while True:
-        print("Regiao Selecionada: ",region_nome[regiao_selecionada])
-        keyboard_msg=''
-        main_menu.clear_display()
-        time.sleep(0.1)
-       # print
-        missoes_tot = len(datareader.maq_missions_list(region_nome[regiao_selecionada],maquina_selecionada))
-        missoes_nome = datareader.maq_missions_list(region_nome[regiao_selecionada],maquina_selecionada)
-        print("Regiao Selecionada: ",missoes_nome[missao_selecionada])
-        main_menu.write_line1('Sel.Miss.')
-        main_menu.write_line2(missoes_nome[missao_selecionada])
-        while True:
-            missao_selecionada= processo_selecao(missao_selecionada,missoes_tot,missoes_nome)
-            if keyboard_msg=='ENT': 
-                #print("Tag: ",datareader.tag_machines(region_nome[regiao_selecionada],maquinas_nome[maquina_selecionada]))  
-                return datareader.tag_machines(region_nome[regiao_selecionada],maquina_selecionada,missoes_nome[missao_selecionada])
-                    
-            if keyboard_msg =='CLR':
-                break
-        if keyboard_msg =='CLR':
-            break
-        time.sleep(0.250)
-    return 'Falhou'
+    pointer = 0
+    main_menu.write_line1('Situacao')
+    tipo_situacao=processo_selecao(pointer, len(regiao_selecionada[maquina_selecionada]["situation"].split(',')), list(regiao_selecionada[maquina_selecionada]["situation"].split(',')))
+    print("Tipo de Situação selecionado", tipo_situacao)
+    maq.situation=tipo_situacao
+    print(maq.info())
+    return maq
+
+   
 
 
 def pedido_viascanner():
@@ -489,7 +375,7 @@ def prod_scanner():
     time.sleep(3)
     while True: 
         if keyboard_msg=='ENT':
-            return sel_produto()
+            return sel_prod()
         if barcode_msg != '':
             print("Readed Barcode: ",barcode_msg)
             tagproduto=datareader.tagqrcodprod(barcode_msg)
@@ -569,7 +455,7 @@ if __name__ == '__main__':
       
     global total_connections
     global REGIAO
-    global MAQUINA 
+   
 
     print(len(datareader.region_list()))
     region_tot = len(datareader.region_list())
@@ -580,26 +466,26 @@ if __name__ == '__main__':
     main_menu = maxtron.init()
 
     config=datareader.config()
- 
+    print(config)
     REGIAO=config["REGIAO"]
-    MAQUINA ="MAQUINA A"
+    
     print("Iniciando")
     t = time.perf_counter()
-    fleetManager = server.serverSocket()
-    print(config)
-    print(config["IP-FLEETMANAGER"],"   ",config["PORT"])
-    fleetManager.configure(config["IP-FLEETMANAGER"],config["PORT"])
-    fleetManager.inicializar()
-    fleetManager.perfconnect()
-    #fleetManager.FLEET_ADDRES = datareader.config[1]
-    
-    #fleetManager.FLEET_PORT =datareader.config[2]
-    fleetManager.load_defaults(config["ID"])
-    network.initnetwork(config)
+    fleetManager = gerenciador.serverSocket()
+
+
+    #gerenciador.serverSocket.configure(config["IP-GERENCIADOR"],config["PORT"],config["ID"])
+    fleetManager.configure(config["IP-GERENCIADOR"],config["PORT"],config["ID"])
+  
+
+    #network.initnetwork(config)
     
     thread_usb= threading.Thread (target=usbservice.monitor_usb,args=(main_menu,))
     thread_barcode = threading.Thread(target=read_barcode)
     thread_keyboard = threading.Thread(target=read_keyboard)
+    thread_checkconnection = threading.Thread(target=checkconnection)
+
+    thread_checkconnection.start()
     thread_barcode.start()
     thread_keyboard.start()
     thread_usb.start()
@@ -607,10 +493,10 @@ if __name__ == '__main__':
         
         elapsed_time = time.perf_counter() - t
         time.sleep(0.2)
-        if(fleetManager.connected ==True):
-            if barcode_msg != '':
-                pedido_viascanner()
-
+        #if(fleetManager.CONNECTED ==True):
+        #    if barcode_msg != '':
+        #        pedido_viascanner()
+        if (1==1):
             if keyboard_msg !='':
                 if keyboard_msg == 'PUSH':
                     keyboard_msg=''
@@ -618,8 +504,8 @@ if __name__ == '__main__':
 
         if ((time.perf_counter() - t)>(10)):
             t = time.perf_counter()
-            checkconnection()
-            if(fleetManager.connected ==True):
+        #    checkconnection()
+            if(fleetManager.CONNECTED ==True):
                 print('Conectado')
                 gerenciador_encontrado(main_menu)
             else:

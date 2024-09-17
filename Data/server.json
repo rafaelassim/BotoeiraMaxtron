@@ -1,0 +1,10 @@
+{
+    "id_button" :1,               //identificação da botoeira
+    "message_type" : "ACTION",  // valores possíveis: ACTION ou LIFE
+    "material_type": "BOBINA", // valores possíveis: BOBINA ou PALLET
+    "action_type":"ABASTECE", // valores possíveis: ABASTECE, RETIRA, ABASTECE_ENTRADA, ABASTECE_SAIDA, RETIRA_ENTRADA, RETIRA_SAIDA
+    "situation": "COMPLETO", //valores possíveis: COMPLETO ou INCOMPLETO
+    "id_machine": 1, //identificação da maquina (inteiro)
+    "gauge": "0.8",  //bitola do produto
+    "product":"0.8 BE14" //identificação do produto
+}

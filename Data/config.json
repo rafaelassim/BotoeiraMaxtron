@@ -6,8 +6,8 @@
             "IP_ADDRESS":"192.168.1.100",
             "GATEWAY":"192.168.1.1",
             "DNS":"8.8.8.8",
-            "IP-FLEETMANAGER": "192.168.1.10",
-            "REGIAO":"A",
-            "PORT":8015
+            "IP-GERENCIADOR": "187.102.244.27",
+            "REGIAO":"COM",
+            "PORT":8080
       
 }
