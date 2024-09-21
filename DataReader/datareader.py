@@ -136,16 +136,13 @@ def nomeqrcodemaq(qrcode):
 
         return (None)
 
-def tagqrcodprod(qrcode):
-    arqprod = open(qrcodeprodjson)
-    data = json.load(arqprod)
-    try:
-        #tag =data["qrcodeprod"][qrcode]['Tag']
-        #id =data["qrcodeprod"][qrcode]['Order_ID']
-        return (data["qrcodeprod"][qrcode])
-    except:
 
-        return (None)
+def return_qrproduct():
+    arqproduto = open(qrcodeprodjson)
+    data = json.load(arqproduto)
+    
+    return data["Produtos"]
+    
 def nomeqrcodprod(qrcode):
     arqprod = open(qrcodeprodjson)
     data = json.load(arqprod)
@@ -185,10 +182,7 @@ def config():
     except:
         return (ID,IP,PORT,REGIAO)
 
-#print(return_product())
-produto=return_product()
-print(produto.keys())
-print(produto['1'].keys())
+print(return_qrproduct())
 #maq = return_maquinas("COM")
 #print(len(return_maquinas("COM")))
 #print(list(maq.keys())[5])

@@ -95,10 +95,12 @@ def checkconnection ():
         time.sleep(3)
     
         
-def processo_selecao(pointer, maxsize, array):
+def processo_selecao(pointer, maxsize, array, usebarcode):
     global increment
     global decrement
     global block_minus_plus
+    global barcode_msg
+    
     main_menu.clear_l2()
     time.sleep(0.250)
     if (len(array[pointer]) > 8):
@@ -134,6 +136,8 @@ def processo_selecao(pointer, maxsize, array):
             block_minus_plus=True
             processo_digitacao_teclado(pointer, maxsize, array)
             block_minus_plus=False
+        if barcode_msg !='' and usebarcode:
+            return
 
 
     
@@ -239,8 +243,14 @@ def pedido_viateclado():
    
   
     maquina = sel_maq()
+    if maquina is None:
+        print("Faltou a maquina")
+        return
+    
     produto = sel_prod()
-
+    if produto is None:
+        print("Faltou Produto")
+        return
     enviar_command(maquina,produto)
     return
     try:
@@ -270,19 +280,35 @@ def pedido_viateclado():
 
 def sel_prod():
     global REGIAO
-    
+    global barcode_msg
     prod=PRODUTO()
    
     pointer = 0
     produto_lista = datareader.return_product()
+    qrcode_list = datareader.return_qrproduct()
     main_menu.write_line1('Sel.Bito')
 
-    bitola_selecionada=processo_selecao(pointer, len(produto_lista.keys()), list(produto_lista.keys()))    
+    bitola_selecionada=processo_selecao(pointer, len(produto_lista.keys()), list(produto_lista.keys()),True)  
+    if barcode_msg !='':
+        if barcode_msg in qrcode_list:
+            qrcode = barcode_msg
+            barcode_msg=""
+            prod.SKU=qrcode
+            print("Produto ",qrcode," encontrado")
+            return prod
+        else :
+            main_menu.write_line1('  OPS!  ')
+            main_menu.write_line2('        ')
+            print("Produto ",barcode_msg," não encontrado")
+            barcode_msg=""
+            time.sleep(10)
+            return
+          
     print("Bitola Selecionada", bitola_selecionada)
     prod.gauge = bitola_selecionada
     
     main_menu.write_line1('Produto ')
-    produto_selecionado = processo_selecao(pointer, len(produto_lista[bitola_selecionada].keys()), list(produto_lista[bitola_selecionada].keys())) 
+    produto_selecionado = processo_selecao(pointer, len(produto_lista[bitola_selecionada].keys()), list(produto_lista[bitola_selecionada].keys()),False) 
     print("Produto Selecionado", produto_selecionado)
     prod.product = produto_selecionado
     
@@ -293,36 +319,46 @@ def sel_prod():
 
 def sel_maq():
     global REGIAO
-    
+    global barcode_msg
 
     maq = MAQUINA()
     pointer = 0
-    
-    main_menu.write_line1('Sel.Maq.')
     regiao_selecionada = datareader.return_maquinas(REGIAO)
-
-    maquina_selecionada=processo_selecao(pointer, len(regiao_selecionada), list(regiao_selecionada))    
-   
+    if barcode_msg =='':
+        barcode_msg =""
+        main_menu.write_line1('Sel.Maq.')
+        maquina_selecionada=processo_selecao(pointer, len(regiao_selecionada), list(regiao_selecionada),False)    
+    else:
+        maquina_selecionada = barcode_msg
+        barcode_msg =""
+        if maquina_selecionada in regiao_selecionada:
+            print("Pedido via Scanner")
+        else:
+            main_menu.write_line1('  OPS! ')
+            main_menu.write_line2('        ')
+            print("Maquina ",maquina_selecionada," não encontrada")
+            time.sleep(10)
+            return
 
     print("Maquina selecionada", maquina_selecionada)
     maq.id_machine=regiao_selecionada[maquina_selecionada]["id_machine"]
     maq.Nome=regiao_selecionada[maquina_selecionada]["Nome"]
     pointer = 0
     main_menu.write_line1('Sel.Mat.  ')
-    tipo_material=processo_selecao(pointer, len(regiao_selecionada[maquina_selecionada]["material_type"].split(',')), list(regiao_selecionada[maquina_selecionada]["material_type"].split(',')))
+    tipo_material=processo_selecao(pointer, len(regiao_selecionada[maquina_selecionada]["material_type"].split(',')), list(regiao_selecionada[maquina_selecionada]["material_type"].split(',')),False)
     print("Tipo de Material selecionado", tipo_material)
     maq.material_type=tipo_material
 
 
     pointer = 0
     main_menu.write_line1('Movimenta')
-    tipo_acao=processo_selecao(pointer, len(regiao_selecionada[maquina_selecionada]["action_type"].split(',')), list(regiao_selecionada[maquina_selecionada]["action_type"].split(',')))
+    tipo_acao=processo_selecao(pointer, len(regiao_selecionada[maquina_selecionada]["action_type"].split(',')), list(regiao_selecionada[maquina_selecionada]["action_type"].split(',')),False)
     print("Tipo de Ação selecionado", tipo_acao)
     maq.action_type=tipo_acao
 
     pointer = 0
     main_menu.write_line1('Situacao')
-    tipo_situacao=processo_selecao(pointer, len(regiao_selecionada[maquina_selecionada]["situation"].split(',')), list(regiao_selecionada[maquina_selecionada]["situation"].split(',')))
+    tipo_situacao=processo_selecao(pointer, len(regiao_selecionada[maquina_selecionada]["situation"].split(',')), list(regiao_selecionada[maquina_selecionada]["situation"].split(',')),False)
     print("Tipo de Situação selecionado", tipo_situacao)
     maq.situation=tipo_situacao
     print(maq.info())
@@ -331,98 +367,6 @@ def sel_maq():
    
 
 
-def pedido_viascanner():
-    global barcode_msg
-    keyboard_msg=''
-    tag_maq =  maq_scanner()
-    if tag_maq != 'Falhou':
-        if tag_maq['MissionType']==5:
-            enviar_command(tag_maq,tag_maq)
-            return
-        keyboard_msg=''
-        tag_produto=prod_scanner()
-        if tag_produto == None:
-            return
-        print("Tag Produto ",tag_produto)
-        if tag_maq['MissionType']!=5:
-            if tag_produto["Tag"] != 0:
-                print("Enviar")
-                print("Tag Maq, tag produto",(tag_maq),(tag_produto))
-                enviar_command(tag_maq,tag_produto)
-                return
-            else:
-                main_menu.execute_command('Azul ON')
-                main_menu.execute_command('Verde ON')
-                main_menu.execute_command('Vermelho OFF')
-                main_menu.clear_display()
-                main_menu.write_line1('OPS!')
-                main_menu.write_dinamic_line2('TENTE NOVAMENTE')
-                time.sleep(10)
-        else:
-            print("Maquina para descarte")
-            enviar_command(tag_maq,tag_maq)
-            return 
-    main_menu.write_line1('Maq.    ')
-    main_menu.write_line2('Nao Encontrada ')
-    time.sleep(5)
-    return
-
-def prod_scanner():
-    global barcode_msg
-    barcode_msg=''
-    main_menu.write_line1('Scaneie ')
-    main_menu.write_line2('Produto ')
-    time.sleep(3)
-    while True: 
-        if keyboard_msg=='ENT':
-            return sel_prod()
-        if barcode_msg != '':
-            print("Readed Barcode: ",barcode_msg)
-            tagproduto=datareader.tagqrcodprod(barcode_msg)
-            #nomeProduto=datareader.nomeqrcodprod(barcode_msg)
-            print(tagproduto)
-            barcode_msg=''
-            if tagproduto !=None:
-                main_menu.write_line1('Prod.Sel')
-                main_menu.write_line2(tagproduto["Nome"])
-                time.sleep(3)
-                return tagproduto
-            else:
-                main_menu.write_line1('Produto ')
-                main_menu.write_line2('Nao enc.')
-                time.sleep(3)
-                main_menu.write_line1('Scaneie')
-                main_menu.write_line2('Produto')
-                time.sleep(1)
-            if keyboard_msg =='CLR':
-                return 'Falhou'
-
-        
-    return 'Falhou'
-
-def maq_scanner():
-    global barcode_msg
-    print("Processo via scanner")
-    if barcode_msg != '':
-        print("Readed Barcode: ",barcode_msg)
-        tagmaquina=datareader.tagqrcodemaq(str(barcode_msg))
-        #nomemaquina=datareader.nomeqrcodemaq(str(barcode_msg))
-        
-        
-        barcode_msg=''
-        print(barcode_msg)
-        if tagmaquina != None:
-            print("tagmaquina ",(tagmaquina))
-            main_menu.write_line1('Maq.Sele. ')
-            main_menu.write_line2(tagmaquina['Nome'])
-            time.sleep(5)
-            return tagmaquina
-        else:
-            print("Maq não encontrada")
-            return 'Falhou'
-        if keyboard_msg =='CLR':
-            return 'Falhou'
-    return 'Falhou'
 
 
 def gerenciador_encontrado(main_menu):
@@ -493,9 +437,11 @@ if __name__ == '__main__':
         
         elapsed_time = time.perf_counter() - t
         time.sleep(0.2)
-        #if(fleetManager.CONNECTED ==True):
-        #    if barcode_msg != '':
-        #        pedido_viascanner()
+        if(fleetManager.CONNECTED ==True):
+            if barcode_msg != '':
+                #pedido_viascanner()
+                pedido_viateclado()
+
         if (1==1):
             if keyboard_msg !='':
                 if keyboard_msg == 'PUSH':

@@ -19,8 +19,9 @@
       "24": {"id_machine": "24","Nome":"24","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"},
       "25": {"id_machine": "25","Nome":"25","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"},
       "26": {"id_machine": "26","Nome":"26","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"},
-      "4": {"id_machine": "4","Nome":"4","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"}
-     }
+      "4": {"id_machine": "4","Nome":"4","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"},
+      "teste" : {"id_machine": "4","Nome":"4","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"}
+    }
      
      
      

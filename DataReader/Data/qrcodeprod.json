@@ -1,0 +1,10 @@
+{
+    "qrcodeprod": 
+    {
+      "tipoa": {"Nome": "TIPO A 1.0","Tag": 5,"Order_ID": 1},
+      "tipob":  {"Nome": "TIPO B 2.0","Tag": 33,"Order_ID": 2},
+      "tipoapalete": {"Nome": "TIPO A PALETE","Tag": 29,"Order_ID": 1},
+      "tipobpalete":  {"Nome": "TIPO A PALETE","Tag": 26,"Order_ID": 1}
+    
+    }
+  }

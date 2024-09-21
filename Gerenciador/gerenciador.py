@@ -14,22 +14,24 @@ class serverSocket:
         self.IP = IP
         self.PORT = PORT
         self.CONNECTED = False
+        self.sequence = 1
         
     def heartbeat(self):
         #url = 'http://187.102.244.27:8080/v1/button/comm'
              #'http://187.102.244.270:8080/v1/button/comm'
-        sequence = 1
+        #self.sequence = 1
         self.connected = True
         
         ret = False
-        url = "http://"+self.IP +":" +str(self.PORT)+"/v1/button/comm"
+        #url = "http://"+self.IP +":" +str(self.PORT)+"/v1/button/comm"
+        url = "http://"+self.IP +":" +str(self.PORT)+"/v1/button/call"
         data = {
                 "id_button" :1,
                 "message_type" : "LIFE",
                 "sequence":0
                 }
         data["id_button"] = self.ID
-        data["sequence"] = sequence
+        data["sequence"] = self.sequence
         # Cabeçalhos da requisição, se necessário
         headers = {
             'Content-Type': 'application/json'
@@ -37,34 +39,31 @@ class serverSocket:
         try:
             # Envia o JSON usando o método POST
             response = requests.post(url, json=data, headers=headers)
-            #print(data)
+            print(data)
             # Verifica se a resposta foi um código 200 (OK)
             if response.status_code == 200:
                 # Tenta converter a resposta para JSON
-                resposta_json = response.json()
-                #print(resposta_json)
+               
                 # Verifica se o item "Recebido" está no JSON e é True
                 try:
-                    if data["Último Chamado"] is True:
-                        #print("JSON recebido com sucesso e 'Recebido' é True.")
-                        self.CONNECTED = True
-                    else:
-                        #print("JSON recebido, mas 'Recebido' não é True ou não está presente.")
-                        self.CONNECTED = True
+                    resposta_json = response.json()
+                    print("Respondeu")
+                    self.CONNECTED = True
                 except:
-                    #print("Erro ao Ler o JSON")
+                    print("Erro ao Ler o JSON")
                     self.CONNECTED = False
                 
-                self.CONNECTED = True
+                
             else:
                 #print(f"Erro: Código de status {response.status_code}")
                 self.CONNECTED = False
         except requests.exceptions.RequestException as e:
             #print(f"Erro ao enviar requisição: {e}")
             self.CONNECTED = False
-        sequence = sequence+1
-        if (sequence) > 2147483647 :
-            sequence = 1 
+        self.CONNECTED = True
+        self.sequence = self.sequence+1
+        if (self.sequence) > 2147483647 :
+            self.sequence = 1 
             
             
 
@@ -82,8 +81,7 @@ class serverSocket:
                 "action_type":"ABASTECE",  
                 "situation": "COMPLETO",  
                 "id_machine": 1, 
-                "gauge": "0.8",   
-                "product":"0.8 BE14" 
+                "SKU":23
                 }
        
         data["id_button"]=self.ID    
@@ -92,9 +90,7 @@ class serverSocket:
         data["action_type"]=maquina.action_type  
         data["situation"]=maquina.situation 
         data["id_machine"]=maquina.id_machine   
-        data["gauge"]=produto.gauge
-        data["product"]=produto.product  
-         
+        data["SKU"]=produto.SKU
         
         # Cabeçalhos da requisição, se necessário
         headers = {
@@ -138,12 +134,12 @@ class serverSocket:
 
         return serverresponse
 
-def run():
-    heartbeat()
-
-
+#def run():
+#    heartbeat()
 #con = serverSocket()
 #con.configure("187.102.244.27","8080",1)
-#con.send_command()
-#con.heartbeat()
-
+#while True:
+   
+    #con.send_command()
+#    con.heartbeat()
+#    time.sleep(3)
