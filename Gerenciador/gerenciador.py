@@ -86,12 +86,12 @@ class serverSocket:
        
         data["id_button"]=self.ID    
         #data["message_type"]=maquina    
-        data["material_type"]=maquina.material_type
+        data["material_type"]=produto.material_type
         data["action_type"]=maquina.action_type  
         data["situation"]=maquina.situation 
         data["id_machine"]=maquina.id_machine   
         data["SKU"]=produto.SKU
-        
+        print(data)
         # Cabeçalhos da requisição, se necessário
         headers = {
             'Content-Type': 'application/json'
@@ -99,7 +99,7 @@ class serverSocket:
         try:
             # Envia o JSON usando o método POST
             response = requests.post(url, json=data, headers=headers)
-            print(data)
+            
             # Verifica se a resposta foi um código 200 (OK)
             if response.status_code == 200:
                 # Tenta converter a resposta para JSON

@@ -2,7 +2,6 @@
 #import Server.server as server
 #import Network.network as network
 import USB_Service.usb as usbservice
-import rest.rest_api as rest
 import Barcode.barcode as barcode
 import Gerenciador.gerenciador as gerenciador
 import DataReader.datareader as datareader
@@ -37,21 +36,22 @@ class MAQUINA:
     #id_machine":5,"Nome":"strech","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"
     id_machine = 1
     Nome = "Default"
-    material_type = "BOBINA"
+    #material_type = "BOBINA"
     action_type = "ABASTECE"
     situation = "COMPLETO"
 
     def info(self):
-        return f"id_machine: {self.id_machine}, Nome: {self.Nome} , material_type: {self.material_type} , action_type: {self.action_type} , situation: {self.situation} "
+        return f"id_machine: {self.id_machine}, Nome: {self.Nome}, action_type: {self.action_type} , situation: {self.situation}"
 class PRODUTO:
     #id_machine":5,"Nome":"strech","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"
     SKU = 123456
+    material_type = "BOBINA"
     gauge = "0.8"
     product = "0,8 BE14"
    
 
     def info(self):
-        return f"SKU: {self.SKU}, gauge: {self.gauge} , product: {self.product}"
+        return f"SKU: {self.SKU}, gauge: {self.gauge} , material_type: {self.material_type}, product: {self.product}"
 
 def read_barcode():
     global barcode_msg
@@ -312,6 +312,8 @@ def sel_prod():
     print("Produto Selecionado", produto_selecionado)
     prod.product = produto_selecionado
     
+    prod.SKU = produto_lista[prod.gauge][prod.product]["SKU"]
+    prod.material_type = produto_lista[prod.gauge][prod.product]["material_type"]
     print(prod.info())
     return prod
 
@@ -345,9 +347,9 @@ def sel_maq():
     maq.Nome=regiao_selecionada[maquina_selecionada]["Nome"]
     pointer = 0
     main_menu.write_line1('Sel.Mat.  ')
-    tipo_material=processo_selecao(pointer, len(regiao_selecionada[maquina_selecionada]["material_type"].split(',')), list(regiao_selecionada[maquina_selecionada]["material_type"].split(',')),False)
-    print("Tipo de Material selecionado", tipo_material)
-    maq.material_type=tipo_material
+    #tipo_material=processo_selecao(pointer, len(regiao_selecionada[maquina_selecionada]["material_type"].split(',')), list(regiao_selecionada[maquina_selecionada]["material_type"].split(',')),False)
+    #print("Tipo de Material selecionado", tipo_material)
+    #maq.material_type=tipo_material
 
 
     pointer = 0
@@ -401,7 +403,7 @@ if __name__ == '__main__':
     global REGIAO
    
 
-    print(len(datareader.region_list()))
+    #print(len(datareader.region_list()))
     region_tot = len(datareader.region_list())
     region_nome = datareader.region_list()
 
@@ -410,7 +412,7 @@ if __name__ == '__main__':
     main_menu = maxtron.init()
 
     config=datareader.config()
-    print(config)
+    #print(config)
     REGIAO=config["REGIAO"]
     
     print("Iniciando")

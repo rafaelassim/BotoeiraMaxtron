@@ -24,8 +24,8 @@ def region_list():
     arqmaq = open(maquinasjson)
     data = json.load(arqmaq)
     region =[]
-    print (data["region"]["COM"]["strech"])
-    print(len(data["region"]["COM"]["strech"]))
+    #print (data["region"]["COM"]["strech"])
+    #print(len(data["region"]["COM"]["strech"]))
     for item in data.values():
         for data_item in item.keys():
             region.append(data_item)
@@ -49,7 +49,7 @@ def maq_region_list(region):
     arqprod = open(maquinasjson)
     data = json.load(arqprod)
     produtos =[]
-    print(data["region"][region].keys())
+    #print(data["region"][region].keys())
     localjson = data["region"][region]
     for item in localjson.keys():
         produtos.append(item)
@@ -58,10 +58,9 @@ def maq_region_list(region):
 
 def maq_missions_list(region,maq):
     arqmaq = open(maquinasjson)
-    #arqprod = open("/home/rafael/Documentos/Projetos/Python/BotoeiraMaxtron/Data/maquinas.json")
     data = json.load(arqmaq)
     produtos =[]
-    print(data["region"][region].keys())
+    #print(data["region"][region].keys())
     localjson = data["region"][region][maq]
     for item in localjson.keys():
         produtos.append(item)
@@ -70,7 +69,6 @@ def maq_missions_list(region,maq):
 
 def tag_machines(region,maquina,mission):
     arqmaq = open(maquinasjson)
-    #arqmaq = open("/home/rafael/Documentos/Projetos/Python/BotoeiraMaxtron/Data/maquinas.json")
     data = json.load(arqmaq)
 
     try:
@@ -182,7 +180,9 @@ def config():
     except:
         return (ID,IP,PORT,REGIAO)
 
-print(return_qrproduct())
+#print(return_qrproduct()["40472728"])
+#print(return_product()["1"] ["BE13 ESPECIAL "]["SKU"])
+
 #maq = return_maquinas("COM")
 #print(len(return_maquinas("COM")))
 #print(list(maq.keys())[5])
