@@ -12,10 +12,10 @@ DNS="@DNS"
 nmcli dev wifi con $SSID password $PASSWORD ifname $INTERFACE_NAME
 
 
-nmcli con mod $SSID ipv4.addresses $IP_ADDRESS
-nmcli con mod $SSID ipv4.gateway $GATEWAY
-nmcli con mod $SSID ipv4.dns $DNS
-nmcli con mod $SSID ipv4.method manual
+nmcli con mod $INTERFACE_NAME ipv4.addresses $IP_ADDRESS
+nmcli con mod $INTERFACE_NAME ipv4.gateway $GATEWAY
+nmcli con mod $INTERFACE_NAME ipv4.dns $DNS
+nmcli con mod $INTERFACE_NAME ipv4.method manual
 
 
-nmcli con up $SSID
+nmcli con up $INTERFACE_NAME

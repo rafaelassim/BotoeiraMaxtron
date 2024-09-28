@@ -18,10 +18,10 @@ def initnetwork(config):
     template=template.replace("@IP_ADDRESS",config['IP_ADDRESS'])
     template=template.replace("@GATEWAY",config['GATEWAY'])
     template=template.replace("@DNS",config['DNS'])
-    #try:
-    #    result = subprocess.check_output(template, shell = True, executable = "/bin/bash", stderr = subprocess.STDOUT)
+    try:
+        result = subprocess.check_output(template, shell = True, executable = "/bin/bash", stderr = subprocess.STDOUT)
 
-    #except subprocess.CalledProcessError as cpe:
-    #    result = cpe.output
-    #   print("Não foi configurar")
+    except subprocess.CalledProcessError as cpe:
+        result = cpe.output
+        print("Não foi configurado")
     print(template)

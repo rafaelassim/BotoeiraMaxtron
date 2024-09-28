@@ -38,12 +38,12 @@ def update_files:
 def update_network:
     os.system("/etc/dhcp/dhclient.conf   cat /etc/dhcpcd.conf ")
 
-interface wlan0
-static ip_address=192.168.1.90
-static routers=192.168.1.1
+#interface wlan0
+#static ip_address=192.168.1.90
+#static routers=192.168.1.1
 #static domain_name_servers=[dns-address]
 
-sudo nmcli connection modify "wlan0" \
-ipv4.method "manual" \
-ipv4.addresses "192.168.1.90/24" 
+#sudo nmcli connection modify "wlan0" \
+#ipv4.method "manual" \
+#ipv4.addresses "192.168.1.90/24" 
 

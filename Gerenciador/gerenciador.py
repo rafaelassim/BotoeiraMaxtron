@@ -39,19 +39,19 @@ class serverSocket:
         try:
             # Envia o JSON usando o método POST
             response = requests.post(url, json=data, headers=headers)
-            print(data)
+            #print(data)
             # Verifica se a resposta foi um código 200 (OK)
             if response.status_code == 200:
                 # Tenta converter a resposta para JSON
-               
+                self.CONNECTED = True
                 # Verifica se o item "Recebido" está no JSON e é True
-                try:
-                    resposta_json = response.json()
-                    print("Respondeu")
-                    self.CONNECTED = True
-                except:
-                    print("Erro ao Ler o JSON")
-                    self.CONNECTED = False
+                #try:
+                #    resposta_json = response.json()
+                #    print("Respondeu")
+                #    self.CONNECTED = True
+                #except:
+                #    print("Erro ao Ler o JSON")
+                #    self.CONNECTED = False
                 
                 
             else:
@@ -60,7 +60,7 @@ class serverSocket:
         except requests.exceptions.RequestException as e:
             #print(f"Erro ao enviar requisição: {e}")
             self.CONNECTED = False
-        self.CONNECTED = True
+        #self.CONNECTED = True
         self.sequence = self.sequence+1
         if (self.sequence) > 2147483647 :
             self.sequence = 1 

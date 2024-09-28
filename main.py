@@ -1,6 +1,6 @@
 #import Server.server as server
 #import Server.server as server
-#import Network.network as network
+import Network.network as network
 import USB_Service.usb as usbservice
 import Barcode.barcode as barcode
 import Gerenciador.gerenciador as gerenciador
@@ -424,7 +424,7 @@ if __name__ == '__main__':
     fleetManager.configure(config["IP-GERENCIADOR"],config["PORT"],config["ID"])
   
 
-    #network.initnetwork(config)
+    network.initnetwork(config)
     
     thread_usb= threading.Thread (target=usbservice.monitor_usb,args=(main_menu,))
     thread_barcode = threading.Thread(target=read_barcode)
@@ -444,11 +444,11 @@ if __name__ == '__main__':
                 #pedido_viascanner()
                 pedido_viateclado()
 
-        if (1==1):
-            if keyboard_msg !='':
-                if keyboard_msg == 'PUSH':
-                    keyboard_msg=''
-                    pedido_viateclado()
+            if (1==1):
+                if keyboard_msg !='':
+                    if keyboard_msg == 'PUSH':
+                        keyboard_msg=''
+                        pedido_viateclado()
 
         if ((time.perf_counter() - t)>(10)):
             t = time.perf_counter()
