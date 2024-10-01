@@ -12,7 +12,7 @@ def initnetwork(config):
         template = arquivo.read()    
 
     #template=template.replace("@INTERFACE_NAME",config['INTERFACE_NAME'])
-    template=template.replace("@INTERFACE_NAME",'wlan0')
+    template=template.replace("@INTERFACE_NAME",'preconfigured')
     template=template.replace("@SSID",config['SSID'])
     template=template.replace("@PASSWORD",config['PASSWORD'])
     template=template.replace("@IP_ADDRESS",config['IP_ADDRESS'])
