@@ -81,7 +81,7 @@ class serverSocket:
                 "action_type":"ABASTECE",  
                 "situation": "COMPLETO",  
                 "id_machine": 1, 
-                "SKU":23
+                "SKU":"23"
                 }
        
         data["id_button"]=self.ID    
@@ -90,7 +90,7 @@ class serverSocket:
         data["action_type"]=maquina.action_type  
         data["situation"]=maquina.situation 
         data["id_machine"]=maquina.id_machine   
-        data["SKU"]=produto.SKU
+        data["SKU"]=str(produto.SKU)
         print(data)
         # Cabeçalhos da requisição, se necessário
         headers = {

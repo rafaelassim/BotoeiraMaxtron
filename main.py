@@ -401,7 +401,17 @@ if __name__ == '__main__':
       
     global total_connections
     global REGIAO
-   
+    main_menu = maxtron.init()
+    thread_usb= threading.Thread (target=usbservice.monitor_usb,args=(main_menu,))
+    thread_barcode = threading.Thread(target=read_barcode)
+    thread_keyboard = threading.Thread(target=read_keyboard)
+    thread_checkconnection = threading.Thread(target=checkconnection)
+
+    
+    thread_barcode.start()
+    thread_keyboard.start()
+    thread_usb.start()
+    time.sleep(8)
 
     #print(len(datareader.region_list()))
     region_tot = len(datareader.region_list())
@@ -409,7 +419,7 @@ if __name__ == '__main__':
 
     produto_tot = len(datareader.produto_bitola_list())
     produtos_bitola = datareader.produto_bitola_list()
-    main_menu = maxtron.init()
+   
 
     config=datareader.config()
     #print(config)
@@ -425,16 +435,8 @@ if __name__ == '__main__':
   
 
     network.initnetwork(config)
-    
-    thread_usb= threading.Thread (target=usbservice.monitor_usb,args=(main_menu,))
-    thread_barcode = threading.Thread(target=read_barcode)
-    thread_keyboard = threading.Thread(target=read_keyboard)
-    thread_checkconnection = threading.Thread(target=checkconnection)
-
     thread_checkconnection.start()
-    thread_barcode.start()
-    thread_keyboard.start()
-    thread_usb.start()
+    
     while True:
         
         elapsed_time = time.perf_counter() - t

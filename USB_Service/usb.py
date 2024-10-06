@@ -15,7 +15,11 @@ def mount_device(device_path):
     subprocess.run(["sudo", "mount", device_path, MOUNT_DIR], check=True)
 
 def unmount_device():
-    subprocess.run(["sudo", "umount", MOUNT_DIR], check=True)
+    try:
+        subprocess.run(["sudo", "umount", MOUNT_DIR], check=True)
+    except:
+        print("Ooops Partição não montou")
+
 
 def copy_files(main_menu):
     source_folder = os.path.join(MOUNT_DIR, FOLDER_NAME)
@@ -43,6 +47,7 @@ def copy_files(main_menu):
         print(f"Pasta '{FOLDER_NAME}' não encontrada.")
 
 def monitor_usb(main_menu):
+#def monitor_usb():
     context = pyudev.Context()
     monitor = pyudev.Monitor.from_netlink(context)
     monitor.filter_by(subsystem='block')
@@ -55,7 +60,7 @@ def monitor_usb(main_menu):
             try:
                 mount_device(device_path)
                 print(f"Dispositivo montado em {MOUNT_DIR}")
-                copy_files(main_menu)
+                #copy_files(main_menu)
             except subprocess.CalledProcessError:
                 print("Falha ao montar o dispositivo.")
             finally:
