@@ -25,11 +25,8 @@ def apagar_conexoes_wifi():
         print(f"Erro ao tentar apagar conexões Wi-Fi: {e}")
 
 def criar_conexao_wifi_estatica(config):
-  
-    template=template.replace("@PASSWORD",config['PASSWORD'])
+    mascara="24"
     
-   
-    template=template.replace("@DNS",config['DNS'])
     try:
         # Verifica se o NetworkManager está rodando
         nm_status = subprocess.run(['nmcli', '-t', '-f', 'RUNNING', 'general'], stdout=subprocess.PIPE, text=True)
@@ -38,13 +35,13 @@ def criar_conexao_wifi_estatica(config):
             return
 
         # Remove uma conexão existente com o mesmo nome (se houver)
-        os.system(f"nmcli connection delete {config['SSID']}")
+        #os.system(f"nmcli connection delete {config['SSID']}")
 
         # Cria uma nova conexão Wi-Fi
-        os.system(f"nmcli dev wifi connect {config['SSID']} config['PASSWORD']")
+        os.system(f"nmcli dev wifi connect {config['SSID']} password {config['PASSWORD']}")
 
         # Define IP estático, máscara e gateway
-        os.system(f"nmcli connection modify {config['SSID']} ipv4.addresses {config['IP_ADDRESS']}/{"24"}")
+        os.system(f"nmcli connection modify {config['SSID']} ipv4.addresses {config['IP_ADDRESS']}/{mascara}")
         os.system(f"nmcli connection modify {config['SSID']} ipv4.gateway {config['GATEWAY']}")
         os.system(f"nmcli connection modify {config['SSID']} ipv4.dns {config['DNS']}")
         os.system(f"nmcli connection modify {config['SSID']} ipv4.method manual")  # Desativa DHCP

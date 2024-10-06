@@ -44,7 +44,7 @@ class MAQUINA:
         return f"id_machine: {self.id_machine}, Nome: {self.Nome}, action_type: {self.action_type} , situation: {self.situation}"
 class PRODUTO:
     #id_machine":5,"Nome":"strech","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"
-    SKU = 123456
+    SKU = "123456"
     material_type = "BOBINA"
     gauge = "0.8"
     product = "0,8 BE14"
@@ -293,7 +293,7 @@ def sel_prod():
         if barcode_msg in qrcode_list:
             qrcode = barcode_msg
             barcode_msg=""
-            prod.SKU=qrcode
+            prod.SKU=str(qrcode)
             print("Produto ",qrcode," encontrado")
             return prod
         else :
@@ -441,7 +441,7 @@ if __name__ == '__main__':
         
         elapsed_time = time.perf_counter() - t
         time.sleep(0.2)
-        if(fleetManager.CONNECTED ==True):
+        if(fleetManager.CONNECTED ==False):
             if barcode_msg != '':
                 #pedido_viascanner()
                 pedido_viateclado()

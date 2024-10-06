@@ -60,7 +60,7 @@ def monitor_usb(main_menu):
             try:
                 mount_device(device_path)
                 print(f"Dispositivo montado em {MOUNT_DIR}")
-                #copy_files(main_menu)
+                copy_files(main_menu)
             except subprocess.CalledProcessError:
                 print("Falha ao montar o dispositivo.")
             finally:
