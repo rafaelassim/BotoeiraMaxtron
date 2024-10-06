@@ -4,6 +4,32 @@ import subprocess,sys
 import re
 import json
 
+def ativar_eth0_dhcp():
+    try:
+        # Verifica se o NetworkManager está rodando
+        nm_status = subprocess.run(['nmcli', '-t', '-f', 'RUNNING', 'general'], stdout=subprocess.PIPE, text=True)
+        if 'running' not in nm_status.stdout:
+            print("NetworkManager não está rodando.")
+            return
+
+        # Ativa a interface eth0 se estiver desativada
+        os.system("nmcli device set eth0 managed yes")
+        os.system("nmcli device connect eth0")
+
+        # Configura a eth0 para usar DHCP
+        os.system("nmcli connection modify eth0 ipv4.method auto")
+
+        # Sobe a conexão
+        os.system("nmcli connection up eth0")
+
+        # Verifica o status da conexão
+        status_conexao = subprocess.run(['nmcli', '-t', '-f', 'NAME,TYPE,STATE', 'connection', 'show', '--active'], stdout=subprocess.PIPE, text=True)
+        print("Conexões ativas:")
+        print(status_conexao.stdout)
+
+    except Exception as e:
+        print(f"Erro ao configurar a eth0 para DHCP: {e}")
+
 def apagar_conexoes_wifi():
     try:
         # Lista todas as conexões salvas
@@ -66,3 +92,5 @@ def initnetwork(config):
         criar_conexao_wifi_estatica(config)
     except:
         print("Rede não pode ser configurada")
+    
+    ativar_eth0_dhcp()

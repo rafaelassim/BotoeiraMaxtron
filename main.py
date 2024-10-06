@@ -441,7 +441,7 @@ if __name__ == '__main__':
         
         elapsed_time = time.perf_counter() - t
         time.sleep(0.2)
-        if(fleetManager.CONNECTED ==False):
+        if(fleetManager.CONNECTED ==True):
             if barcode_msg != '':
                 #pedido_viascanner()
                 pedido_viateclado()
