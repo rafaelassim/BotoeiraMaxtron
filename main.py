@@ -129,6 +129,10 @@ def processo_selecao(pointer, maxsize, array, usebarcode):
             return array[pointer]
 
         if keyboard_msg =='CLR':
+                print("Recebeu clear")
+                raise Exception("Recebeu clear")
+
+                return
                 time.sleep(0.250)
                 break    
         if is_number_ascii(str(keyboard_msg))==True: 
