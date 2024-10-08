@@ -241,17 +241,26 @@ def pedido_viateclado():
     time.sleep(0.1)
     keyboard_msg=''
    
-  
-    maquina = sel_maq()
-    if maquina is None:
-        print("Faltou a maquina")
-        return
-    
-    produto = sel_prod()
-    if produto is None:
-        print("Faltou Produto")
-        return
-    enviar_command(maquina,produto)
+    try:
+        maquina = sel_maq()
+        if maquina is None:
+            print("Faltou a maquina")
+            return
+        
+        produto = sel_prod()
+        if produto is None:
+            print("Faltou Produto")
+            return
+        enviar_command(maquina,produto)
+    except:
+        print("Retornando ao menu")
+        main_menu.execute_command('Azul ON')
+        main_menu.execute_command('Verde ON')
+        main_menu.execute_command('Vermelho OFF')
+        main_menu.clear_display()
+        main_menu.write_line1('OPS!')
+        main_menu.write_dinamic_line2('TENTE NOVAMENTE')
+        time.sleep(10)
     return
     try:
         keyboard_msg=''
