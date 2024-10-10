@@ -191,16 +191,17 @@ def processo_digitacao_teclado(pointer, maxsize, array):
 
 def enviar_command(maquina,produto):
     global keyboard_msg
-    main_menu.execute_command('Azul ON')
-    main_menu.execute_command('Verde OFF')
-    main_menu.execute_command('Vermelho OFF')
-    main_menu.clear_display()
-    main_menu.write_line1('ENVIANDO ')
-    main_menu.write_dinamic_line2('AGUARDE... ')
+
+
     keyboard_msg =''
     ret = False
     while (not ret):
-        
+        main_menu.clear_display()
+        main_menu.write_line1('ENVIANDO ')
+        main_menu.write_dinamic_line2('AGUARDE... ')
+        main_menu.execute_command('Azul ON')
+        main_menu.execute_command('Verde OFF')
+        main_menu.execute_command('Vermelho OFF')
         for i in range(50):
             
            
@@ -221,8 +222,9 @@ def enviar_command(maquina,produto):
             if (len(server_response.message) > 8):
                 main_menu.write_dinamic_line2(server_response.message)
             else:
-                main_menu.write_line1(server_response.message)
-            time.sleep(8)
+                main_menu.write_dinamic_line2(server_response.message)
+                time.sleep(8)
+            time.sleep(10)
     if (ret==True):
         main_menu.execute_command('Azul ON')
         main_menu.execute_command('Verde ON')

@@ -1,13 +1,13 @@
 {
      
-            "ID": 21,
-            "SSID":"Sleonela",
-            "PASSWORD":"azul3878",
-            "IP_ADDRESS":"192.168.1.18",
-            "GATEWAY":"192.168.1.1",
+            "ID": 6,
+            "SSID":"BELGO-TUNKERS",
+            "PASSWORD":"TKS@8elgo",
+            "IP_ADDRESS":"192.168.100.206",
+            "GATEWAY":"0.0.0.0",
             "DNS":"8.8.8.8",
-            "IP-GERENCIADOR": "187.102.244.27",
-            "REGIAO":"COM",
+            "IP-GERENCIADOR": "192.168.100.122",
+            "REGIAO":"D",
             "PORT":8080
       
 }
