@@ -348,8 +348,14 @@ def sel_maq():
     else:
         maquina_selecionada = barcode_msg
         barcode_msg =""
+
+        qrmaq = datareader.nomeqrcodemaq
         if maquina_selecionada in regiao_selecionada:
             print("Pedido via Scanner")
+            maq.Nome=qrmaq["region"][REGIAO]["id_machine"]
+            maq.id_machine=qrmaq["region"][REGIAO]["Nome"]
+            maq.action_type=qrmaq["region"][REGIAO]["action_type"]
+            maq.situation=qrmaq["region"][REGIAO]["situation"]
         else:
             main_menu.write_line1('  OPS! ')
             main_menu.write_line2('        ')
