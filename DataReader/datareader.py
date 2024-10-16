@@ -31,13 +31,12 @@ def region_list():
             region.append(data_item)
     return (region)
 
-
-
-def return_maquinas(region):
-    arqmaq = open(maquinasjson)
+def nomeqrcodemaq(region):
+    arqmaq = open(qrcodemaqjson)
     data = json.load(arqmaq)
-    
     return data["region"][region]
+
+
 
 def return_product():
     arqproduto = open(produtosjson)
@@ -124,10 +123,6 @@ def tagqrcodemaq(qrcode):
     except:
 
         return (None)
-def nomeqrcodemaq():
-    arqmaq = open(qrcodemaqjson)
-    data = json.load(arqmaq)
-    return (data)
 
 
 def return_qrproduct():

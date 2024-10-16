@@ -252,8 +252,16 @@ def pedido_viateclado():
         if maquina is None:
             print("Faltou a maquina")
             return
+        match maquina.situation:
+            case "INCOMPLETO":
+                produto = PRODUTO()
+                produto.SKU="88888888"
+            case "NAO_CONFORME":
+                produto = PRODUTO()
+                produto.SKU="11111111"
+            case _:
+                produto = sel_prod()
         
-        produto = sel_prod()
         if produto is None:
             print("Faltou Produto")
             return
@@ -349,13 +357,15 @@ def sel_maq():
         maquina_selecionada = barcode_msg
         barcode_msg =""
 
-        qrmaq = datareader.nomeqrcodemaq
-        if maquina_selecionada in regiao_selecionada:
+        qrmaq = datareader.nomeqrcodemaq(REGIAO)
+        if maquina_selecionada in qrmaq:
             print("Pedido via Scanner")
-            maq.Nome=qrmaq["region"][REGIAO]["id_machine"]
-            maq.id_machine=qrmaq["region"][REGIAO]["Nome"]
-            maq.action_type=qrmaq["region"][REGIAO]["action_type"]
-            maq.situation=qrmaq["region"][REGIAO]["situation"]
+            maq.Nome=qrmaq[maquina_selecionada]["Nome"]
+            maq.id_machine=qrmaq[maquina_selecionada]["id_machine"]
+            maq.action_type=qrmaq[maquina_selecionada]["action_type"]
+            maq.situation=qrmaq[maquina_selecionada]["situation"]
+            print(maq.info())
+            return maq
         else:
             main_menu.write_line1('  OPS! ')
             main_menu.write_line2('        ')
@@ -462,7 +472,7 @@ if __name__ == '__main__':
         
         elapsed_time = time.perf_counter() - t
         time.sleep(0.2)
-        if(fleetManager.CONNECTED ==True):
+        if(fleetManager.CONNECTED ==False):
             if barcode_msg != '':
                 #pedido_viascanner()
                 pedido_viateclado()
