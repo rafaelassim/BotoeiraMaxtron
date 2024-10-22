@@ -115,7 +115,7 @@ class serverSocket:
                     else:
                         print("JSON recebido, mas 'Recebido' não é True ou não está presente.")
                         serverresponse.ret = True
-                        serverresponse.message = "CANCELADO"
+                        serverresponse.message = resposta_json["message"]
                 except:
                     print("Erro ao Ler o JSON")
                     serverresponse.ret = False
