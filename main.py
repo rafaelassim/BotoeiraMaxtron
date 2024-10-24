@@ -221,7 +221,7 @@ def enviar_command(maquina,produto):
         if (not ret):
             if (len(server_response.message) > 8):
                 main_menu.write_dinamic_line2(server_response.message)
-                time.sleep((len(server_response.message)*1.5)+8)
+                time.sleep((len(server_response.message)*0.8))
             else:
                 main_menu.write_line2(server_response.message)
             time.sleep(10)
@@ -234,7 +234,7 @@ def enviar_command(maquina,produto):
         #main_menu.write_dinamic_line2('REALIZADO')
         if (len(server_response.message) > 8):
             main_menu.write_dinamic_line2(server_response.message)
-            time.sleep((len(server_response.message)*1.5)+8)
+            time.sleep((len(server_response.message)*.8))
         else:
             main_menu.write_line1(server_response.message)
         time.sleep(8)
@@ -243,7 +243,7 @@ def enviar_command(maquina,produto):
 
 
 def pedido_viateclado():
-    
+    global REGIAO
     
     time.sleep(0.1)
     keyboard_msg=''
@@ -262,12 +262,17 @@ def pedido_viateclado():
                 produto = PRODUTO()
                 produto.SKU="11111111"
                 produto.material_type="BOBINA"
-            case "ABASTECE_ENTRADA":
-                produto = PRODUTO()
-                produto.SKU="55555555"
-                produto.material_type="BOBINA"
             case _:
-                produto = sel_prod()
+                match maquina.action_type:
+                    case "ABASTECE_ENTRADA":                    
+                        if REGIAO=="A" :
+                            produto = PRODUTO()
+                            produto.SKU="55555555"
+                            produto.material_type="BOBINA"
+                        else :
+                            produto=sel_prod()
+                    case _:
+                        produto = sel_prod()
         
         if produto is None:
             print("Faltou Produto")
