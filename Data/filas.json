@@ -1,0 +1,10 @@
+{
+  "Filas": {
+   
+"FILA1": {"Nome":"FILA1","SKU": "00000000","material_type": "BOBINA"},
+"FILA2": {"Nome":"FILA2","SKU": "22222222","material_type": "BOBINA"},
+"FILA3": {"Nome":"FILA3","SKU": "33333333","material_type": "BOBINA"},
+"FILA4": {"Nome":"FILA4","SKU": "44444444","material_type": "BOBINA"},
+"FILA5": {"Nome":"FILA5","SKU": "55555555","material_type": "BOBINA"} 
+  }
+}

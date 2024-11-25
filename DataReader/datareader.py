@@ -6,6 +6,7 @@ maquinasjson    = '/home/tunkers/BotoeiraMaxtron/Data/maquinas.json'
 produtosjson    = '/home/tunkers/BotoeiraMaxtron/Data/produtos.json'
 qrcodemaqjson   = '/home/tunkers/BotoeiraMaxtron/Data/qrcodemaq.json'
 qrcodeprodjson  = '/home/tunkers/BotoeiraMaxtron/Data/qrcodeprod.json'
+filasjson  = '/home/tunkers/BotoeiraMaxtron/Data/qrcode_fila.json'
 
 #configjson      = 'Data/config.json'
 #maquinasjson    = 'Data/maquinas.json'
@@ -130,6 +131,12 @@ def return_qrproduct():
     data = json.load(arqproduto)
     
     return data["Produtos"]
+
+def return_qrfilas():
+    arqproduto = open(filasjson)
+    data = json.load(arqproduto)
+    
+    return data["Filas"]
     
 def nomeqrcodprod(qrcode):
     arqprod = open(qrcodeprodjson)

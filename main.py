@@ -263,17 +263,17 @@ def pedido_viateclado():
                 produto.SKU="11111111"
                 produto.material_type="BOBINA"
             case _:
-                match maquina.action_type:
-                    case "ABASTECE_ENTRADA":                    
-                        if REGIAO=="A" :
-                            produto = PRODUTO()
-                            produto.SKU="55555555"
-                            produto.material_type="BOBINA"
-                        else :
-                            produto=sel_prod()
-                    case _:
-                        produto = sel_prod()
-        
+                if maquina.action_type == "ABASTECE_ENTRADA" and REGIAO == "A":
+                    produto = PRODUTO()
+                    produto.SKU = "55555555"
+                    produto.material_type = "BOBINA"
+                elif maquina.action_type == "RETIRA" and REGIAO in ["G", "K"]:
+                    produto = PRODUTO()
+                    produto.SKU = "66666666"
+                    produto.material_type = "BOBINA"
+                else:
+                    produto = sel_prod()
+                        
         if produto is None:
             print("Faltou Produto")
             return
@@ -340,6 +340,50 @@ def sel_prod():
             return
           
     print("Bitola Selecionada", bitola_selecionada)
+    prod.gauge = bitola_selecionada
+    
+    main_menu.write_line1('Produto ')
+    produto_selecionado = processo_selecao(pointer, len(produto_lista[bitola_selecionada].keys()), list(produto_lista[bitola_selecionada].keys()),False) 
+    print("Produto Selecionado", produto_selecionado)
+    prod.product = produto_selecionado
+    
+    prod.SKU = produto_lista[prod.gauge][prod.product]["SKU"]
+    prod.material_type = produto_lista[prod.gauge][prod.product]["material_type"]
+    print(prod.info())
+    return prod
+
+def sel_fila():
+    global REGIAO
+    global barcode_msg
+    prod=PRODUTO()
+   
+    pointer = 0
+    fila_lista = datareader.return_product()
+    qrcode_list = datareader.return_qrfilas()
+    main_menu.write_line1('Sel.Fila')
+
+    fila_selecionada=processo_selecao(pointer, len(fila_lista.keys()), list(fila_lista.keys()),True)  
+    if barcode_msg !='':
+        if barcode_msg in qrcode_list:
+            qrcode = barcode_msg
+            barcode_msg=""
+            prod.SKU=qrcode_list["SKU"]
+            print("Lista ",qrcode," encontrado")
+            return prod
+        else :
+            main_menu.write_line1('  OPS!  ')
+            main_menu.write_line2('        ')
+            print("Fila ",barcode_msg," não encontrada")
+            barcode_msg=""
+            time.sleep(10)
+            return
+          
+    print("Fila Selecionada ", fila_selecionada)
+    prod.SKU=fila_selecionada["SKU"]
+    
+    prod.material_type = fila_selecionada["material_type"]
+    print(prod.info())
+    return prod
     prod.gauge = bitola_selecionada
     
     main_menu.write_line1('Produto ')

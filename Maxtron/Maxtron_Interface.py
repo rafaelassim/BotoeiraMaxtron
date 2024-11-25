@@ -60,10 +60,16 @@ class Maxtron():
         self.serial.write(command)
         time.sleep(0.25)
 
+    def reduzir_string(texto):
+        # Remove quebras de linha e espaços extras
+        texto = texto.replace("\n", " ").replace("\r", " ").strip()
+        # Trunca para 50 caracteres com reticências, se necessário
+        return texto[:47] + "..." if len(texto) > 50 else texto
+
     def write_line1(self, message):
         init_message =  b'\x02\x31\x31\x30\x30\x30'
         end_message =   b'\x03'
-        decoded_message= bytes(message,'utf-8')
+        decoded_message= bytes(self.reduzir_string(message),'utf-8')
         command = init_message +decoded_message  + end_message
         #command = init_message +ord(message) + end_message
         self.write(command)
@@ -71,7 +77,7 @@ class Maxtron():
     def write_line2(self, message):  
         init_message =  b'\x02\x32\x31\x30\x30\x30'
         end_message =   b'\x03'
-        decoded_message= bytes(message,'utf-8')
+        decoded_message= bytes(self.reduzir_string(message),'utf-8')
         command = init_message +decoded_message  + end_message
         self.write(command)
     
@@ -79,14 +85,14 @@ class Maxtron():
         init_message =  b'\x02\x31\x31\x30\x30\x31'
         end_message =   b'\x03'
         #command = init_message +ord(message) + end_message
-        decoded_message= bytes(message,'utf-8')
+        decoded_message= bytes(self.reduzir_string(message),'utf-8')
         command = init_message +decoded_message  + end_message
         self.write(command)
         
     def write_dinamic_line2(self, message):  
         init_message =  b'\x02\x32\x31\x30\x30\x31'
         end_message =   b'\x03'
-        decoded_message= bytes(message,'utf-8')
+        decoded_message= bytes(self.reduzir_string(message),'utf-8')
         command = init_message +decoded_message  + end_message
         self.write(command)
        
