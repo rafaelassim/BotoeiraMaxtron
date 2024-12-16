@@ -220,6 +220,9 @@ def enviar_command(maquina,produto):
         ret = server_response.ret
         if (not ret):
             if (len(server_response.message) > 8):
+                main_menu.execute_command('Azul OFF')
+                main_menu.execute_command('Verde OFF')
+                main_menu.execute_command('Vermelho ON')
                 main_menu.write_dinamic_line2(server_response.message)
                 time.sleep((len(server_response.message)*0.8))
             else:

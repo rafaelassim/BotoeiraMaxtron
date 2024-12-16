@@ -88,20 +88,19 @@
               "SKU": "40450953",
               "material_type": "BOBINA"
             },
+            "1,20 BE14 OLEADO": {"SKU":"40496416","material_type": "BOBINA"},
+            "1,20 BE14 PASTA": {"SKU":"40496179","material_type": "BOBINA"},
             "MA2 ": {
               "SKU": "40494018",
               "material_type": "BOBINA"
             }
           },
           "1,32": {
-            "BE13 ESPECIAL ": {
-              "SKU": "40469376",
-              "material_type": "BOBINA"
-            },
             "BE14  ": {
               "SKU": "40478977",
               "material_type": "BOBINA"
             },
+            "1,32 BE08 ": {"SKU":"40496230","material_type": "BOBINA"},
             "COPPER FREE ": {
               "SKU": "40479229",
               "material_type": "BOBINA"
@@ -126,10 +125,6 @@
             }
           },
           "1,6": {
-            "BE29 ESPECIAL ": {
-              "SKU": "40460047",
-              "material_type": "BOBINA"
-            },
             "COPPER FREE": {
               "SKU": "40479230",
               "material_type": "BOBINA"
@@ -137,3 +132,6 @@
           }
         }
       }
+
+
+
