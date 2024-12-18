@@ -181,6 +181,7 @@
 "40400012": {"Nome":"AR ARCO SUB 3,97 30kg BMAS-EM13K","material_type": "PALLET"},
 "40466373": {"Nome":"AR ARCO SUB 1,98 B.300 BMAS 121","material_type": "PALLET"},
 "40457617": {"Nome":"AR ARCO SUB 1,98 B300 BMAS-122","material_type": "PALLET"},
+
 "99999999": {"Nome":"NÃO CONFORME RETREFILADO","material_type": "BOBINA"},
 
 
@@ -207,8 +208,11 @@
 "40479752": {"Nome":"CARRETEL COB 3,99MM BE06 ARCO SUB","material_type": "PALLET"},
 
 
-
-"88888888": {"Nome":"NÃO CONFORME COMPLETAR","material_type": "PALLET"}
+"11111111": {"Nome":"NAO_CONFORME","material_type": "BOBINA"},
+"55555555": {"Nome":"ABASTECE_ENTRADA Regiao A","material_type": "BOBINA"},
+"66666666": {"Nome":"RETIRA REGIAO G E K ","material_type": "BOBINA"},
+"88888888": {"Nome":"INCOMPLETO - PALET","material_type": "PALLET"},
+"77777777": {"Nome":"RETIRA_PALLET","material_type": "PALLET"}
 
 
    

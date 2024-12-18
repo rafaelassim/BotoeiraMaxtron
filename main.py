@@ -195,39 +195,39 @@ def enviar_command(maquina,produto):
 
     keyboard_msg =''
     ret = False
-    while (not ret):
-        main_menu.clear_display()
-        main_menu.write_line1('ENVIANDO ')
-        main_menu.write_dinamic_line2('AGUARDE... ')
-        main_menu.execute_command('Azul ON')
-        main_menu.execute_command('Verde OFF')
-        main_menu.execute_command('Vermelho OFF')
-        for i in range(50):
+    #while (not ret):
+    main_menu.clear_display()
+    main_menu.write_line1('ENVIANDO ')
+    main_menu.write_dinamic_line2('AGUARDE... ')
+    main_menu.execute_command('Azul ON')
+    main_menu.execute_command('Verde OFF')
+    main_menu.execute_command('Vermelho OFF')
+    for i in range(50):
             
            
-            if keyboard_msg=='CLR':
-                main_menu.execute_command('Azul OFF')
-                main_menu.execute_command('Verde OFF')
-                main_menu.execute_command('Vermelho ON')
-                main_menu.clear_display()
-                main_menu.write_line1('PEDIDO')
-                main_menu.write_dinamic_line2('CANCELADO')
-                time.sleep(8)
-                return
+        if keyboard_msg=='CLR':
+            main_menu.execute_command('Azul OFF')
+            main_menu.execute_command('Verde OFF')
+            main_menu.execute_command('Vermelho ON')
+            main_menu.clear_display()
+            main_menu.write_line1('PEDIDO')
+            main_menu.write_dinamic_line2('CANCELADO')
+            time.sleep(8)
+            return
          
-            time.sleep(0.100)
-        server_response = fleetManager.send_command(maquina,produto)
-        ret = server_response.ret
-        if (not ret):
-            if (len(server_response.message) > 8):
-                main_menu.execute_command('Azul OFF')
-                main_menu.execute_command('Verde OFF')
-                main_menu.execute_command('Vermelho ON')
-                main_menu.write_dinamic_line2(server_response.message)
-                time.sleep((len(server_response.message)*0.8))
-            else:
-                main_menu.write_line2(server_response.message)
-            time.sleep(10)
+        time.sleep(0.100)
+    server_response = fleetManager.send_command(maquina,produto)
+    ret = server_response.ret
+    if (not ret):
+        main_menu.execute_command('Azul OFF')
+        main_menu.execute_command('Verde OFF')
+        main_menu.execute_command('Vermelho ON')
+        if (len(server_response.message) > 8):
+            main_menu.write_dinamic_line2(server_response.message)
+            time.sleep((len(server_response.message)*0.8))
+        else:
+            main_menu.write_line2(server_response.message)
+        time.sleep(10)
     if (ret==True):
         main_menu.execute_command('Azul ON')
         main_menu.execute_command('Verde ON')
@@ -257,6 +257,11 @@ def pedido_viateclado():
             print("Faltou a maquina")
             return
         match maquina.situation:
+            
+            case "RETIRA_PALLET":
+                produto = PRODUTO()
+                produto.SKU="77777777"
+                produto.material_type="PALLET"
             case "INCOMPLETO":
                 produto = PRODUTO()
                 produto.SKU="88888888"

@@ -22,55 +22,55 @@
       "4": {"id_machine": 4,"Nome":"4","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"}
      },
      "A": {
-     "438": {"id_machine": 438,"Nome":"438","material_type": "BOBINA","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,NAO_CONFORME"},
-     "420": {"id_machine": 420,"Nome":"420","material_type": "BOBINA","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,NAO_CONFORMEO"},
-     "419": {"id_machine": 419,"Nome":"419","material_type": "BOBINA","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,NAO_CONFORME"},
-     "416": {"id_machine": 416,"Nome":"416","material_type": "BOBINA","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,NAO_CONFORME"},
-     "415": {"id_machine": 415,"Nome":"415","material_type": "BOBINA","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,NAO_CONFORME"},
-     "422": {"id_machine": 422,"Nome":"422","material_type": "BOBINA","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,NAO_CONFORME"},
-     "421": {"id_machine": 421,"Nome":"421","material_type": "BOBINA","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,NAO_CONFORME"},
-     "529": {"id_machine": 529,"Nome":"529","material_type": "BOBINA","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,NAO_CONFORME"},
-     "528": {"id_machine": 528,"Nome":"528","material_type": "BOBINA","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,NAO_CONFORME"},
-     "527": {"id_machine": 527,"Nome":"527","material_type": "BOBINA","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,NAO_CONFORME"},
-     "443": {"id_machine": 443,"Nome":"443","material_type": "BOBINA","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,NAO_CONFORME"},
-     "439": {"id_machine": 439,"Nome":"439","material_type": "BOBINA","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,NAO_CONFORME"},
-     "489": {"id_machine": 489,"Nome":"489","material_type": "BOBINA","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,NAO_CONFORME"},
-     "670": {"id_machine": 670,"Nome":"670","material_type": "BOBINA","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,NAO_CONFORME"}
+     "438": {"id_machine": 438,"Nome":"438","material_type": "BOBINA","action_type":"ABASTECE_ENTRADA,RETIRA","situation": "COMPLETO,NAO_CONFORME"},
+     "420": {"id_machine": 420,"Nome":"420","material_type": "BOBINA","action_type":"ABASTECE_ENTRADA,RETIRA","situation": "COMPLETO,NAO_CONFORME"},
+     "419": {"id_machine": 419,"Nome":"419","material_type": "BOBINA","action_type":"ABASTECE_ENTRADA,RETIRA","situation": "COMPLETO,NAO_CONFORME"},
+     "416": {"id_machine": 416,"Nome":"416","material_type": "BOBINA","action_type":"ABASTECE_ENTRADA,RETIRA","situation": "COMPLETO,NAO_CONFORME"},
+     "415": {"id_machine": 415,"Nome":"415","material_type": "BOBINA","action_type":"ABASTECE_ENTRADA,RETIRA","situation": "COMPLETO,NAO_CONFORME"},
+     "422": {"id_machine": 422,"Nome":"422","material_type": "BOBINA","action_type":"ABASTECE_ENTRADA,RETIRA","situation": "COMPLETO,NAO_CONFORME"},
+     "421": {"id_machine": 421,"Nome":"421","material_type": "BOBINA","action_type":"ABASTECE_ENTRADA,RETIRA","situation": "COMPLETO,NAO_CONFORME"},
+     "529": {"id_machine": 529,"Nome":"529","material_type": "BOBINA","action_type":"ABASTECE_ENTRADA,RETIRA","situation": "COMPLETO,NAO_CONFORME"},
+     "528": {"id_machine": 528,"Nome":"528","material_type": "BOBINA","action_type":"ABASTECE_ENTRADA,RETIRA","situation": "COMPLETO,NAO_CONFORME"},
+     "527": {"id_machine": 527,"Nome":"527","material_type": "BOBINA","action_type":"ABASTECE_ENTRADA,RETIRA","situation": "COMPLETO,NAO_CONFORME"},
+     "443": {"id_machine": 443,"Nome":"443","material_type": "BOBINA","action_type":"ABASTECE_ENTRADA,RETIRA","situation": "COMPLETO,NAO_CONFORME"},
+     "439": {"id_machine": 439,"Nome":"439","material_type": "BOBINA","action_type":"ABASTECE_ENTRADA,RETIRA","situation": "COMPLETO,NAO_CONFORME"},
+     "489": {"id_machine": 489,"Nome":"489","material_type": "BOBINA","action_type":"ABASTECE_ENTRADA,RETIRA","situation": "COMPLETO,NAO_CONFORME"},
+     "670": {"id_machine": 670,"Nome":"670","material_type": "BOBINA","action_type":"ABASTECE_ENTRADA,RETIRA","situation": "COMPLETO,NAO_CONFORME"}
      },
      
      "B": {
-     "6146": {"id_machine": 6146,"Nome":"6146","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME"},
-     "6155": {"id_machine": 6155,"Nome":"6155","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME"},
-     "6148": {"id_machine": 6148,"Nome":"6148","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME"},
-     "6151": {"id_machine": 6151,"Nome":"6151","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME"},
-     "6144": {"id_machine": 6144,"Nome":"6144","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME"}
+     "6146": {"id_machine": 6146,"Nome":"6146","material_type": "BOBINA,PALLET","action_type":"ABASTECE,ABASTECE_ENTRADA,RETIRA_CARRETEL_CHEIO,RETIRA_CARRETEL,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
+     "6155": {"id_machine": 6155,"Nome":"6155","material_type": "BOBINA,PALLET","action_type":"ABASTECE,ABASTECE_ENTRADA,RETIRA_CARRETEL_CHEIO,RETIRA_CARRETEL,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
+     "6148": {"id_machine": 6148,"Nome":"6148","material_type": "BOBINA,PALLET","action_type":"ABASTECE,ABASTECE_ENTRADA,RETIRA_CARRETEL_CHEIO,RETIRA_CARRETEL,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
+     "6151": {"id_machine": 6151,"Nome":"6151","material_type": "BOBINA,PALLET","action_type":"ABASTECE,ABASTECE_ENTRADA,RETIRA_CARRETEL_CHEIO,RETIRA_CARRETEL,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
+     "6144": {"id_machine": 6144,"Nome":"6144","material_type": "BOBINA,PALLET","action_type":"ABASTECE,ABASTECE_ENTRADA,RETIRA_CARRETEL_CHEIO,RETIRA_CARRETEL,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"}
      },
      
      "C": {
-     "6066": {"id_machine": 6066,"Nome":"6066","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"},
-     "6067": {"id_machine": 6067,"Nome":"6067","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"}
+     "6066": {"id_machine": 6066,"Nome":"6066","material_type": "PALLET","action_type":"RETIRA","situation": "COMPLETO,INCOMPLETO"},
+     "6067": {"id_machine": 6067,"Nome":"6067","material_type": "PALLET","action_type":"RETIRA","situation": "COMPLETO,INCOMPLETO"}
      },
      
      "D": {
-     "2115": {"id_machine": 2115,"Nome":"2115","material_type": "PALLET","action_type":"RETIRA","situation": "COMPLETO,INCOMPLETO"}
+     "2015": {"id_machine": 2015,"Nome":"2015","material_type": "PALLET","action_type":"RETIRA","situation": "COMPLETO,INCOMPLETO"}
      },
      
      "E": {
-     "6169": {"id_machine": 6169,"Nome":"6169","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA_CARRETEL,ABASTECE_ENTRADA,RETIRA_ENTRADA,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
-     "6023": {"id_machine": 6023,"Nome":"6023","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA_CARRETEL,ABASTECE_ENTRADA,RETIRA_ENTRADA,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
-     "6168": {"id_machine": 6168,"Nome":"6168","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA_CARRETEL,ABASTECE_ENTRADA,RETIRA_ENTRADA,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"}
+     "6169": {"id_machine": 6169,"Nome":"6169","material_type": "BOBINA,PALLET","action_type":"ABASTECE,ABASTECE_ENTRADA,RETIRA_CARRETEL,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
+     "6023": {"id_machine": 6023,"Nome":"6023","material_type": "BOBINA,PALLET","action_type":"ABASTECE,ABASTECE_ENTRADA,RETIRA_CARRETEL,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
+     "6168": {"id_machine": 6168,"Nome":"6168","material_type": "BOBINA,PALLET","action_type":"ABASTECE,ABASTECE_ENTRADA,RETIRA_CARRETEL,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"}
      },
      
      "F": {
-     "6150": {"id_machine": 6150,"Nome":"6150","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA_CARRETEL,ABASTECE_ENTRADA,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
-     "6171": {"id_machine": 6171,"Nome":"6171","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA_CARRETEL,ABASTECE_ENTRADA,RETIRA_ENTRADA,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
-     "6170": {"id_machine": 6170,"Nome":"6170","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA_CARRETEL,ABASTECE_ENTRADA,RETIRA_ENTRADA,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
-     "6164": {"id_machine": 6164,"Nome":"6164","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA_CARRETEL,ABASTECE_ENTRADA,RETIRA_ENTRADA,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
-     "6162": {"id_machine": 6162,"Nome":"6162","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA_CARRETEL,ABASTECE_ENTRADA,RETIRA_ENTRADA,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
-     "6161": {"id_machine": 6161,"Nome":"6161","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA_CARRETEL,ABASTECE_ENTRADA,RETIRA_ENTRADA,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
-     "6159": {"id_machine": 6159,"Nome":"6159","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA_CARRETEL,ABASTECE_ENTRADA,RETIRA_ENTRADA,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
-     "6158": {"id_machine": 6158,"Nome":"6158","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA_CARRETEL,ABASTECE_ENTRADA,RETIRA_ENTRADA,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
-     "6157": {"id_machine": 6157,"Nome":"6157","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA_CARRETEL,ABASTECE_ENTRADA,RETIRA_ENTRADA,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"}
+     "6150": {"id_machine": 6150,"Nome":"6150","material_type": "BOBINA,PALLET","action_type":"ABASTECE,ABASTECE_ENTRADA,RETIRA_CARRETEL,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
+     "6171": {"id_machine": 6171,"Nome":"6171","material_type": "BOBINA,PALLET","action_type":"ABASTECE,ABASTECE_ENTRADA,RETIRA_CARRETEL,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
+     "6170": {"id_machine": 6170,"Nome":"6170","material_type": "BOBINA,PALLET","action_type":"ABASTECE,ABASTECE_ENTRADA,RETIRA_CARRETEL,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
+     "6164": {"id_machine": 6164,"Nome":"6164","material_type": "BOBINA,PALLET","action_type":"ABASTECE,ABASTECE_ENTRADA,RETIRA_CARRETEL,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
+     "6162": {"id_machine": 6162,"Nome":"6162","material_type": "BOBINA,PALLET","action_type":"ABASTECE,ABASTECE_ENTRADA,RETIRA_CARRETEL,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
+     "6161": {"id_machine": 6161,"Nome":"6161","material_type": "BOBINA,PALLET","action_type":"ABASTECE,ABASTECE_ENTRADA,RETIRA_CARRETEL,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
+     "6159": {"id_machine": 6159,"Nome":"6159","material_type": "BOBINA,PALLET","action_type":"ABASTECE,ABASTECE_ENTRADA,RETIRA_CARRETEL,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
+     "6158": {"id_machine": 6158,"Nome":"6158","material_type": "BOBINA,PALLET","action_type":"ABASTECE,ABASTECE_ENTRADA,RETIRA_CARRETEL,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"},
+     "6157": {"id_machine": 6157,"Nome":"6157","material_type": "BOBINA,PALLET","action_type":"ABASTECE,ABASTECE_ENTRADA,RETIRA_CARRETEL,RETIRA_PALLET","situation": "COMPLETO,INCOMPLETO,NAO_CONFORME,ERRADO"}
      },
      
      "G": {
@@ -82,20 +82,19 @@
      },
      
      "I": {
-     "BUFFER CARRETEL": {"id_machine": 8080,"Nome":"BUFFER CARRETEL","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"}
+     "BUFFER CARRETEL": {"id_machine": 8080,"Nome":"BUFFER CARRETEL","material_type": "BOBINA","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"}
      },
      
      "J": {
-     "BUFFER PALLET": {"id_machine": 8080,"Nome":"BUFFER PALLET","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"}
+     "BUFFER PALLET": {"id_machine": 8080,"Nome":"BUFFER PALLET","material_type": "PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"}
      },
      
      "K": {
-     "Stretch": {"id_machine": 8080,"Nome":"Stretch","material_type": "PALLET","action_type":"RETIRA","situation": "COMPLETO"},
-     "1787": {"id_machine": 1787,"Nome":"1787","material_type": "PALLET","action_type":"ABASTECE","situation": "COMPLETO"}
+     "1787": {"id_machine": 1787,"Nome":"1787","material_type": "PALLET","action_type":"ABASTECE,RETIRA","situation": "COMPLETO"}
      },
      
      "L": {
-     "6040": {"id_machine": 6040,"Nome":"6040","material_type": "BOBINA,PALLET","action_type":"ABASTECE,RETIRA,ABASTECE_ENTRADA,ABASTECE_SAIDA,RETIRA_ENTRADA,RETIRA_SAIDA","situation": "COMPLETO,INCOMPLETO"}
+     "6040": {"id_machine": 6040,"Nome":"6040","material_type": "PALLET","action_type":"ABASTECE","situation": "COMPLETO"}
      }
      
      

@@ -60,7 +60,7 @@ class Maxtron():
         self.serial.write(command)
         time.sleep(0.25)
 
-    def reduzir_string(texto):
+    def reduzir_string(self, texto):
         # Remove quebras de linha e espaços extras
         texto = texto.replace("\n", " ").replace("\r", " ").strip()
         # Trunca para 50 caracteres com reticências, se necessário

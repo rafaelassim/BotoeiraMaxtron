@@ -1,13 +1,13 @@
 {
      
-            "ID": 6,
+            "ID": 7,
             "SSID":"BELGO-TUNKERS",
             "PASSWORD":"TKS@8elgo",
-            "IP_ADDRESS":"192.168.100.206",
+            "IP_ADDRESS":"192.168.100.207",
             "GATEWAY":"0.0.0.0",
             "DNS":"8.8.8.8",
             "IP-GERENCIADOR": "192.168.100.122",
-            "REGIAO":"D",
+            "REGIAO":"B",
             "PORT":8080
       
 }
