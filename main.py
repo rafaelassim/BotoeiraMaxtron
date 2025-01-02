@@ -279,6 +279,10 @@ def pedido_viateclado():
                     produto = PRODUTO()
                     produto.SKU = "66666666"
                     produto.material_type = "BOBINA"
+                elif (maquina.action_type == "ABASTECE" or maquina.action_type == "ABASTECE_ENTRADA") and maquina.situation=="CARRETEL_NAO_CONFORME":
+                    produto = PRODUTO()
+                    produto.SKU = "11111111"
+                    produto.material_type = "BOBINA"
                 else:
                     produto = sel_prod()
                         
