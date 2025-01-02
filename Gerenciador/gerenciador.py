@@ -1,4 +1,6 @@
 import requests
+import os
+import json
 import time as time
 
 class server_response:
@@ -143,3 +145,41 @@ class serverSocket:
     #con.send_command()
 #    con.heartbeat()
 #    time.sleep(3)
+
+
+    def fetch_and_replace(self, endpoint, output_file):
+        url = "http://"+self.IP +":" +str(self.PORT)+endpoint
+        try:
+            # Fazer requisição HTTP
+            response = requests.get(url)
+            response.raise_for_status()  # Levantar exceção para erros HTTP
+
+            # Verificar se o retorno é JSON
+            data = response.json()  # Lança ValueError se não for JSON
+
+            # Validar o JSON (opcional, conforme suas regras)
+            # Exemplo simples: Verificar se o JSON é um dicionário
+            if not isinstance(data, dict):
+                raise ValueError("O JSON retornado não é um objeto válido.")
+
+            # Salvar o JSON em um arquivo temporário
+            temp_file = f"{output_file}.tmp"
+            with open(temp_file, 'w', encoding='utf-8') as temp:
+                json.dump(data, temp, ensure_ascii=False, indent=4)
+
+            # Substituir o arquivo existente
+            os.replace(temp_file, output_file)
+            print(f"Arquivo {output_file} atualizado com sucesso.")
+        except requests.exceptions.RequestException as e:
+            print(f"Erro ao acessar o URL: {e}")
+        except ValueError as e:
+            print(f"Erro de validação do JSON: {e}")
+        except Exception as e:
+            print(f"Erro inesperado: {e}")
+
+# Exemplo de uso
+#/v1/button/config/qrcodeprod.json
+#/v1/button/config/produtos.json
+#output_file = "dados.json"  # Caminho do arquivo a ser substituído
+#fetch_and_replace("/v1/button/config/qrcodeprod.json", output_file)
+#fetch_and_replace("/v1/button/config/produtos.json",output_file0)

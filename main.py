@@ -532,7 +532,8 @@ if __name__ == '__main__':
     #gerenciador.serverSocket.configure(config["IP-GERENCIADOR"],config["PORT"],config["ID"])
     fleetManager.configure(config["IP-GERENCIADOR"],config["PORT"],config["ID"])
   
-
+    fleetManager.fetch_and_replace("/v1/button/config/qrcodeprod.json", datareader.qrcodeprodjson)
+    fleetManager.fetch_and_replace("/v1/button/config/produtos.json",datareader.produtosjson)
     network.initnetwork(config)
     thread_checkconnection.start()
     
