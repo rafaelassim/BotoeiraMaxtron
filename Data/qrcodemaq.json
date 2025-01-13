@@ -95,8 +95,16 @@
      
      "L": {
      "6040": {"id_machine": 6040,"Nome":"6040","material_type": "PALLET","action_type":"RETIRA","situation": "COMPLETO"}
-     }
-     
+     },
+     "M": {
+      "3070": {"id_machine": 3070,"Nome":"3070","material_type": "PALLET","action_type":"ABASTECE","situation": "COMPLETO"},
+      "3071": {"id_machine": 3071,"Nome":"3071","material_type": "PALLET","action_type":"ABASTECE","situation": "COMPLETO"},
+      "3072": {"id_machine": 3072,"Nome":"3072","material_type": "PALLET","action_type":"ABASTECE","situation": "COMPLETO"},
+      "3073": {"id_machine": 3073,"Nome":"3073","material_type": "PALLET","action_type":"ABASTECE","situation": "COMPLETO"},
+      "3074": {"id_machine": 3074,"Nome":"3074","material_type": "PALLET","action_type":"ABASTECE","situation": "COMPLETO"},
+      "3075": {"id_machine": 3075,"Nome":"3075","material_type": "PALLET","action_type":"ABASTECE","situation": "COMPLETO"}
+      }
+ 
      
      
     }

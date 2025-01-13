@@ -8,6 +8,7 @@ import DataReader.datareader as datareader
 import threading
 import Maxtron.Maxtron_Interface as maxtron
 import time as time
+import os
 import serial
 
 
@@ -52,6 +53,7 @@ class PRODUTO:
 
     def info(self):
         return f"SKU: {self.SKU}, gauge: {self.gauge} , material_type: {self.material_type}, product: {self.product}"
+
 
 def read_barcode():
     global barcode_msg
@@ -536,7 +538,8 @@ if __name__ == '__main__':
     fleetManager.fetch_and_replace("/v1/button/config/produtos.json",datareader.produtosjson)
     network.initnetwork(config)
     thread_checkconnection.start()
-    
+    cyclesToCopy = 0
+    cyclesToReboot = 0
     while True:
         
         elapsed_time = time.perf_counter() - t
@@ -555,6 +558,19 @@ if __name__ == '__main__':
         if ((time.perf_counter() - t)>(10)):
             t = time.perf_counter()
         #    checkconnection()
+            cyclesToCopy = cyclesToCopy+1
+            cyclesToReboot = cyclesToReboot+1
+            if (cyclesToCopy >= 60 ): #A cada 60  ciclos ou 10 minutos, cada ciclo tem 10 segundos, 
+                print('Buscando dados')
+                fleetManager.fetch_and_replace("/v1/button/config/qrcodeprod.json", datareader.qrcodeprodjson)
+                fleetManager.fetch_and_replace("/v1/button/config/produtos.json",datareader.produtosjson)
+                cyclesToCopy = 0
+            if(cyclesToReboot >= 8640):
+                print('Reiniciando')
+                main_menu.write_dinamic_line1('REINICIANDO ')
+                main_menu.write_line2('AGUARDE ')
+                os.system("reboot")
+
             if(fleetManager.CONNECTED ==True):
                 print('Conectado')
                 gerenciador_encontrado(main_menu)
