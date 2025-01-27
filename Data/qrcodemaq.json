@@ -23,7 +23,7 @@
      },
      "A": {
      "438": {"id_machine": 438,"Nome":"438","material_type": "BOBINA","action_type":"RETIRA","situation": "COMPLETO"},
-     "420": {"id_machine": 420,"Nome":"420","material_type": "BOBINA","action_type":"RETIRA","situation": "COMPLETOO"},
+     "420": {"id_machine": 420,"Nome":"420","material_type": "BOBINA","action_type":"RETIRA","situation": "COMPLETO"},
      "419": {"id_machine": 419,"Nome":"419","material_type": "BOBINA","action_type":"RETIRA","situation": "COMPLETO"},
      "416": {"id_machine": 416,"Nome":"416","material_type": "BOBINA","action_type":"RETIRA","situation": "COMPLETO"},
      "415": {"id_machine": 415,"Nome":"415","material_type": "BOBINA","action_type":"RETIRA","situation": "COMPLETO"},
@@ -74,7 +74,7 @@
      },
      
      "G": {
-     "2017": {"id_machine": 2017,"Nome":"2017","material_type": "PALLET","action_type":"RETIRA","situation": "COMPLETO"}
+     "2017": {"id_machine": 2017,"Nome":"2017","material_type": "PALLET","action_type":"ABASTECE","situation": "COMPLETO"}
      },
      
      "H": {
@@ -90,7 +90,7 @@
      },
      
      "K": {
-     "1787": {"id_machine": 1787,"Nome":"1787","material_type": "PALLET","action_type":"RETIRA","situation": "COMPLETO"}
+     "1787": {"id_machine": 1787,"Nome":"1787","material_type": "PALLET","action_type":"ABASTECE","situation": "COMPLETO"}
      },
      
      "L": {
@@ -104,7 +104,7 @@
       "3074": {"id_machine": 3074,"Nome":"3074","material_type": "PALLET","action_type":"ABASTECE","situation": "COMPLETO"},
       "3075": {"id_machine": 3075,"Nome":"3075","material_type": "PALLET","action_type":"ABASTECE","situation": "COMPLETO"}
       }
- 
+     
      
      
     }

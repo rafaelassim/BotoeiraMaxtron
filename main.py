@@ -294,9 +294,10 @@ def pedido_viateclado():
         enviar_command(maquina,produto)
     except:
         print("Retornando ao menu")
-        main_menu.execute_command('Azul ON')
-        main_menu.execute_command('Verde ON')
-        main_menu.execute_command('Vermelho OFF')
+        
+        main_menu.execute_command('Azul OFF')
+        main_menu.execute_command('Verde OFF')
+        main_menu.execute_command('Vermelho ON')
         main_menu.clear_display()
         main_menu.write_line1('OPS!')
         main_menu.write_dinamic_line2('TENTE NOVAMENTE')
@@ -346,6 +347,9 @@ def sel_prod():
             print("Produto ",qrcode," encontrado")
             return prod
         else :
+            main_menu.execute_command('Azul OFF')
+            main_menu.execute_command('Verde OFF')
+            main_menu.execute_command('Vermelho ON')
             main_menu.write_line1('  OPS!  ')
             main_menu.write_line2('        ')
             print("Produto ",barcode_msg," não encontrado")
@@ -385,6 +389,9 @@ def sel_fila():
             print("Lista ",qrcode," encontrado")
             return prod
         else :
+            main_menu.execute_command('Azul OFF')
+            main_menu.execute_command('Verde OFF')
+            main_menu.execute_command('Vermelho ON')
             main_menu.write_line1('  OPS!  ')
             main_menu.write_line2('        ')
             print("Fila ",barcode_msg," não encontrada")
@@ -437,6 +444,9 @@ def sel_maq():
             print(maq.info())
             return maq
         else:
+            main_menu.execute_command('Azul OFF')
+            main_menu.execute_command('Verde OFF')
+            main_menu.execute_command('Vermelho ON')
             main_menu.write_line1('  OPS! ')
             main_menu.write_line2('        ')
             print("Maquina ",maquina_selecionada," não encontrada")
