@@ -85,6 +85,10 @@ def read_keyboard():
                     keyboard_msg=''
                     decrement = True
                     print("decrement")
+                if keyboard_msg == 'F4' or keyboard_msg == 'CLR':
+                    main_menu.clear_display()
+                    main_menu.rebuild_line1()
+                    main_menu.rebuild_line2()
             time.sleep(0.1)
         else :
             time.sleep(0.250)
@@ -103,13 +107,13 @@ def processo_selecao(pointer, maxsize, array, usebarcode):
     global block_minus_plus
     global barcode_msg
     
-    #main_menu.clear_l2()
+    main_menu.clear_display()
+    main_menu.rebuild_line1()
     time.sleep(0.250)
     if (len(array[pointer]) > 8):
-        main_menu.write_buffer_dinamic_line2(array[pointer])
+        main_menu.write_dinamic_line2(array[pointer])
     else:
-        main_menu.write_buffer_line2(array[pointer])
-    main_menu.trigger_display()     
+        main_menu.write_line2(array[pointer])      
     while True:
         if decrement:
             pointer = pointer-1
@@ -122,12 +126,12 @@ def processo_selecao(pointer, maxsize, array, usebarcode):
         if decrement or increment :
             increment = False
             decrement = False
-            #main_menu.clear_l2()
+            main_menu.clear_display()
+            main_menu.rebuild_line1()
             if (len(array[pointer]) > 8):
-                main_menu.write_buffer_dinamic_line2(array[pointer])
+                main_menu.write_dinamic_line2(array[pointer])
             else:
-                main_menu.write_buffer_line2(array[pointer])
-            main_menu.trigger_display() 
+                main_menu.write_line2(array[pointer])
         if keyboard_msg=='ENT':
             time.sleep(0.250)
             return array[pointer]
@@ -160,7 +164,8 @@ def is_number_ascii(input_str):
 def processo_digitacao_teclado(pointer, maxsize, array):
     global keyboard_msg
     completed = False
-    #main_menu.clear_l2()
+    main_menu.clear_display()
+    main_menu.rebuild_line1()
     display_msg =''
     while not completed:
         if keyboard_msg !='':
@@ -171,7 +176,8 @@ def processo_digitacao_teclado(pointer, maxsize, array):
                     return
                 else:
                     print("Nao contem o item ",display_msg)
-                    #main_menu.clear_l2()
+                    main_menu.clear_display()
+                    main_menu.rebuild_line1()
                     display_msg =''
                     keyboard_msg=''
                     time.sleep(0.1)
@@ -180,14 +186,14 @@ def processo_digitacao_teclado(pointer, maxsize, array):
                     keyboard_msg=''
                     return
             elif keyboard_msg=='CLR':
-                #main_menu.clear_l2()
+                main_menu.clear_display()
+                main_menu.rebuild_line1()
                 display_msg ='' 
             elif is_number_ascii(str(keyboard_msg))==True:   
                 try:
                     display_msg=display_msg+keyboard_msg
                     keyboard_msg=''
-                    main_menu.write_buffer_line2(display_msg)
-                    main_menu.trigger_display() 
+                    main_menu.write_line2(display_msg)
                 except:
                     keyboard_msg=''
             else :
@@ -201,10 +207,9 @@ def enviar_command(maquina,produto):
     keyboard_msg =''
     ret = False
     #while (not ret):
-    #main_menu.clear_display()
-    main_menu.write_buffer_line1('ENVIANDO ')
-    main_menu.write_buffer_dinamic_line2('AGUARDE... ')
-    main_menu.trigger_display() 
+    main_menu.clear_display()
+    main_menu.write_line1('ENVIANDO ')
+    main_menu.write_dinamic_line2('AGUARDE... ')
     main_menu.execute_command('Azul ON')
     main_menu.execute_command('Verde OFF')
     main_menu.execute_command('Vermelho OFF')
@@ -215,10 +220,9 @@ def enviar_command(maquina,produto):
             main_menu.execute_command('Azul OFF')
             main_menu.execute_command('Verde OFF')
             main_menu.execute_command('Vermelho ON')
-            #main_menu.clear_display()
-            main_menu.write_buffer_line1('PEDIDO')
-            main_menu.write_buffer_dinamic_line2('CANCELADO')
-            main_menu.trigger_display() 
+            main_menu.clear_display()
+            main_menu.write_line1('PEDIDO')
+            main_menu.write_dinamic_line2('CANCELADO')
             time.sleep(8)
             return
          
@@ -230,25 +234,23 @@ def enviar_command(maquina,produto):
         main_menu.execute_command('Verde OFF')
         main_menu.execute_command('Vermelho ON')
         if (len(server_response.message) > 8):
-            main_menu.write_buffer_dinamic_line2(server_response.message)
+            main_menu.write_dinamic_line2(server_response.message)
             time.sleep((len(server_response.message)*0.8))
         else:
-            main_menu.write_buffer_line2(server_response.message)
-        main_menu.trigger_display() 
+            main_menu.write_line2(server_response.message)
         time.sleep(10)
     if (ret==True):
         main_menu.execute_command('Azul ON')
         main_menu.execute_command('Verde ON')
         main_menu.execute_command('Vermelho ON')
-        #main_menu.clear_display()
-        main_menu.write_buffer_line1('PEDIDO')
-        #main_menu.write_buffer_dinamic_line2('REALIZADO')
+        main_menu.clear_display()
+        main_menu.write_line1('PEDIDO')
+        #main_menu.write_dinamic_line2('REALIZADO')
         if (len(server_response.message) > 8):
-            main_menu.write_buffer_dinamic_line2(server_response.message)
+            main_menu.write_dinamic_line2(server_response.message)
             time.sleep((len(server_response.message)*.8))
         else:
-            main_menu.write_buffer_line1(server_response.message)
-        main_menu.trigger_display() 
+            main_menu.write_line1(server_response.message)
         time.sleep(8)
     return
 
@@ -305,10 +307,9 @@ def pedido_viateclado():
         main_menu.execute_command('Azul OFF')
         main_menu.execute_command('Verde OFF')
         main_menu.execute_command('Vermelho ON')
-        #main_menu.clear_display()
-        main_menu.write_buffer_line1('OPS!')
-        main_menu.write_buffer_dinamic_line2('TENTE NOVAMENTE')
-        main_menu.trigger_display() 
+        main_menu.clear_display()
+        main_menu.write_line1('OPS!')
+        main_menu.write_dinamic_line2('TENTE NOVAMENTE')
         time.sleep(10)
     return
     try:
@@ -322,10 +323,9 @@ def pedido_viateclado():
                 main_menu.execute_command('Azul ON')
                 main_menu.execute_command('Verde ON')
                 main_menu.execute_command('Vermelho OFF')
-                #main_menu.clear_display()
-                main_menu.write_buffer_line1('OPS!')
-                main_menu.write_buffer_dinamic_line2('TENTE NOVAMENTE')
-                main_menu.trigger_display() 
+                main_menu.clear_display()
+                main_menu.write_line1('OPS!')
+                main_menu.write_dinamic_line2('TENTE NOVAMENTE')
                 time.sleep(10)
         else:
             print("Se maq. é para descarte envia sem selecionar produto")
@@ -345,7 +345,7 @@ def sel_prod():
     pointer = 0
     produto_lista = datareader.return_product()
     qrcode_list = datareader.return_qrproduct()
-    main_menu.write_buffer_line1('Sel.Bito')
+    main_menu.write_line1('Sel.Bito')
 
     bitola_selecionada=processo_selecao(pointer, len(produto_lista.keys()), list(produto_lista.keys()),True)  
     if barcode_msg !='':
@@ -359,9 +359,8 @@ def sel_prod():
             main_menu.execute_command('Azul OFF')
             main_menu.execute_command('Verde OFF')
             main_menu.execute_command('Vermelho ON')
-            main_menu.write_buffer_line1('  OPS!  ')
-            main_menu.write_buffer_line2('        ')
-            main_menu.trigger_display() 
+            main_menu.write_line1('  OPS!  ')
+            main_menu.write_line2('        ')
             print("Produto ",barcode_msg," não encontrado")
             barcode_msg=""
             time.sleep(10)
@@ -370,7 +369,7 @@ def sel_prod():
     print("Bitola Selecionada", bitola_selecionada)
     prod.gauge = bitola_selecionada
     
-    main_menu.write_buffer_line1('Produto ')
+    main_menu.write_line1('Produto ')
     produto_selecionado = processo_selecao(pointer, len(produto_lista[bitola_selecionada].keys()), list(produto_lista[bitola_selecionada].keys()),False) 
     print("Produto Selecionado", produto_selecionado)
     prod.product = produto_selecionado
@@ -388,7 +387,7 @@ def sel_fila():
     pointer = 0
     fila_lista = datareader.return_product()
     qrcode_list = datareader.return_qrfilas()
-    main_menu.write_buffer_line1('Sel.Fila')
+    main_menu.write_line1('Sel.Fila')
 
     fila_selecionada=processo_selecao(pointer, len(fila_lista.keys()), list(fila_lista.keys()),True)  
     if barcode_msg !='':
@@ -402,9 +401,8 @@ def sel_fila():
             main_menu.execute_command('Azul OFF')
             main_menu.execute_command('Verde OFF')
             main_menu.execute_command('Vermelho ON')
-            main_menu.write_buffer_line1('  OPS!  ')
-            main_menu.write_buffer_line2('        ')
-            main_menu.trigger_display() 
+            main_menu.write_line1('  OPS!  ')
+            main_menu.write_line2('        ')
             print("Fila ",barcode_msg," não encontrada")
             barcode_msg=""
             time.sleep(10)
@@ -418,7 +416,7 @@ def sel_fila():
     return prod
     prod.gauge = bitola_selecionada
     
-    main_menu.write_buffer_line1('Produto ')
+    main_menu.write_line1('Produto ')
     produto_selecionado = processo_selecao(pointer, len(produto_lista[bitola_selecionada].keys()), list(produto_lista[bitola_selecionada].keys()),False) 
     print("Produto Selecionado", produto_selecionado)
     prod.product = produto_selecionado
@@ -439,7 +437,7 @@ def sel_maq():
     regiao_selecionada = datareader.return_maquinas(REGIAO)
     if barcode_msg =='':
         barcode_msg =""
-        main_menu.write_buffer_line1('Sel.Maq.')
+        main_menu.write_line1('Sel.Maq.')
         maquina_selecionada=processo_selecao(pointer, len(regiao_selecionada), list(regiao_selecionada),False)    
     else:
         maquina_selecionada = barcode_msg
@@ -458,9 +456,8 @@ def sel_maq():
             main_menu.execute_command('Azul OFF')
             main_menu.execute_command('Verde OFF')
             main_menu.execute_command('Vermelho ON')
-            main_menu.write_buffer_line1('  OPS! ')
-            main_menu.write_buffer_line2('        ')
-            main_menu.trigger_display() 
+            main_menu.write_line1('  OPS! ')
+            main_menu.write_line2('        ')
             print("Maquina ",maquina_selecionada," não encontrada")
             time.sleep(10)
             return
@@ -469,20 +466,20 @@ def sel_maq():
     maq.id_machine=regiao_selecionada[maquina_selecionada]["id_machine"]
     maq.Nome=regiao_selecionada[maquina_selecionada]["Nome"]
     pointer = 0
-    #main_menu.write_buffer_line1('Sel.Mat.  ')
+    main_menu.write_line1('Sel.Mat.  ')
     #tipo_material=processo_selecao(pointer, len(regiao_selecionada[maquina_selecionada]["material_type"].split(',')), list(regiao_selecionada[maquina_selecionada]["material_type"].split(',')),False)
     #print("Tipo de Material selecionado", tipo_material)
     #maq.material_type=tipo_material
 
 
     pointer = 0
-    main_menu.write_buffer_line1('Movimenta')
+    main_menu.write_line1('Movimenta')
     tipo_acao=processo_selecao(pointer, len(regiao_selecionada[maquina_selecionada]["action_type"].split(',')), list(regiao_selecionada[maquina_selecionada]["action_type"].split(',')),False)
     print("Tipo de Ação selecionado", tipo_acao)
     maq.action_type=tipo_acao
 
     pointer = 0
-    main_menu.write_buffer_line1('Situacao')
+    main_menu.write_line1('Situacao')
     tipo_situacao=processo_selecao(pointer, len(regiao_selecionada[maquina_selecionada]["situation"].split(',')), list(regiao_selecionada[maquina_selecionada]["situation"].split(',')),False)
     print("Tipo de Situação selecionado", tipo_situacao)
     maq.situation=tipo_situacao
@@ -498,10 +495,9 @@ def gerenciador_encontrado(main_menu):
     main_menu.execute_command('Azul OFF')
     main_menu.execute_command('Verde ON')
     main_menu.execute_command('Vermelho OFF')
-    #main_menu.clear_display()
-    main_menu.write_buffer_line1('TUNKERS ')
-    main_menu.write_buffer_line2('BOTOEIRA')
-    main_menu.trigger_display() 
+    main_menu.clear_display()
+    main_menu.write_line1('TUNKERS ')
+    main_menu.write_line2('BOTOEIRA')
     time.sleep(0.1)
     return
 
@@ -510,9 +506,8 @@ def gerenciador_n_encontrado(main_menu):
     main_menu.execute_command('Verde OFF')
     main_menu.execute_command('Vermelho ON')
     #main_menu.clear_display()
-    main_menu.write_buffer_line1('BOTOEIRA ')
-    main_menu.write_buffer_dinamic_line2('Sem Conex.  ')
-    main_menu.trigger_display() 
+    main_menu.write_line1('BOTOEIRA ')
+    main_menu.write_dinamic_line2('Sem Conex.  ')
     time.sleep(0.1)
     return
 
@@ -591,9 +586,8 @@ if __name__ == '__main__':
                 cyclesToCopy = 0
             if(cyclesToReboot >= 8640):
                 print('Reiniciando')
-                main_menu.write_buffer_dinamic_line1('REINICIANDO ')
-                main_menu.write_buffer_line2('AGUARDE ')
-                main_menu.trigger_display() 
+                main_menu.write_dinamic_line1('REINICIANDO ')
+                main_menu.write_line2('AGUARDE ')
                 os.system("reboot")
 
             if(fleetManager.CONNECTED ==True):

@@ -1,14 +1,52 @@
 import time
 import serial
+import threading
+import Temporizador.PeriodicFunction as temporizador
+
 
 class Maxtron():
+    writeLineDin1 = False
+    writeLineDin2 = False
+    writeLin1 = False
+    writeLin2 = False
+    messageLin1 =""
+    messageLin2 =""
+
     def __init__(self, serial_port, commands, menu_items):
         self.serial = serial_port
         self.commands = commands
         self.menu_items = menu_items
         self.current_item_index = 0
         print("Iniciando Display Maxtron")
+        pf = temporizador(25, build_display)
+        #thread_rebuild_display = threading.Thread(target=self.rebuild_display)
+        #thread_rebuild_display.start()
     
+    def rebuild_line2(self):
+        if (self.writeLin2==True):
+            self.write_line2(messageLin2)
+        if (self.writeLineDin2==True):
+            self.write_dinamic_line2(messageLin2)
+    def rebuild_line1(self):
+        if (self.writeLin1==True):
+            self.write_line1(messageLin1)
+        if (self.writeLineDin1==True):
+            self.write_dinamic_line1(messageLin1)
+
+    def build_display(self):
+        clear_display()        
+        if (self.writeLin1==True):
+            self.write_line1(messageLin1)
+        if (self.writeLin2==True):
+            self.write_line2(messageLin2)
+        if (self.writeLineDin1==True):
+            self.write_dinamic_line1(messageLin1)
+        if (self.writeLineDin2==True):
+            self.write_dinamic_line2(messageLin2) 
+    
+    def trigger_display(self):
+        pf.trigger_now()
+
     def run(self):
         #self.display_current_item()
         print('Iniciando aguarde')
@@ -64,7 +102,7 @@ class Maxtron():
         # Remove quebras de linha e espaços extras
         texto = texto.replace("\n", " ").replace("\r", " ").strip()
         # Trunca para 50 caracteres com reticências, se necessário
-        return texto[:47] + "..." if len(texto) > 50 else texto
+        return texto[:37] + "..." if len(texto) > 40 else texto
 
     def write_line1(self, message):
         init_message =  b'\x02\x31\x31\x30\x30\x30'
@@ -72,30 +110,89 @@ class Maxtron():
         decoded_message= bytes(self.reduzir_string(message),'utf-8')
         command = init_message +decoded_message  + end_message
         #command = init_message +ord(message) + end_message
+        writeLin1 = True
+        writeLineDin1 = False
+        messageLin1 = message
         self.write(command)
+        #self.rebuild_all()
         
     def write_line2(self, message):  
         init_message =  b'\x02\x32\x31\x30\x30\x30'
         end_message =   b'\x03'
         decoded_message= bytes(self.reduzir_string(message),'utf-8')
         command = init_message +decoded_message  + end_message
+        writeLin2 = True
+        writeLineDin2 = False
+        messageLin2 = message
         self.write(command)
-    
+        #self.rebuild_all()
     def write_dinamic_line1(self, message):
         init_message =  b'\x02\x31\x31\x30\x30\x31'
         end_message =   b'\x03'
         #command = init_message +ord(message) + end_message
         decoded_message= bytes(self.reduzir_string(message),'utf-8')
         command = init_message +decoded_message  + end_message
+        writeLin1 = False
+        writeLineDin1 = True
+        messageLin1 = message
         self.write(command)
-        
+        #self.rebuild_all()
     def write_dinamic_line2(self, message):  
         init_message =  b'\x02\x32\x31\x30\x30\x31'
         end_message =   b'\x03'
         decoded_message= bytes(self.reduzir_string(message),'utf-8')
         command = init_message +decoded_message  + end_message
+        writeLin2 = False
+        writeLineDin2= True
+        messageLin2 = message
         self.write(command)
-       
+        #self.rebuild_all()
+
+
+    def write_buffer_line1(self, message):
+        init_message =  b'\x02\x31\x31\x30\x30\x30'
+        end_message =   b'\x03'
+        decoded_message= bytes(self.reduzir_string(message),'utf-8')
+        command = init_message +decoded_message  + end_message
+        #command = init_message +ord(message) + end_message
+        writeLin1 = True
+        writeLineDin1 = False
+        messageLin1 = message
+        #self.write(command)
+        #self.rebuild_all()        
+    def write_buffer_line2(self, message):  
+        init_message =  b'\x02\x32\x31\x30\x30\x30'
+        end_message =   b'\x03'
+        decoded_message= bytes(self.reduzir_string(message),'utf-8')
+        command = init_message +decoded_message  + end_message
+        writeLin2 = True
+        writeLineDin2 = False
+        messageLin2 = message
+        #self.write(command)
+        #self.rebuild_all()
+    def write_buffer_dinamic_line1(self, message):
+        init_message =  b'\x02\x31\x31\x30\x30\x31'
+        end_message =   b'\x03'
+        #command = init_message +ord(message) + end_message
+        decoded_message= bytes(self.reduzir_string(message),'utf-8')
+        command = init_message +decoded_message  + end_message
+        writeLin1 = False
+        writeLineDin1 = True
+        messageLin1 = message
+        #self.write(command)
+        #self.rebuild_all()
+    def write_buffer_dinamic_line2(self, message):  
+        init_message =  b'\x02\x32\x31\x30\x30\x31'
+        end_message =   b'\x03'
+        decoded_message= bytes(self.reduzir_string(message),'utf-8')
+        command = init_message +decoded_message  + end_message
+        writeLin2 = False
+        writeLineDin2= True
+        messageLin2 = message
+        #self.write(command)
+        #self.rebuild_all()
+
+
         
 def init():
     ser = serial.Serial('/dev/serial0', baudrate=9600,
