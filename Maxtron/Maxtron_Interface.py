@@ -1,8 +1,13 @@
 import time
 import serial
 
+
 class Maxtron():
+    command_l1 = ''
+    command_l2 = ''
     def __init__(self, serial_port, commands, menu_items):
+        self.command_l1 = 'wwww'
+        self.command_l2 = 'wwww'
         self.serial = serial_port
         self.commands = commands
         self.menu_items = menu_items
@@ -39,6 +44,14 @@ class Maxtron():
             b'6': '6', b'7': '7', b'8': '8', b'9': '9', b'A': 'F1', b'B': 'F2', 
             b'C': 'F3', b'D': 'F4', b'E': 'CLR', b'F': 'ENT', b'\x03': 'PUSH', b'\x024003': 'PUSH', 
         }.get(data, None)
+        
+    def rebuild_display(self):
+        global command_l1
+        global command_l2
+        self.clear_display()
+        time.sleep(1)
+        self.write(command_l1)
+        self.write(command_l2)
 
     def clear_display(self):
         print("apagando")
@@ -47,9 +60,11 @@ class Maxtron():
         self.execute_command('Array_Apaga_L2')
     
     def clear_l1(self):
+        print("limpando linha 1")
         self.execute_command('Array_Apaga_L1')
         
     def clear_l2(self):
+        print("limpando linha 2")
         self.execute_command('Array_Apaga_L2')
     
     def execute_command(self, command):
@@ -67,33 +82,46 @@ class Maxtron():
         return texto[:47] + "..." if len(texto) > 50 else texto
 
     def write_line1(self, message):
+        global command_l1 
+        
         init_message =  b'\x02\x31\x31\x30\x30\x30'
         end_message =   b'\x03'
         decoded_message= bytes(self.reduzir_string(message),'utf-8')
         command = init_message +decoded_message  + end_message
+        print("Linha 1 escrevendo " + message )
         #command = init_message +ord(message) + end_message
+        command_l1 = command
         self.write(command)
         
-    def write_line2(self, message):  
+    def write_line2(self, message):
+        global command_l2  
         init_message =  b'\x02\x32\x31\x30\x30\x30'
         end_message =   b'\x03'
         decoded_message= bytes(self.reduzir_string(message),'utf-8')
         command = init_message +decoded_message  + end_message
+        print("Linha 2 escrevendo " + message )
+        command_l2 = command
         self.write(command)
     
     def write_dinamic_line1(self, message):
+        global command_l1  
         init_message =  b'\x02\x31\x31\x30\x30\x31'
         end_message =   b'\x03'
         #command = init_message +ord(message) + end_message
         decoded_message= bytes(self.reduzir_string(message),'utf-8')
         command = init_message +decoded_message  + end_message
+        print("Linha 1 escrevendo " + message )
+        command_l1 = command
         self.write(command)
         
     def write_dinamic_line2(self, message):  
+        global command_l2 
         init_message =  b'\x02\x32\x31\x30\x30\x31'
         end_message =   b'\x03'
         decoded_message= bytes(self.reduzir_string(message),'utf-8')
         command = init_message +decoded_message  + end_message
+        print("Linha 2 escrevendo " + message )
+        command_l2 = command
         self.write(command)
        
         

@@ -85,6 +85,11 @@ def read_keyboard():
                     keyboard_msg=''
                     decrement = True
                     print("decrement")
+            if keyboard_msg != '' and str(keyboard_msg)!='None': 
+                print("Lido do teclado " + str(keyboard_msg))
+            if str(keyboard_msg) == "F4":
+                print("Rebuild display")
+                main_menu.rebuild_display()
             time.sleep(0.1)
         else :
             time.sleep(0.250)
@@ -104,7 +109,7 @@ def processo_selecao(pointer, maxsize, array, usebarcode):
     global barcode_msg
     
     main_menu.clear_l2()
-    time.sleep(0.250)
+    time.sleep(0.500)
     if (len(array[pointer]) > 8):
         main_menu.write_dinamic_line2(array[pointer])
     else:
@@ -139,9 +144,9 @@ def processo_selecao(pointer, maxsize, array, usebarcode):
                 break    
         if is_number_ascii(str(keyboard_msg))==True: 
             print("Tecla encontrada")
-            block_minus_plus=True
+            #block_minus_plus=True
             processo_digitacao_teclado(pointer, maxsize, array)
-            block_minus_plus=False
+            #block_minus_plus=False
         if barcode_msg !='' and usebarcode:
             return
 
@@ -177,6 +182,8 @@ def processo_digitacao_teclado(pointer, maxsize, array):
                     time.sleep(0.1)
                     keyboard_msg=''
                     return
+            elif keyboard_msg=='CLR' and display_msg =='':
+                return
             elif keyboard_msg=='CLR':
                 main_menu.clear_l2()
                 display_msg ='' 
@@ -186,9 +193,12 @@ def processo_digitacao_teclado(pointer, maxsize, array):
                     keyboard_msg=''
                     main_menu.write_line2(display_msg)
                 except:
+                    time.sleep(0.1)
                     keyboard_msg=''
             else :
+                time.sleep(0.1)
                 keyboard_msg=''
+            time.sleep(0.1)
     return
 
 def enviar_command(maquina,produto):
@@ -334,8 +344,30 @@ def sel_prod():
     prod=PRODUTO()
    
     pointer = 0
-    produto_lista = datareader.return_product()
-    qrcode_list = datareader.return_qrproduct()
+    try:
+        produto_lista = datareader.return_product()
+    except:
+        main_menu.clear_display()
+        time.sleep(1)
+        main_menu.write_line1('OPS!')
+        main_menu.write_dinamic_line2('Arquivo produtos corrompido')
+        print("Arquivo produtos corrompido")
+        time.sleep(20)
+        return
+
+    
+    
+    try:
+        qrcode_list = datareader.return_qrproduct()
+    except:
+        main_menu.clear_display()
+        time.sleep(1)
+        main_menu.write_line1('OPS!')
+        main_menu.write_dinamic_line2('Arquivo qrcode produtos corrompido')
+        print("Arquivo qrcode corrompido")
+        time.sleep(20)
+        return
+
     main_menu.write_line1('Sel.Bito')
 
     bitola_selecionada=processo_selecao(pointer, len(produto_lista.keys()), list(produto_lista.keys()),True)  
@@ -354,7 +386,7 @@ def sel_prod():
             main_menu.write_line2('        ')
             print("Produto ",barcode_msg," não encontrado")
             barcode_msg=""
-            time.sleep(10)
+            time.sleep(20)
             return
           
     print("Bitola Selecionada", bitola_selecionada)
@@ -425,16 +457,42 @@ def sel_maq():
 
     maq = MAQUINA()
     pointer = 0
-    regiao_selecionada = datareader.return_maquinas(REGIAO)
+    
+
+    try:
+        regiao_selecionada = datareader.return_maquinas(REGIAO)
+    except:
+        main_menu.clear_display()
+        time.sleep(1)
+        main_menu.write_line1('OPS!')
+        main_menu.write_dinamic_line2('Arquivo Maquinas corrompido')
+        print("Arquivo Maquinas corrompido")
+        time.sleep(20)
+        return
+
     if barcode_msg =='':
         barcode_msg =""
+        main_menu.clear_display()
+        time.sleep(1)
         main_menu.write_line1('Sel.Maq.')
         maquina_selecionada=processo_selecao(pointer, len(regiao_selecionada), list(regiao_selecionada),False)    
     else:
         maquina_selecionada = barcode_msg
         barcode_msg =""
 
-        qrmaq = datareader.nomeqrcodemaq(REGIAO)
+        
+
+        try:
+            qrmaq = datareader.nomeqrcodemaq(REGIAO)
+        except:
+            main_menu.clear_display()
+            time.sleep(1)
+            main_menu.write_line1('OPS!')
+            main_menu.write_dinamic_line2('Arquivo qrcode maquinas corrompido')
+            print("Arquivo qrcode corrompido")
+            time.sleep(20)
+            return
+
         if maquina_selecionada in qrmaq:
             print("Pedido via Scanner")
             maq.Nome=qrmaq[maquina_selecionada]["Nome"]
@@ -450,7 +508,7 @@ def sel_maq():
             main_menu.write_line1('  OPS! ')
             main_menu.write_line2('        ')
             print("Maquina ",maquina_selecionada," não encontrada")
-            time.sleep(10)
+            time.sleep(20)
             return
 
     print("Maquina selecionada", maquina_selecionada)
@@ -487,6 +545,7 @@ def gerenciador_encontrado(main_menu):
     main_menu.execute_command('Verde ON')
     main_menu.execute_command('Vermelho OFF')
     main_menu.clear_display()
+    time.sleep(1)
     main_menu.write_line1('TUNKERS ')
     main_menu.write_line2('BOTOEIRA')
     time.sleep(0.1)
@@ -497,6 +556,7 @@ def gerenciador_n_encontrado(main_menu):
     main_menu.execute_command('Verde OFF')
     main_menu.execute_command('Vermelho ON')
     #main_menu.clear_display()
+    time.sleep(1)
     main_menu.write_line1('BOTOEIRA ')
     main_menu.write_dinamic_line2('Sem Conex.  ')
     time.sleep(0.1)
@@ -512,80 +572,108 @@ if __name__ == '__main__':
       
     global total_connections
     global REGIAO
+    print("Iniciando botoeira")
     main_menu = maxtron.init()
     thread_usb= threading.Thread (target=usbservice.monitor_usb,args=(main_menu,))
     thread_barcode = threading.Thread(target=read_barcode)
     thread_keyboard = threading.Thread(target=read_keyboard)
     thread_checkconnection = threading.Thread(target=checkconnection)
-
+    thread_usb.start()
+   #time.sleep(8) 
     
     thread_barcode.start()
     thread_keyboard.start()
-    thread_usb.start()
-    time.sleep(8)
-
-    #print(len(datareader.region_list()))
-    region_tot = len(datareader.region_list())
-    region_nome = datareader.region_list()
-
-    produto_tot = len(datareader.produto_bitola_list())
-    produtos_bitola = datareader.produto_bitola_list()
-   
-
-    config=datareader.config()
-    #print(config)
-    REGIAO=config["REGIAO"]
     
+    #print(len(datareader.region_list()))
+    try:
+        region_tot = len(datareader.region_list())
+        region_nome = datareader.region_list()
+    except:
+
+        main_menu.clear_display()
+        time.sleep(1)
+        main_menu.write_line1('OPS!')
+        main_menu.write_dinamic_line2('Arquivo maquinas corrompido')
+        print("Arquivo da maquinas corrompido")
+        time.sleep(20)
+    try:
+        produto_tot = len(datareader.produto_bitola_list())
+        produtos_bitola = datareader.produto_bitola_list()
+    except:
+        main_menu.clear_display()
+        time.sleep(1)
+        main_menu.write_line1('OPS!')
+        main_menu.write_dinamic_line2('Arquivo produtos corrompido')
+        print("Arquivo produtos corrompido")
+        time.sleep(20)
+
+    try:
+        config=datareader.config()
+        #print(config)
+        REGIAO=config["REGIAO"]
+        t = time.perf_counter()
+        fleetManager = gerenciador.serverSocket()
+        #gerenciador.serverSocket.configure(config["IP-GERENCIADOR"],config["PORT"],config["ID"])
+        fleetManager.configure(config["IP-GERENCIADOR"],config["PORT"],config["ID"])
+        fleetManager.fetch_and_replace("/v1/button/config/qrcodeprod.json", datareader.qrcodeprodjson)
+        fleetManager.fetch_and_replace("/v1/button/config/produtos.json",datareader.produtosjson)
+    except:
+        main_menu.clear_display()
+        time.sleep(1)
+        main_menu.write_line1('OPS!')
+        main_menu.write_dinamic_line2('Arquivo config corrompido')
+        print("Arquivo config corrompido")
+        time.sleep(20)
+
     print("Iniciando")
-    t = time.perf_counter()
-    fleetManager = gerenciador.serverSocket()
-
-
-    #gerenciador.serverSocket.configure(config["IP-GERENCIADOR"],config["PORT"],config["ID"])
-    fleetManager.configure(config["IP-GERENCIADOR"],config["PORT"],config["ID"])
+    
   
-    fleetManager.fetch_and_replace("/v1/button/config/qrcodeprod.json", datareader.qrcodeprodjson)
-    fleetManager.fetch_and_replace("/v1/button/config/produtos.json",datareader.produtosjson)
+ 
     network.initnetwork(config)
     thread_checkconnection.start()
     cyclesToCopy = 0
     cyclesToReboot = 0
     while True:
-        
-        elapsed_time = time.perf_counter() - t
-        time.sleep(0.2)
-        if(fleetManager.CONNECTED ==True):
-            if barcode_msg != '':
-                #pedido_viascanner()
-                pedido_viateclado()
-
-            if (1==1):
-                if keyboard_msg !='':
-                    if keyboard_msg == 'PUSH':
-                        keyboard_msg=''
-                        pedido_viateclado()
-
-        if ((time.perf_counter() - t)>(10)):
-            t = time.perf_counter()
-        #    checkconnection()
-            cyclesToCopy = cyclesToCopy+1
-            cyclesToReboot = cyclesToReboot+1
-            if (cyclesToCopy >= 60 ): #A cada 60  ciclos ou 10 minutos, cada ciclo tem 10 segundos, 
-                print('Buscando dados')
-                fleetManager.fetch_and_replace("/v1/button/config/qrcodeprod.json", datareader.qrcodeprodjson)
-                fleetManager.fetch_and_replace("/v1/button/config/produtos.json",datareader.produtosjson)
-                cyclesToCopy = 0
-            if(cyclesToReboot >= 8640):
-                print('Reiniciando')
-                main_menu.write_dinamic_line1('REINICIANDO ')
-                main_menu.write_line2('AGUARDE ')
-                os.system("reboot")
-
+        try:
+            elapsed_time = time.perf_counter() - t
+            time.sleep(0.2)
             if(fleetManager.CONNECTED ==True):
-                print('Conectado')
-                gerenciador_encontrado(main_menu)
-            else:
-                print('Não conectado')
-                gerenciador_n_encontrado(main_menu)
-                
+                if barcode_msg != '':
+                    #pedido_viascanner()
+                    pedido_viateclado()
+
+                if (1==1):
+                    if keyboard_msg !='':
+                        if keyboard_msg == 'PUSH':
+                            keyboard_msg=''
+                            pedido_viateclado()
+
+            if ((time.perf_counter() - t)>(10)):
+                t = time.perf_counter()
+            #    checkconnection()
+                cyclesToCopy = cyclesToCopy+1
+                cyclesToReboot = cyclesToReboot+1
+                if (cyclesToCopy >= 60 ): #A cada 60  ciclos ou 10 minutos, cada ciclo tem 10 segundos, 
+                    print('Buscando dados')
+                    fleetManager.fetch_and_replace("/v1/button/config/qrcodeprod.json", datareader.qrcodeprodjson)
+                    fleetManager.fetch_and_replace("/v1/button/config/produtos.json",datareader.produtosjson)
+                    cyclesToCopy = 0
+                if(cyclesToReboot >= 8640):
+                    print('Reiniciando')
+                    main_menu.write_dinamic_line1('REINICIANDO ')
+                    main_menu.write_line2('AGUARDE ')
+                    os.system("reboot")
+
+                if(fleetManager.CONNECTED ==True):
+                    print('Conectado')
+                    gerenciador_encontrado(main_menu)
+                else:
+                    print('Não conectado')
+                    gerenciador_n_encontrado(main_menu)
+        except:
+            main_menu.clear_display()
+            time.sleep(1)
+            main_menu.write_line1('OPS!')
+            main_menu.write_dinamic_line2('ARQUIVOS DE DADOS CORROMPIDOS')
+            time.sleep(20)
            

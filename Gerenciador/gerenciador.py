@@ -157,7 +157,7 @@ class serverSocket:
             # Verificar se o retorno é JSON
             data = response.json()  # Lança ValueError se não for JSON
 
-            # Validar o JSON (opcional, conforme suas regras)
+            # Validar o JSON 
             # Exemplo simples: Verificar se o JSON é um dicionário
             if not isinstance(data, dict):
                 raise ValueError("O JSON retornado não é um objeto válido.")
